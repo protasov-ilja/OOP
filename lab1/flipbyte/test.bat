@@ -25,25 +25,25 @@ REM run with string type parameter
 IF NOT ERRORLEVEL 1 GOTO err
 
 REM 0 - 0
-%PROGRAM% 0
+%PROGRAM% 0 > output.txt
 IF ERRORLEVEL 1 GOTO err
 FC /B output.txt out0.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM 255 - 255
-%PROGRAM% 255
+%PROGRAM% 255 > output.txt
 IF ERRORLEVEL 1 GOTO err
 FC /B output.txt out255.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM 1 - 128
-%PROGRAM% 1
+%PROGRAM% 1 > output.txt
 IF ERRORLEVEL 1 GOTO err
 FC /B output.txt out128.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM 154 - 89
-%PROGRAM% 154
+%PROGRAM% 154 > output.txt
 IF ERRORLEVEL 1 GOTO err
 FC /B output.txt out89.txt
 IF ERRORLEVEL 1 GOTO err
