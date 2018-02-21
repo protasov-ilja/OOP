@@ -54,6 +54,12 @@ IF ERRORLEVEL 1 GOTO err
 FC /B out.txt outmultiline2.txt
 IF ERRORLEVEL 1 GOTO err
 
+REM запуск программы где нет такой искомой строки 
+%PROGRAM% withoutstr.txt out.txt "Hello" "Prince Kuragin"
+IF ERRORLEVEL 1 GOTO err
+FC /B out.txt outwithoutstr.txt
+IF ERRORLEVEL 1 GOTO err
+
 
 ECHO Program testing succeeded :-)
 
