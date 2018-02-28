@@ -27,37 +27,37 @@ IF NOT ERRORLEVEL 1 GOTO err
 REM запуск программы с пустым файлом
 %PROGRAM% empty.txt out.txt "hello world" "goodbay world"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outempty.txt
+FC out.txt outempty.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM запуск программы с 1-й строкой и 1-й заменой
 %PROGRAM% string-1-or-more-replace.txt out.txt "hello" "world"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outstring-1-or-more-replace1.txt
+FC out.txt outstring-1-or-more-replace1.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM запуск программы с 1-й строкой и множественными заменами
 %PROGRAM% string-1-or-more-replace.txt out.txt "ma" "mama"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outstring-1-or-more-replace2.txt
+FC out.txt outstring-1-or-more-replace2.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM запуск программы с множеством строк и множеством замен
 %PROGRAM% multiline.txt out.txt "ma" "mama"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outmultiline1.txt
+FC out.txt outmultiline1.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM запуск программы с множеством строк search и replace параметры больше 1 слова 
 %PROGRAM% multiline.txt out.txt "Prince Vasili Kuragin" "Prince Kuragin"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outmultiline2.txt
+FC out.txt outmultiline2.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM запуск программы где нет такой искомой строки 
 %PROGRAM% withoutstr.txt out.txt "Hello" "Prince Kuragin"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outwithoutstr.txt
+FC out.txt outwithoutstr.txt
 IF ERRORLEVEL 1 GOTO err
 
 
