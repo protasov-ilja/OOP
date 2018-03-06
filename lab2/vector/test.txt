@@ -1,0 +1,35 @@
+set PROGRAM="%~1"
+
+REM start program without arguments
+%PROGRAM%
+IF NOT ERRORLEVEL 1 GOTO err
+
+REM emptyfile
+%PROGRAM% empty.txt
+IF  NOT ERRORLEVEL 1 GOTO err
+
+REM 
+%PROGRAM% in1.txt > "%TEMP%\out.txt"
+IF ERRORLEVEL 1 GOTO err
+FC "%TEMP%\out.txt" output1.txt
+IF ERRORLEVEL 1 GOTO err
+
+REM 
+%PROGRAM% in2.txt > "%TEMP%\out.txt"
+IF ERRORLEVEL 1 GOTO err
+FC "%TEMP%\out.txt" output2.txt
+IF ERRORLEVEL 1 GOTO err
+
+REM 
+%PROGRAM% input3.txt > "%TEMP%\out.txt"
+IF ERRORLEVEL 1 GOTO err
+FC "%TEMP%\out.txt" output3.txt
+IF ERRORLEVEL 1 GOTO err
+
+ECHO Program testing succeeded :-)
+
+EXIT
+
+:err
+ECHO Program testing failed :-(
+EXIT
