@@ -1,30 +1,29 @@
 set PROGRAM="%~1"
 
 REM start program without arguments
-%PROGRAM%
+%PROGRAM% 
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM emptyfile
-%PROGRAM% empty.txt
+REM stringfile
+%PROGRAM% < input3.txt
 IF  NOT ERRORLEVEL 1 GOTO err
 
-REM 
-%PROGRAM% in1.txt > "%TEMP%\out.txt"
+REM emptyfile
+%PROGRAM% < empty.txt
+IF  NOT ERRORLEVEL 1 GOTO err
+
+REM one number
+%PROGRAM% < input2.txt > out1.txt
 IF ERRORLEVEL 1 GOTO err
-FC "%TEMP%\out.txt" output1.txt
+FC out1.txt output2.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM 
-%PROGRAM% in2.txt > "%TEMP%\out.txt"
+REM some numbers
+%PROGRAM% < input1.txt > out.txt
 IF ERRORLEVEL 1 GOTO err
-FC "%TEMP%\out.txt" output2.txt
+FC out.txt output1.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM 
-%PROGRAM% input3.txt > "%TEMP%\out.txt"
-IF ERRORLEVEL 1 GOTO err
-FC "%TEMP%\out.txt" output3.txt
-IF ERRORLEVEL 1 GOTO err
 
 ECHO Program testing succeeded :-)
 
