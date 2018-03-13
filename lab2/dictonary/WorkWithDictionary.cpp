@@ -12,7 +12,7 @@ bool InteractWithUser(std::map<std::string, std::string>& dictionary)
 	{
 		if (!FindAndDisplayTranslation(dictionary, userResponse))
 		{
-			if (CreateNewTranslation(dictionary, userResponse))
+			if (CheckAndCreateNewTranslation(dictionary, userResponse))
 			{
 				isNeedSave = true;
 			}
@@ -42,24 +42,28 @@ bool FindAndDisplayTranslation(const std::map<std::string, std::string>& diction
 	return isWordFound;
 }
 
-bool CreateNewTranslation(std::map<std::string, std::string>& dictionary, const std::string& wordForTranslation)
+bool CheckAndCreateNewTranslation(std::map<std::string, std::string>& dictionary, const std::string& wordForTranslation)
 {
-	bool isChangesMade = false;
 	std::cout << "Неизвестное слово \"" << wordForTranslation << "\" Введите перевод или пустую строку для отказа.\n";
 	std::string userResponse;
 	getline(std::cin, userResponse);
-	if (!userResponse.empty())
+
+	return AddWordAndTranslationInDictionary(dictionary, wordForTranslation, userResponse);
+}
+
+bool AddWordAndTranslationInDictionary(std::map<std::string, std::string>& dictionary, const std::string& wordForTranslation, const std::string& translation)
+{
+	if (!translation.empty())
 	{
-		isChangesMade = true;
-		dictionary.insert(std::pair<std::string, std::string>(wordForTranslation, userResponse));
-		std::cout << "Слово \"" << wordForTranslation << "\" сохранено в словаре как \"" << userResponse << "\".\n";
+		dictionary.insert(std::pair<std::string, std::string>(wordForTranslation, translation));
+		std::cout << "Слово \"" << wordForTranslation << "\" сохранено в словаре как \"" << translation << "\".\n";
+		return true;
 	}
 	else
 	{
 		std::cout << "Слово " << wordForTranslation << " проигнорировано.\n";
+		return false;
 	}
-
-	return isChangesMade;
 }
 
 bool CheckForConfirmationOfSavingDictionary()

@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{7AE4AE9D-D25F-4F78-AB67-1E0826B16C16}</ProjectGuid>
+    <ProjectGuid>{D66ED37D-22C7-4D09-9FCC-795479DEA30C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>lab2</RootNamespace>
+    <RootNamespace>htmldecode</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -151,7 +151,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lab2.cpp" />
+    <ClCompile Include="html_decode.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
