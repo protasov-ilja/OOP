@@ -32,7 +32,7 @@ bool InteractWithUser(std::map<std::string, std::string>& dictionary)
 bool FindAndDisplayTranslation(const std::map<std::string, std::string>& dictionary, const std::string& searchWord)
 {
 	bool isWordFound = false;
-	if (dictionary.find(searchWord) != dictionary.end())
+	if (auto iteratorFound = dictionary.find(searchWord) != dictionary.end())
 	{
 		std::pair<std::string, std::string> foundPair = *dictionary.find(searchWord);
 		std::cout << foundPair.second << "\n";

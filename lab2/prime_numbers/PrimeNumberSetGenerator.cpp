@@ -25,7 +25,7 @@ std::set<int> CopyPrimeNumbersToSet(const std::vector<bool>& numbersCheck)
 	{
 		if (numbersCheck[i])
 		{
-			primeNumbers.insert(static_cast<int>(i));
+			primeNumbers.insert(primeNumbers.end(), static_cast<int>(i));
 		}
 	}
 
