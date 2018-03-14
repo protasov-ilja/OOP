@@ -1,4 +1,4 @@
 #pragma once
 
 std::set<int> GeneratePrimeNumbersSet(int upperBound);
-std::set<int> CopyPrimeNumbersInSet(const std::vector<bool>& numbersCheck);
+std::set<int> CopyPrimeNumbersToSet(const std::vector<bool>& numbersCheck);
