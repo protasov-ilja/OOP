@@ -3,8 +3,7 @@
 
 std::set<int> GeneratePrimeNumbersSet(int upperBound)
 {
-	upperBound++;
-	std::vector<bool> sieveForNumbers(upperBound, true);
+	std::vector<bool> sieveForNumbers(upperBound + 1, true);
 	for (size_t i = 2; i * i < sieveForNumbers.size(); ++i)
 	{
 		if (sieveForNumbers[i])
