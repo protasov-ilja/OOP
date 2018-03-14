@@ -19,7 +19,7 @@ std::set<int> GeneratePrimeNumbersSet(int upperBound)
 	return CopyPrimeNumbersInSet(sieveForNumbers);
 }
 
-std::set<int> CopyPrimeNumbersInSet(std::vector<bool>& numbersCheck)
+std::set<int> CopyPrimeNumbersInSet(const std::vector<bool>& numbersCheck)
 {
 	std::set<int> primeNumbers;
 	for (size_t i = 2; i < numbersCheck.size(); ++i)
