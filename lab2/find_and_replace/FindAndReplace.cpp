@@ -8,7 +8,7 @@ using namespace std;
 
 string FindAndReplace(const string& text, const string& searchedString, const string& replacedString)
 {
-	if ((searchedString.length() <= text.length()) && (!text.empty()))
+	if ((searchedString.length() <= text.length()) && (!text.empty()) && ())
 	{
 		size_t searchPos = 0;
 		size_t initialÑopyPosition = 0;

@@ -1,7 +1,15 @@
 #pragma once
 
-bool InteractWithUser(std::map<std::string, std::string>& dictionary);
-bool FindAndDisplayTranslation(const std::map<std::string, std::string>& dictionary, const std::string& searchWord);
-bool CheckAndCreateNewTranslation(std::map<std::string, std::string>& dictionary, const std::string& wordForTranslation);
+#include <algorithm>
+#include <iostream>
+#include <map>
+#include <string>
+
+typedef std::map<std::string, std::string> DictionaryMap;
+
+bool RequestTranslation(const std::string& wordForTranslation, std::string& translation);
+bool InteractWithUser(DictionaryMap& dictionary);
+bool FindAndDisplayTranslation(DictionaryMap& dictionary, const std::string& searchWord);
+bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& wordForTranslation);
 bool CheckForConfirmationOfSavingDictionary();
-bool AddWordAndTranslationInDictionary(std::map<std::string, std::string>& dictionary, const std::string& wordForTranslation, const std::string& userResponse);
+void AddTranslationInDictionary(DictionaryMap& dictionary, const std::string& wordForTranslation, const std::string& userResponse);

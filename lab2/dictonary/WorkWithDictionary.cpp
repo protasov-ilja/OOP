@@ -1,61 +1,63 @@
 #include "stdafx.h"
 #include "WorkWithDictionary.h"
 
-bool InteractWithUser(std::map<std::string, std::string>& dictionary)
+bool InteractWithUser(DictionaryMap& dictionary)
 {
-	bool isNeedSave = false;
+	bool isRequirePreservation = false;
 	const std::string WORD_FOR_EXIT = "...";
 	std::cout << "Введите слово чтобы получить его перевод или \"" << WORD_FOR_EXIT << "\" для выхода из программы\n";
 	std::string userResponse;
-	getline(std::cin, userResponse);
-	while (userResponse != WORD_FOR_EXIT)
+	while (std::getline(std::cin, userResponse) && (userResponse != WORD_FOR_EXIT))
 	{
 		if (!FindAndDisplayTranslation(dictionary, userResponse))
 		{
-			if (CheckAndCreateNewTranslation(dictionary, userResponse))
+			if (TryToAddNewTranslation(dictionary, userResponse))
 			{
-				isNeedSave = true;
+				isRequirePreservation = true;
 			}
 		}
-
-		getline(std::cin, userResponse);
 	}
 
-	if (isNeedSave)
+	if (isRequirePreservation)
 	{
-		isNeedSave = CheckForConfirmationOfSavingDictionary();
+		isRequirePreservation = CheckForConfirmationOfSavingDictionary();
 	}
 
-	return isNeedSave;
+	return isRequirePreservation;
 }
 
-bool FindAndDisplayTranslation(const std::map<std::string, std::string>& dictionary, const std::string& searchWord)
+bool FindAndDisplayTranslation(DictionaryMap& dictionary, const std::string& searchWord)
 {
 	bool isWordFound = false;
-	if (auto iteratorFound = dictionary.find(searchWord) != dictionary.end())
+	DictionaryMap::iterator iteratorForSearching = dictionary.find(searchWord);
+	if (iteratorForSearching != dictionary.end())
 	{
-		std::pair<std::string, std::string> foundPair = *dictionary.find(searchWord);
-		std::cout << foundPair.second << "\n";
+		std::pair<std::string, std::string> pairToDisplay = *iteratorForSearching;
+		std::cout << pairToDisplay.second << "\n";
 		isWordFound = true;
 	}
 
 	return isWordFound;
 }
 
-bool CheckAndCreateNewTranslation(std::map<std::string, std::string>& dictionary, const std::string& wordForTranslation)
+bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& text)
 {
-	std::cout << "Неизвестное слово \"" << wordForTranslation << "\" Введите перевод или пустую строку для отказа.\n";
-	std::string userResponse;
-	getline(std::cin, userResponse);
+	std::cout << "Неизвестное слово \"" << text << "\" Введите перевод или пустую строку для отказа.\n";
+	std::string translation;
+	bool isTranslationAdded;
+	if (isTranslationAdded = RequestTranslation(text, translation))
+	{
+		AddTranslationInDictionary(dictionary, text, translation);
+	}
 
-	return AddWordAndTranslationInDictionary(dictionary, wordForTranslation, userResponse);
+	return isTranslationAdded;
 }
 
-bool AddWordAndTranslationInDictionary(std::map<std::string, std::string>& dictionary, const std::string& wordForTranslation, const std::string& translation)
+bool RequestTranslation(const std::string& wordForTranslation, std::string& translation)
 {
+	getline(std::cin, translation);
 	if (!translation.empty())
 	{
-		dictionary.insert(std::pair<std::string, std::string>(wordForTranslation, translation));
 		std::cout << "Слово \"" << wordForTranslation << "\" сохранено в словаре как \"" << translation << "\".\n";
 		return true;
 	}
@@ -64,6 +66,11 @@ bool AddWordAndTranslationInDictionary(std::map<std::string, std::string>& dicti
 		std::cout << "Слово " << wordForTranslation << " проигнорировано.\n";
 		return false;
 	}
+}
+
+void AddTranslationInDictionary(DictionaryMap& dictionary, const std::string& wordForTranslation, const std::string& translation)
+{
+	dictionary.insert(std::pair<std::string, std::string>(wordForTranslation, translation));
 }
 
 bool CheckForConfirmationOfSavingDictionary()

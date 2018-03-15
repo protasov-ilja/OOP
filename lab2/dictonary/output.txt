@@ -4,6 +4,10 @@ cat
 кошка
 dictionary
 словарь
+dog
+собака
+exit
+выход
 goodbay
 пока
 hello
@@ -12,3 +16,5 @@ people
 люди
 sheep
 овца
+world
+мир
