@@ -18,17 +18,17 @@ BOOST_AUTO_TEST_SUITE(FindAndReplace_function)
 		VerifyFindAndReplace("", "hello", "goodbay", "");
 	}
 
+	BOOST_AUTO_TEST_CASE(accepts_empty_string_for_searching_and_return_input_string_without_changes)
+	{
+		VerifyFindAndReplace("return input string without changes", "", "hello", "return input string without changes");
+	}
+
 	BOOST_AUTO_TEST_CASE(leaves_string_without_searched_string_unchanged)
 	{
 		VerifyFindAndReplace("text without replace", "hello", "world", "text without replace");
 	}
 
-	BOOST_AUTO_TEST_CASE(replaces_one_character_within_word)
-	{
-		VerifyFindAndReplace("text with replace", "a", "f", "text with replfce");
-	}
-
-	BOOST_AUTO_TEST_CASE(replaces_one_character_separately_from_word)
+	BOOST_AUTO_TEST_CASE(replaces_one_character_in_string)
 	{
 		VerifyFindAndReplace("h std  ", "h", "f", "f std  ");
 	}
