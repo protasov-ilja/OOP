@@ -8,7 +8,21 @@ bool MapsAreEqual(const DictionaryMap& x, const DictionaryMap& y)
 	return x == y;
 }
 
-BOOST_AUTO_TEST_SUITE(AddWordAndTranslationInDictionary_function)
+BOOST_AUTO_TEST_SUITE(AddTranslationInDictionary_function)
+
+	BOOST_AUTO_TEST_CASE(send_not_empty_word_and_its_translation_and_add_them_in_map)
+	{
+		DictionaryMap checkMap{
+			{ "cat", "кот" }
+		};
+
+		DictionaryMap sourceMap;
+		AddTranslationInDictionary(sourceMap, "cat", "кот");
+		BOOST_CHECK(MapsAreEqual(sourceMap, checkMap));
+	}
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(RequestTranslation_function)
 
 	BOOST_AUTO_TEST_CASE(send_empty_string_and_does_not_change_map)
 	{
@@ -16,11 +30,18 @@ BOOST_AUTO_TEST_SUITE(AddWordAndTranslationInDictionary_function)
 			{ "hello", "привет" },
 			{ "world", "мир" }
 		};
+
 		DictionaryMap sourceMap{
 			{ "hello", "привет" },
 			{ "world", "мир" }
 		};
-		bool isNotEmpty = AddWordAndTranslationInDictionary(sourceMap, "cat", "");
+
+		bool isNotEmpty;
+		if (isNotEmpty = RequestTranslation("cat", ""))
+		{
+			AddTranslationInDictionary(sourceMap, "cat", "");
+		}
+
 		BOOST_CHECK(isNotEmpty == false);
 		BOOST_CHECK(MapsAreEqual(sourceMap, checkMap));
 	}
@@ -30,8 +51,14 @@ BOOST_AUTO_TEST_SUITE(AddWordAndTranslationInDictionary_function)
 		DictionaryMap checkMap{
 			{ "cat", "кот" }
 		};
+
 		DictionaryMap sourceMap;
-		bool isNotEmpty = AddWordAndTranslationInDictionary(sourceMap, "cat", "кот");
+		bool isNotEmpty;
+		if (isNotEmpty = RequestTranslation("cat", "кот"))
+		{
+			AddTranslationInDictionary(sourceMap, "cat", "кот");
+		}
+
 		BOOST_CHECK(isNotEmpty == true);
 		BOOST_CHECK(MapsAreEqual(sourceMap, checkMap));
 	}
@@ -45,6 +72,7 @@ BOOST_AUTO_TEST_SUITE(FindAndDisplayTranslation_function)
 			{ "cat", "кот" },
 			{ "world", "мир" }
 		};
+
 		bool isFound = FindAndDisplayTranslation(sourceMap, "hello");
 		BOOST_CHECK(isFound == false);
 	}
@@ -55,6 +83,7 @@ BOOST_AUTO_TEST_SUITE(FindAndDisplayTranslation_function)
 			{ "hello", "привет" },
 			{ "world", "мир" }
 		};
+
 		bool isFound = FindAndDisplayTranslation(sourceMap, "hello");
 		BOOST_CHECK(isFound == true);
 	}

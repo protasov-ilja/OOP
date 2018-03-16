@@ -45,6 +45,7 @@ bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& text)
 	std::cout << "Неизвестное слово \"" << text << "\" Введите перевод или пустую строку для отказа.\n";
 	std::string translation;
 	bool isTranslationAdded;
+	getline(std::cin, translation);
 	if (isTranslationAdded = RequestTranslation(text, translation))
 	{
 		AddTranslationInDictionary(dictionary, text, translation);
@@ -53,9 +54,8 @@ bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& text)
 	return isTranslationAdded;
 }
 
-bool RequestTranslation(const std::string& wordForTranslation, std::string& translation)
+bool RequestTranslation(const std::string& wordForTranslation, const std::string& translation)
 {
-	getline(std::cin, translation);
 	if (!translation.empty())
 	{
 		std::cout << "Слово \"" << wordForTranslation << "\" сохранено в словаре как \"" << translation << "\".\n";
