@@ -44,9 +44,9 @@ bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& text)
 {
 	std::cout << "Неизвестное слово \"" << text << "\" Введите перевод или пустую строку для отказа.\n";
 	std::string translation;
-	bool isTranslationAdded;
 	getline(std::cin, translation);
-	if (isTranslationAdded = RequestTranslation(text, translation))
+	bool isTranslationAdded = RequestTranslation(text, translation);
+	if (isTranslationAdded)
 	{
 		AddTranslationInDictionary(dictionary, text, translation);
 	}
@@ -78,8 +78,7 @@ bool CheckForConfirmationOfSavingDictionary()
 	std::cout << "В словарь были внесены изменения. Введите Y или y для сохранения перед выходом.\n";
 	std::string userResponse;
 	getline(std::cin, userResponse);
-	std::transform(userResponse.begin(), userResponse.end(), userResponse.begin(), ::tolower);
-	if (userResponse == "y")
+	if ((userResponse == "y") || (userResponse == "Y"))
 	{
 		std::cout << "Изменения сохранены. До свидания." << std::endl;
 		return true;
