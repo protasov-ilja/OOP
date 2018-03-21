@@ -26,13 +26,13 @@ bool InteractWithUser(DictionaryMap& dictionary)
 	return isRequirePreservation;
 }
 
-bool FindAndDisplayTranslation(DictionaryMap& dictionary, const std::string& searchWord)
+bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::string& searchWord)
 {
 	bool isWordFound = false;
-	DictionaryMap::iterator iteratorForSearching = dictionary.find(searchWord);
-	if (iteratorForSearching != dictionary.end())
+	auto iterator = dictionary.find(searchWord);
+	if (iterator != dictionary.end())
 	{
-		std::pair<std::string, std::string> pairToDisplay = *iteratorForSearching;
+		std::pair<std::string, std::string> pairToDisplay = *iterator;
 		std::cout << pairToDisplay.second << "\n";
 		isWordFound = true;
 	}
