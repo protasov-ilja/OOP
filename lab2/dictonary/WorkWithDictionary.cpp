@@ -28,16 +28,14 @@ bool InteractWithUser(DictionaryMap& dictionary)
 
 bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::string& searchWord)
 {
-	bool isWordFound = false;
 	auto iterator = dictionary.find(searchWord);
 	if (iterator != dictionary.end())
 	{
-		std::pair<std::string, std::string> pairToDisplay = *iterator;
-		std::cout << pairToDisplay.second << "\n";
-		isWordFound = true;
+		std::cout << iterator->second << "\n";
+		return true;
 	}
 
-	return isWordFound;
+	return false;
 }
 
 bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& text)
