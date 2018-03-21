@@ -7,7 +7,7 @@
 
 typedef std::map<std::string, std::string> DictionaryMap;
 
-bool RequestTranslation(const std::string& wordForTranslation, const std::string& translation);
+bool CheckTranslationString(const std::string& wordForTranslation, const std::string& translation);
 bool InteractWithUser(DictionaryMap& dictionary);
 bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::string& searchWord);
 bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& wordForTranslation);

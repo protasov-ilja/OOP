@@ -3,7 +3,7 @@
 
 bool InteractWithUser(DictionaryMap& dictionary)
 {
-	bool isRequirePreservation = false;
+	bool isNewTranslationsAdded = false;
 	const std::string WORD_FOR_EXIT = "...";
 	std::cout << "Введите слово чтобы получить его перевод или \"" << WORD_FOR_EXIT << "\" для выхода из программы\n";
 	std::string userResponse;
@@ -13,17 +13,17 @@ bool InteractWithUser(DictionaryMap& dictionary)
 		{
 			if (TryToAddNewTranslation(dictionary, userResponse))
 			{
-				isRequirePreservation = true;
+				isNewTranslationsAdded = true;
 			}
 		}
 	}
 
-	if (isRequirePreservation)
+	if (isNewTranslationsAdded)
 	{
-		isRequirePreservation = CheckForConfirmationOfSavingDictionary();
+		isNewTranslationsAdded = CheckForConfirmationOfSavingDictionary();
 	}
 
-	return isRequirePreservation;
+	return isNewTranslationsAdded;
 }
 
 bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::string& searchWord)
@@ -43,31 +43,29 @@ bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& text)
 	std::cout << "Неизвестное слово \"" << text << "\" Введите перевод или пустую строку для отказа.\n";
 	std::string translation;
 	getline(std::cin, translation);
-	bool isTranslationAdded = RequestTranslation(text, translation);
-	if (isTranslationAdded)
+	bool needToAddTranslation = CheckTranslationString(text, translation);
+	if (needToAddTranslation)
 	{
 		AddTranslationInDictionary(dictionary, text, translation);
 	}
 
-	return isTranslationAdded;
+	return needToAddTranslation;
 }
 
-bool RequestTranslation(const std::string& wordForTranslation, const std::string& translation)
+bool CheckTranslationString(const std::string& wordForTranslation, const std::string& translation)
 {
-	if (!translation.empty())
-	{
-		std::cout << "Слово \"" << wordForTranslation << "\" сохранено в словаре как \"" << translation << "\".\n";
-		return true;
-	}
-	else
+	if (translation.empty())
 	{
 		std::cout << "Слово " << wordForTranslation << " проигнорировано.\n";
 		return false;
 	}
+
+	return true;
 }
 
 void AddTranslationInDictionary(DictionaryMap& dictionary, const std::string& wordForTranslation, const std::string& translation)
 {
+	std::cout << "Слово \"" << wordForTranslation << "\" сохранено в словаре как \"" << translation << "\".\n";
 	dictionary.insert(std::pair<std::string, std::string>(wordForTranslation, translation));
 }
 
