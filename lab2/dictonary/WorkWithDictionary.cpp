@@ -3,7 +3,7 @@
 
 bool InteractWithUser(DictionaryMap& dictionary)
 {
-	bool isNewTranslationsAdded = false;
+	bool areNewTranslationsAdded = false;
 	const std::string WORD_FOR_EXIT = "...";
 	std::cout << "¬ведите слово чтобы получить его перевод или \"" << WORD_FOR_EXIT << "\" дл€ выхода из программы\n";
 	std::string userResponse;
@@ -13,17 +13,17 @@ bool InteractWithUser(DictionaryMap& dictionary)
 		{
 			if (TryToAddNewTranslation(dictionary, userResponse))
 			{
-				isNewTranslationsAdded = true;
+				areNewTranslationsAdded = true;
 			}
 		}
 	}
 
-	if (isNewTranslationsAdded)
+	if (areNewTranslationsAdded)
 	{
-		isNewTranslationsAdded = CheckForConfirmationOfSavingDictionary();
+		areNewTranslationsAdded = CheckForConfirmationOfSavingDictionary();
 	}
 
-	return isNewTranslationsAdded;
+	return areNewTranslationsAdded;
 }
 
 bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::string& searchWord)
