@@ -18,6 +18,7 @@ bool CTVSet::SelectChannel(int channel)
 {
 	if ((m_isOn) && (channel <= 99) && (channel >= 1))
 	{
+		m_previousChannel = m_selectedChannel;
 		m_selectedChannel = channel;
 		return true;
 	}
@@ -43,4 +44,17 @@ void CTVSet::TurnOff()
 std::string CTVSet::Info() const
 {
 	return m_isOn ? "TV is on, current channel: " + std::to_string(m_selectedChannel) : "TV is off, current channel: 0";
+}
+
+bool CTVSet::SelectPreviousChannel()
+{
+	if (m_isOn)
+	{
+		int currentChannel = m_selectedChannel;
+		m_selectedChannel = m_previousChannel;
+		m_previousChannel = currentChannel;
+		return true;
+	}
+
+	return false;
 }

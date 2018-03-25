@@ -42,6 +42,14 @@ BOOST_FIXTURE_TEST_SUITE(TVSet, TVSetFixture)
 		BOOST_CHECK_EQUAL(tv.GetChannel(), 0);
 	}
 
+	// не может переключать на предыдущий канал в выключенном состоянии
+	BOOST_AUTO_TEST_CASE(cant_select_previous_channel_when_turned_off)
+	{
+		BOOST_CHECK(!tv.IsTurnedOn());
+		BOOST_CHECK(!tv.SelectPreviousChannel());
+		BOOST_CHECK_EQUAL(tv.GetChannel(), 0);
+	}
+
 	// отображает информацию о том что он выключен и текущий канал 0
 	BOOST_AUTO_TEST_CASE(displays_information_about_that_it_is_off_and_current_channel_is_0)
 	{
@@ -63,6 +71,13 @@ BOOST_FIXTURE_TEST_SUITE(TVSet, TVSetFixture)
 		// отображает канал 1
 		BOOST_AUTO_TEST_CASE(displays_channel_one)
 		{
+			BOOST_CHECK_EQUAL(tv.GetChannel(), 1);
+		}
+
+		// не может переключать канал на предыдущий канал при первом включении
+		BOOST_AUTO_TEST_CASE(cant_select_previous_channel_when_when_it_is_first_turned_on)
+		{
+			BOOST_CHECK(tv.SelectPreviousChannel());
 			BOOST_CHECK_EQUAL(tv.GetChannel(), 1);
 		}
 
@@ -103,6 +118,14 @@ BOOST_FIXTURE_TEST_SUITE(TVSet, TVSetFixture)
 			BOOST_CHECK_EQUAL(tv.GetChannel(), 45);
 		}
 
+		// позволяет выбрать предыдущий канал
+		BOOST_AUTO_TEST_CASE(can_select_previous_channel)
+		{
+			BOOST_CHECK(tv.SelectChannel(45));
+			BOOST_CHECK(tv.SelectPreviousChannel());
+			BOOST_CHECK_EQUAL(tv.GetChannel(), 1);
+		}
+
 		// отображает информацию о том что он включен и текущий канал 25
 		BOOST_AUTO_TEST_CASE(displays_information_about_that_it_is_on_and_current_channel_is_25)
 		{
@@ -127,6 +150,14 @@ BOOST_FIXTURE_TEST_SUITE(TVSet, TVSetFixture)
 		// восстанавливаает последний выбранный канал
 		BOOST_AUTO_TEST_CASE(restore_last_selected_channel)
 		{
+			BOOST_CHECK_EQUAL(tv.GetChannel(), 5);
+		}
+
+		// позволяет выбрать предыдущий канал
+		BOOST_AUTO_TEST_CASE(can_select_previous_channel)
+		{
+			BOOST_CHECK(tv.SelectChannel(45));
+			BOOST_CHECK(tv.SelectPreviousChannel());
 			BOOST_CHECK_EQUAL(tv.GetChannel(), 5);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
