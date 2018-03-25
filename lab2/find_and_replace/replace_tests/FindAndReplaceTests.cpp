@@ -10,7 +10,7 @@ namespace
 	{
 		BOOST_CHECK_EQUAL(FindAndReplace(sourceStr, searchedStr, replacedStrs), expectedReplacedString);
 	}
-} // namespace
+}
 
 BOOST_AUTO_TEST_SUITE(FindAndReplace_function)
 	BOOST_AUTO_TEST_CASE(must_convert_empty_string_to_empty_string)

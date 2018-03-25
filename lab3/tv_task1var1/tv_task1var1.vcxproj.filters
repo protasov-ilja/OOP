@@ -29,10 +29,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tv_task1var1.cpp">
+    <ClCompile Include="CTVSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CTVSet.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
