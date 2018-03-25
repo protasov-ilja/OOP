@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 class CTVSet
 {
 public:
@@ -6,10 +8,11 @@ public:
 	~CTVSet();
 	bool IsTurnedOn() const;
 	void TurnOn();
-	//void TurnOff();
-	bool SelectChannel(int channel) const;
+	void TurnOff();
+	bool SelectChannel(int channel);
 	int GetChannel() const;
-	//void Info();
+	std::string Info();
 private:
 	bool m_isOn = false;
+	int m_selectedChannel = 1;
 };
