@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "URLParser.h"
 
-bool ParseURL(std::string const& url, Protocol& protocol, int& port, std::string& host, std::string& document)
+bool ParseURL(const std::string& url, Protocol& protocol, int& port, std::string& host, std::string& document)
 {
 	if (url.empty())
 	{
@@ -77,7 +77,7 @@ bool CheckPortNumber(const std::string& portString, int& portNumber)
 	return true;
 }
 
-bool CheckPort(int& port, std::string const& portString, Protocol& protocol)
+bool CheckPort(int& port, const std::string& portString, const Protocol& protocol)
 {
 	if (portString.empty())
 	{
@@ -85,10 +85,5 @@ bool CheckPort(int& port, std::string const& portString, Protocol& protocol)
 		return true;
 	}
 
-	if (!CheckPortNumber(portString, port))
-	{
-		return false;
-	}
-
-	return true;
+	return CheckPortNumber(portString, port) ? true : false;
 }

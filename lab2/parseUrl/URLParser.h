@@ -14,7 +14,7 @@ enum class Protocol
 	NotValid
 };
 
-bool ParseURL(std::string const& url, Protocol& protocol, int& port, std::string& host, std::string& document);
+bool ParseURL(const std::string& url, Protocol& protocol, int& port, std::string& host, std::string& document);
 Protocol CheckProtocol(const std::string& protocolString);
 bool CheckPortNumber(const std::string& portString, int& portNumber);
-bool CheckPort(int& port, std::string const& portString, Protocol& protocol);
+bool CheckPort(int& port, const std::string& portString, const Protocol& protocol);

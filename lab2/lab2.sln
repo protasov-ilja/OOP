@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "html_decode", "html_decode\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "parseUrl", "parseUrl\parseUrl.vcxproj", "{920D9567-2B7C-4704-8852-22130DC5684E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "parseUrl_tests", "parseUrl\parseUrl_tests\parseUrl_tests.vcxproj", "{40939A5A-A68B-40D1-88BF-F2B0A2D56585}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -111,6 +113,14 @@ Global
 		{920D9567-2B7C-4704-8852-22130DC5684E}.Release|x64.Build.0 = Release|x64
 		{920D9567-2B7C-4704-8852-22130DC5684E}.Release|x86.ActiveCfg = Release|Win32
 		{920D9567-2B7C-4704-8852-22130DC5684E}.Release|x86.Build.0 = Release|Win32
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585}.Debug|x64.ActiveCfg = Debug|x64
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585}.Debug|x64.Build.0 = Debug|x64
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585}.Debug|x86.ActiveCfg = Debug|Win32
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585}.Debug|x86.Build.0 = Debug|Win32
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585}.Release|x64.ActiveCfg = Release|x64
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585}.Release|x64.Build.0 = Release|x64
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585}.Release|x86.ActiveCfg = Release|Win32
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
