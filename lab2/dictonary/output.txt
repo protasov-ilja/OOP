@@ -1,5 +1,7 @@
 The Red Squere
 Красная Площадь
+begin
+начало
 cat
 кошка
 dictionary

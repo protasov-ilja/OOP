@@ -3,27 +3,24 @@
 
 bool InteractWithUser(DictionaryMap& dictionary)
 {
-	bool areNewTranslationsAdded = false;
 	const std::string WORD_FOR_EXIT = "...";
+	bool areNewTranslationsAdded = false;
 	std::cout << "Введите слово чтобы получить его перевод или \"" << WORD_FOR_EXIT << "\" для выхода из программы\n";
 	std::string userResponse;
 	while (std::getline(std::cin, userResponse) && (userResponse != WORD_FOR_EXIT))
 	{
 		if (!FindAndDisplayTranslation(dictionary, userResponse))
 		{
-			if (TryToAddNewTranslation(dictionary, userResponse))
+			std::string translation;
+			if (CheckConsentToAddTranslation(userResponse, translation))
 			{
+				AddTranslationInDictionary(dictionary, userResponse, translation);
 				areNewTranslationsAdded = true;
 			}
 		}
 	}
 
-	if (areNewTranslationsAdded)
-	{
-		areNewTranslationsAdded = CheckForConfirmationOfSavingDictionary();
-	}
-
-	return areNewTranslationsAdded;
+	return areNewTranslationsAdded ? VerifyСonsentToSaveDictionary() : false;
 }
 
 bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::string& searchWord)
@@ -38,25 +35,19 @@ bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::strin
 	return false;
 }
 
-bool TryToAddNewTranslation(DictionaryMap& dictionary, const std::string& text)
+bool CheckConsentToAddTranslation(const std::string& text, std::string& translation)
 {
 	std::cout << "Неизвестное слово \"" << text << "\" Введите перевод или пустую строку для отказа.\n";
-	std::string translation;
 	getline(std::cin, translation);
-	bool needToAddTranslation = CheckTranslationString(text, translation);
-	if (needToAddTranslation)
-	{
-		AddTranslationInDictionary(dictionary, text, translation);
-	}
 
-	return needToAddTranslation;
+	return CheckTranslationForEmptiness(text, translation);
 }
 
-bool CheckTranslationString(const std::string& wordForTranslation, const std::string& translation)
+bool CheckTranslationForEmptiness(const std::string& text, const std::string& translation)
 {
 	if (translation.empty())
 	{
-		std::cout << "Слово " << wordForTranslation << " проигнорировано.\n";
+		std::cout << "Слово " << text << " проигнорировано.\n";
 		return false;
 	}
 
@@ -65,18 +56,17 @@ bool CheckTranslationString(const std::string& wordForTranslation, const std::st
 
 void AddTranslationInDictionary(DictionaryMap& dictionary, const std::string& wordForTranslation, const std::string& translation)
 {
-	std::cout << "Слово \"" << wordForTranslation << "\" сохранено в словаре как \"" << translation << "\".\n";
 	dictionary.insert(std::pair<std::string, std::string>(wordForTranslation, translation));
+	std::cout << "Слово \"" << wordForTranslation << "\" сохранено в словаре как \"" << translation << "\".\n";
 }
 
-bool CheckForConfirmationOfSavingDictionary()
+bool VerifyСonsentToSaveDictionary()
 {
 	std::cout << "В словарь были внесены изменения. Введите Y или y для сохранения перед выходом.\n";
 	std::string userResponse;
 	getline(std::cin, userResponse);
 	if ((userResponse == "y") || (userResponse == "Y"))
 	{
-		std::cout << "Изменения сохранены. До свидания." << std::endl;
 		return true;
 	}
 

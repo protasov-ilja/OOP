@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_SUITE(RequestTranslation_function)
 		};
 
 		bool isNotEmpty;
-		if (isNotEmpty = CheckTranslationString("cat", ""))
+		if (isNotEmpty = CheckTranslationForEmptiness("cat", ""))
 		{
 			AddTranslationInDictionary(sourceMap, "cat", "");
 		}
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_SUITE(RequestTranslation_function)
 
 		DictionaryMap sourceMap;
 		bool isNotEmpty;
-		if (isNotEmpty = CheckTranslationString("cat", "кот"))
+		if (isNotEmpty = CheckTranslationForEmptiness("cat", "кот"))
 		{
 			AddTranslationInDictionary(sourceMap, "cat", "кот");
 		}
