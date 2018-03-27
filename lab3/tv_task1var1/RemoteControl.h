@@ -1,8 +1,8 @@
 #pragma once
+#include <boost/noncopyable.hpp>
+#include <functional>
 #include <iostream>
 #include <map>
-#include <functional>
-#include <boost/noncopyable.hpp>
 #include <sstream>
 
 class CTVSet;
@@ -13,17 +13,17 @@ class CRemoteControl : boost::noncopyable
 public:
 	CRemoteControl(CTVSet& tv, std::istream& input, std::ostream& output);
 	bool HandleCommand();
-	
 
 	// Избавляемся от предупреждения компилятора о том, что он не сможет сгенерировать оператор присваивания
 	// CRemoteControl& operator=(const CRemoteControl &) = delete;
 private:
 	bool SelectChannel(int channel);
-	bool SelectPreviousChannel();
-	bool GetChannelNumber(const std::string& inputString, int& number);
+	bool SelectPreviousChannel(std::istream&);
+	bool CheckChannelNumber(const std::string& inputString, int& number);
 	bool TurnOn(std::istream& args);
 	bool TurnOff(std::istream& args);
 	bool Info(std::istream& args);
+	bool CheckCommandSelectChannel(std::string& action);
 
 private:
 	typedef std::map<std::string, std::function<bool(std::istream& args)>> ActionMap;
