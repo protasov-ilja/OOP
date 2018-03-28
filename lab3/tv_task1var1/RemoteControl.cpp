@@ -13,10 +13,10 @@ CRemoteControl::CRemoteControl(CTVSet& tv, std::istream& input, std::ostream& ou
 	, m_input(input)
 	, m_output(output)
 	, m_actionMap({ { COMMAND_TURN_ON, bind(&CRemoteControl::TurnOn, this, std::placeholders::_1) },
-					{ COMMAND_TURN_OFF, bind(&CRemoteControl::TurnOff, this, std::placeholders::_1) },
-					{ COMMAND_INFO, bind(&CRemoteControl::Info, this, std::placeholders::_1) },
-					{ COMMAND_SELECT_PREVIOUS_CHANNEL, bind(&CRemoteControl::SelectPreviousChannel, this, std::placeholders::_1) } 
-	})
+		  { COMMAND_TURN_OFF, bind(&CRemoteControl::TurnOff, this, std::placeholders::_1) },
+		  { COMMAND_INFO, bind(&CRemoteControl::Info, this, std::placeholders::_1) },
+		  { COMMAND_SELECT_CHANNEL, bind(&CRemoteControl::SelectChannel, this, std::placeholders::_1) },
+		  { COMMAND_SELECT_PREVIOUS_CHANNEL, bind(&CRemoteControl::SelectPreviousChannel, this, std::placeholders::_1) } })
 {
 }
 
@@ -27,17 +27,15 @@ bool CRemoteControl::HandleCommand()
 	std::istringstream strm(commandLine);
 
 	std::string action;
-	getline(strm, action);
+	strm >> action;
 
 	auto it = m_actionMap.find(action);
 	if (it != m_actionMap.end())
 	{
 		return it->second(strm);
 	}
-	else
-	{
-		return CRemoteControl::CheckCommandSelectChannel(action);
-	}
+
+	return false;
 }
 
 bool CRemoteControl::CheckChannelNumber(const std::string& stringNumber, int& number)
@@ -60,25 +58,6 @@ bool CRemoteControl::CheckChannelNumber(const std::string& stringNumber, int& nu
 	return true;
 }
 
-bool CRemoteControl::CheckCommandSelectChannel(std::string& action)
-{
-	if (action.size() > COMMAND_SELECT_CHANNEL.size())
-	{
-		std::string selectChannelCommand;
-		if (selectChannelCommand.append(action, 0, COMMAND_SELECT_CHANNEL.size()) == COMMAND_SELECT_CHANNEL)
-		{
-			std::string channelNumberString;
-			int channelNumber;
-			if (CheckChannelNumber(channelNumberString.append(action, COMMAND_SELECT_CHANNEL.size() + 1, action.size()), channelNumber))
-			{
-				return CRemoteControl::SelectChannel(channelNumber);
-			}
-		}
-	}
-
-	return false;
-}
-
 bool CRemoteControl::TurnOn(std::istream&)
 {
 	m_tv.TurnOn();
@@ -95,8 +74,16 @@ bool CRemoteControl::TurnOff(std::istream&)
 	return true;
 }
 
-bool CRemoteControl::SelectChannel(int channel)
+bool CRemoteControl::SelectChannel(std::istream& args)
 {
+	std::string stringChannelNumber;
+	args >> stringChannelNumber;
+	int channel;
+	if (!CheckChannelNumber(stringChannelNumber, channel))
+	{
+		return false;
+	}
+
 	if ((m_tv.IsTurnedOn()) && ((channel < 1) || (channel > 99)))
 	{
 		m_output << "Invalid channel" << std::endl;

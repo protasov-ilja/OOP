@@ -17,13 +17,12 @@ public:
 	// Избавляемся от предупреждения компилятора о том, что он не сможет сгенерировать оператор присваивания
 	// CRemoteControl& operator=(const CRemoteControl &) = delete;
 private:
-	bool SelectChannel(int channel);
-	bool SelectPreviousChannel(std::istream&);
+	bool SelectChannel(std::istream& args);
+	bool SelectPreviousChannel(std::istream& args);
 	bool CheckChannelNumber(const std::string& inputString, int& number);
 	bool TurnOn(std::istream& args);
 	bool TurnOff(std::istream& args);
 	bool Info(std::istream& args);
-	bool CheckCommandSelectChannel(std::string& action);
 
 private:
 	typedef std::map<std::string, std::function<bool(std::istream& args)>> ActionMap;
