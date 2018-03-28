@@ -22,6 +22,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "html_decode", "html_decode\html_decode.vcxproj", "{D66ED37D-22C7-4D09-9FCC-795479DEA30C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "parseUrl", "parseUrl\parseUrl.vcxproj", "{920D9567-2B7C-4704-8852-22130DC5684E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{40939A5A-A68B-40D1-88BF-F2B0A2D56585} = {40939A5A-A68B-40D1-88BF-F2B0A2D56585}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "parseUrl_tests", "parseUrl\parseUrl_tests\parseUrl_tests.vcxproj", "{40939A5A-A68B-40D1-88BF-F2B0A2D56585}"
 EndProject

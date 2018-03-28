@@ -34,8 +34,11 @@ bool ParseURL(const std::string& url, Protocol& protocol, int& port, std::string
 
 Protocol CheckProtocol(const std::string& protocolString)
 {
+	auto ConvertCharTolower = [](const char& ch) {
+		return static_cast<char>(tolower(ch));
+	};
 	std::string protocolStringInLowerCase;
-	std::transform(protocolString.begin(), protocolString.end(), std::back_inserter(protocolStringInLowerCase), tolower);
+	std::transform(protocolString.begin(), protocolString.end(), std::back_inserter(protocolStringInLowerCase), ConvertCharTolower);
 	if (protocolStringInLowerCase == "http")
 	{
 		return Protocol::HTTP;

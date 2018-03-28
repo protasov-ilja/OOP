@@ -5,6 +5,7 @@
 #include <iterator>
 #include <regex>
 #include <string>
+#include <cctype>
 
 enum class Protocol
 {
