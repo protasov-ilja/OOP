@@ -14,8 +14,6 @@ public:
 	CRemoteControl(CTVSet& tv, std::istream& input, std::ostream& output);
 	bool HandleCommand();
 
-	// Избавляемся от предупреждения компилятора о том, что он не сможет сгенерировать оператор присваивания
-	// CRemoteControl& operator=(const CRemoteControl &) = delete;
 private:
 	bool SelectChannel(std::istream& args);
 	bool SelectPreviousChannel(std::istream& args);
