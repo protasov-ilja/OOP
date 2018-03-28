@@ -40,10 +40,10 @@ bool ConfirmTranslationAdding(const std::string& text, std::string& translation)
 	std::cout << "Неизвестное слово \"" << text << "\" Введите перевод или пустую строку для отказа.\n";
 	getline(std::cin, translation);
 
-	return CheckTranslationForEmptiness(text, translation);
+	return CheckExistenceOfTranslation(text, translation);
 }
 
-bool CheckTranslationForEmptiness(const std::string& text, const std::string& translation)
+bool CheckExistenceOfTranslation(const std::string& text, const std::string& translation)
 {
 	if (translation.empty())
 	{
