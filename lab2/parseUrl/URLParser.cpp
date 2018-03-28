@@ -66,9 +66,10 @@ bool CheckPortNumber(const std::string& portString, int& portNumber)
 			return false;
 		}
 	}
-	catch (const std::invalid_argument& isError)
+	catch (const std::invalid_argument& error)
 	{
-		std::cout << isError.what() << "\n";
+		//std::ecxeption
+		std::cout << error.what() << "\n";
 		return false;
 	}
 	catch (const std::out_of_range& isError)
