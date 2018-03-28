@@ -34,7 +34,7 @@ bool ParseURL(const std::string& url, Protocol& protocol, int& port, std::string
 
 Protocol CheckProtocol(const std::string& protocolString)
 {
-	auto ConvertCharTolower = [](const char& ch) {
+	auto ConvertCharTolower = [](char ch) {
 		return static_cast<char>(tolower(ch));
 	};
 	std::string protocolStringInLowerCase;
