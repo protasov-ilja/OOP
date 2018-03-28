@@ -11,7 +11,6 @@ public:
 	void TurnOff();
 	bool SelectChannel(int channel);
 	int GetChannel() const;
-	std::string Info() const;
 	bool SelectPreviousChannel();
 
 private:

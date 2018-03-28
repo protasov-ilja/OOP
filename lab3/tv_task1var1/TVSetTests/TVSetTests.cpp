@@ -50,14 +50,6 @@ BOOST_FIXTURE_TEST_SUITE(TVSet, TVSetFixture)
 		BOOST_CHECK_EQUAL(tv.GetChannel(), 0);
 	}
 
-	// отображает информацию о том что он выключен и текущий канал 0
-	BOOST_AUTO_TEST_CASE(displays_information_about_that_it_is_off_and_current_channel_is_0)
-	{
-		BOOST_CHECK(!tv.IsTurnedOn());
-		BOOST_CHECK_EQUAL(tv.GetChannel(), 0);
-		BOOST_CHECK(StringsAreEqual(tv.Info(), "TV is off, current channel: 0"));
-	}
-
 	struct when_turned_on_ : TVSetFixture
 	{
 		when_turned_on_()
@@ -79,14 +71,6 @@ BOOST_FIXTURE_TEST_SUITE(TVSet, TVSetFixture)
 		{
 			BOOST_CHECK(tv.SelectPreviousChannel());
 			BOOST_CHECK_EQUAL(tv.GetChannel(), 1);
-		}
-
-		// отображает информацию о том что он включен и текущий канал 1
-		BOOST_AUTO_TEST_CASE(displays_information_about_that_it_is_on_and_current_channel_is_1)
-		{
-			BOOST_CHECK(tv.IsTurnedOn());
-			BOOST_CHECK_EQUAL(tv.GetChannel(), 1);
-			BOOST_CHECK(StringsAreEqual(tv.Info(), "TV is on, current channel: 1"));
 		}
 
 		// можно выключить
@@ -124,14 +108,6 @@ BOOST_FIXTURE_TEST_SUITE(TVSet, TVSetFixture)
 			BOOST_CHECK(tv.SelectChannel(45));
 			BOOST_CHECK(tv.SelectPreviousChannel());
 			BOOST_CHECK_EQUAL(tv.GetChannel(), 1);
-		}
-
-		// отображает информацию о том что он включен и текущий канал 25
-		BOOST_AUTO_TEST_CASE(displays_information_about_that_it_is_on_and_current_channel_is_25)
-		{
-			BOOST_CHECK(tv.SelectChannel(25));
-			BOOST_CHECK_EQUAL(tv.GetChannel(), 25);
-			BOOST_CHECK(StringsAreEqual(tv.Info(), "TV is on, current channel: 25"));
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 

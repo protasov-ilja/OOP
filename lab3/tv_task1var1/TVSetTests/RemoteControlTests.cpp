@@ -55,7 +55,7 @@ BOOST_FIXTURE_TEST_SUITE(Remote_Control, RemoteControlFixture)
 	BOOST_AUTO_TEST_CASE(can_print_tv_info)
 	{
 		// Ожидаемое поведение команды Info, вызванной у выключенного телевизора
-		VerifyCommandHandling("Info", boost::none, "TV is turned off\n");
+		VerifyCommandHandling("Info", boost::none, "TV is turned off\nChannel is: 0\n");
 
 		// Проверяем поведение команды Info у включенного телевизора
 		tv.TurnOn();
