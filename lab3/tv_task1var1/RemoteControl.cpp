@@ -12,13 +12,11 @@ CRemoteControl::CRemoteControl(CTVSet& tv, std::istream& input, std::ostream& ou
 	: m_tv(tv)
 	, m_input(input)
 	, m_output(output)
-	, m_actionMap({ { COMMAND_TURN_ON, [this](std::istream& strm) {
-						 return TurnOn(strm);
-					 } },
+	, m_actionMap({ { COMMAND_TURN_ON, bind(&CRemoteControl::TurnOn, this, std::placeholders::_1) },
 					{ COMMAND_TURN_OFF, bind(&CRemoteControl::TurnOff, this, std::placeholders::_1) },
 					{ COMMAND_INFO, bind(&CRemoteControl::Info, this, std::placeholders::_1) },
 					{ COMMAND_SELECT_PREVIOUS_CHANNEL, bind(&CRemoteControl::SelectPreviousChannel, this, std::placeholders::_1) } 
-				  })
+	})
 {
 }
 
@@ -89,6 +87,14 @@ bool CRemoteControl::TurnOn(std::istream&)
 	return true;
 }
 
+bool CRemoteControl::TurnOff(std::istream&)
+{
+	m_tv.TurnOff();
+	m_output << "TV is turned off" << std::endl;
+
+	return true;
+}
+
 bool CRemoteControl::SelectChannel(int channel)
 {
 	if ((m_tv.IsTurnedOn()) && ((channel < 1) || (channel > 99)))
@@ -119,14 +125,6 @@ bool CRemoteControl::SelectPreviousChannel(std::istream&)
 	{
 		m_output << "Can't select previous channel because TV is turned off" << std::endl;
 	}
-
-	return true;
-}
-
-bool CRemoteControl::TurnOff(std::istream&)
-{
-	m_tv.TurnOff();
-	m_output << "TV is turned off" << std::endl;
 
 	return true;
 }

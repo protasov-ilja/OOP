@@ -14,6 +14,18 @@ BOOST_AUTO_TEST_SUITE(ParseURL_function)
 		BOOST_CHECK(!ParseURL("", protocol, port, host, document));
 	}
 
+	// берет неверный url и возвращает false
+	BOOST_AUTO_TEST_CASE(takes_invalid_url_and_returns_false)
+	{
+		Protocol protocol;
+		int port;
+		string host;
+		string document;
+		BOOST_CHECK(!ParseURL("http:/www.mysite.com/docs", protocol, port, host, document));
+		BOOST_CHECK(!ParseURL("https//www.mysite.com/docs", protocol, port, host, document));
+		BOOST_CHECK(!ParseURL("ftpwww.mysite.com/docs", protocol, port, host, document));
+	}
+
 	// берет url без протокола или с неверным протоколом и возвращает false
 	BOOST_AUTO_TEST_CASE(takes_url_without_protocol_or_with_invalid_protocol_and_returns_false)
 	{
