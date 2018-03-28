@@ -12,7 +12,7 @@ bool InteractWithUser(DictionaryMap& dictionary)
 		if (!FindAndDisplayTranslation(dictionary, userResponse))
 		{
 			std::string translation;
-			if (CheckConsentToAddTranslation(userResponse, translation))
+			if (ConfirmTranslationAdding(userResponse, translation))
 			{
 				AddTranslationInDictionary(dictionary, userResponse, translation);
 				areNewTranslationsAdded = true;
@@ -35,7 +35,7 @@ bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::strin
 	return false;
 }
 
-bool CheckConsentToAddTranslation(const std::string& text, std::string& translation)
+bool ConfirmTranslationAdding(const std::string& text, std::string& translation)
 {
 	std::cout << "Неизвестное слово \"" << text << "\" Введите перевод или пустую строку для отказа.\n";
 	getline(std::cin, translation);
