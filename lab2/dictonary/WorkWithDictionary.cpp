@@ -20,7 +20,7 @@ bool InteractWithUser(DictionaryMap& dictionary)
 		}
 	}
 
-	return areNewTranslationsAdded ? Verify—onsentToSaveDictionary() : false;
+	return areNewTranslationsAdded ? ConfirmSaving() : false;
 }
 
 bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::string& searchWord)
@@ -60,7 +60,7 @@ void AddTranslationInDictionary(DictionaryMap& dictionary, const std::string& wo
 	std::cout << "—ÎÓ‚Ó \"" << wordForTranslation << "\" ÒÓı‡ÌÂÌÓ ‚ ÒÎÓ‚‡Â Í‡Í \"" << translation << "\".\n";
 }
 
-bool Verify—onsentToSaveDictionary()
+bool ConfirmSaving()
 {
 	std::cout << "¬ ÒÎÓ‚‡¸ ·˚ÎË ‚ÌÂÒÂÌ˚ ËÁÏÂÌÂÌËˇ. ¬‚Â‰ËÚÂ Y ËÎË y ‰Îˇ ÒÓı‡ÌÂÌËˇ ÔÂÂ‰ ‚˚ıÓ‰ÓÏ.\n";
 	std::string userResponse;
