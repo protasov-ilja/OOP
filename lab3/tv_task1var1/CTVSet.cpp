@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CTVSet.h"
+#include <utility>
 
 CTVSet::CTVSet()
 {
@@ -45,9 +46,7 @@ bool CTVSet::SelectPreviousChannel()
 {
 	if (m_isOn)
 	{
-		int currentChannel = m_selectedChannel;
-		m_selectedChannel = m_previousChannel;
-		m_previousChannel = currentChannel;
+		std::swap(m_selectedChannel, m_previousChannel);
 		return true;
 	}
 
