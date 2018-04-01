@@ -37,6 +37,7 @@ Protocol CheckProtocol(const std::string& protocolString)
 	auto ConvertCharTolower = [](char ch) {
 		return static_cast<char>(tolower(ch));
 	};
+
 	std::string protocolStringInLowerCase;
 	std::transform(protocolString.begin(), protocolString.end(), std::back_inserter(protocolStringInLowerCase), ConvertCharTolower);
 	if (protocolStringInLowerCase == "http")
@@ -62,19 +63,11 @@ bool CheckPortNumber(const std::string& portString, int& portNumber)
 		portNumber = std::stoi(portString);
 		if ((portNumber < 1) || (portNumber > 65535))
 		{
-			std::cout << "Argument " << portString << " is less then 1 or more than 65535\n";
 			return false;
 		}
 	}
-	catch (const std::invalid_argument& error)
+	catch (const std::exception&)
 	{
-		//std::ecxeption
-		std::cout << error.what() << "\n";
-		return false;
-	}
-	catch (const std::out_of_range& isError)
-	{
-		std::cout << isError.what() << "\n";
 		return false;
 	}
 
