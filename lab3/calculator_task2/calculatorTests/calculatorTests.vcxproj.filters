@@ -21,19 +21,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CCalculator.h">
+    <ClInclude Include="..\CCalculator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CVariable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CCalculatorController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CIdentifier.h">
+    <ClInclude Include="..\CCalculatorController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,22 +32,16 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="calculator_task2.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CCalculator.cpp">
+    <ClCompile Include="..\CCalculator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CVariable.cpp">
+    <ClCompile Include="..\CCalculatorController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CFunction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CCalculatorController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CIdentifier.cpp">
+    <ClCompile Include="CalculatorTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

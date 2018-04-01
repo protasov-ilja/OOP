@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TVSetTests", "tv_task1var1\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "calculator_task2", "calculator_task2\calculator_task2.vcxproj", "{B489E43A-616A-4584-AA2E-066EF52B3D8C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "calculatorTests", "calculator_task2\calculatorTests\calculatorTests.vcxproj", "{FB152F5A-F67B-4F02-9149-295C2C3258C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{B489E43A-616A-4584-AA2E-066EF52B3D8C}.Release|x64.Build.0 = Release|x64
 		{B489E43A-616A-4584-AA2E-066EF52B3D8C}.Release|x86.ActiveCfg = Release|Win32
 		{B489E43A-616A-4584-AA2E-066EF52B3D8C}.Release|x86.Build.0 = Release|Win32
+		{FB152F5A-F67B-4F02-9149-295C2C3258C1}.Debug|x64.ActiveCfg = Debug|x64
+		{FB152F5A-F67B-4F02-9149-295C2C3258C1}.Debug|x64.Build.0 = Debug|x64
+		{FB152F5A-F67B-4F02-9149-295C2C3258C1}.Debug|x86.ActiveCfg = Debug|Win32
+		{FB152F5A-F67B-4F02-9149-295C2C3258C1}.Debug|x86.Build.0 = Debug|Win32
+		{FB152F5A-F67B-4F02-9149-295C2C3258C1}.Release|x64.ActiveCfg = Release|x64
+		{FB152F5A-F67B-4F02-9149-295C2C3258C1}.Release|x64.Build.0 = Release|x64
+		{FB152F5A-F67B-4F02-9149-295C2C3258C1}.Release|x86.ActiveCfg = Release|Win32
+		{FB152F5A-F67B-4F02-9149-295C2C3258C1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

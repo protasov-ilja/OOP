@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{B489E43A-616A-4584-AA2E-066EF52B3D8C}</ProjectGuid>
+    <ProjectGuid>{FB152F5A-F67B-4F02-9149-295C2C3258C1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>calculatortask2</RootNamespace>
+    <RootNamespace>calculatorTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -95,6 +95,12 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)" --log_level=test_suite</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Running unit tests</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -109,6 +115,12 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)" --log_level=test_suite</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Running unit tests</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -127,6 +139,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)" --log_level=test_suite</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Running unit tests</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -145,23 +163,24 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)" --log_level=test_suite</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Running unit tests</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CCalculator.h" />
-    <ClInclude Include="CCalculatorController.h" />
-    <ClInclude Include="CFunction.h" />
-    <ClInclude Include="CIdentifier.h" />
-    <ClInclude Include="CVariable.h" />
+    <ClInclude Include="..\CCalculator.h" />
+    <ClInclude Include="..\CCalculatorController.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="calculator_task2.cpp" />
-    <ClCompile Include="CCalculator.cpp" />
-    <ClCompile Include="CCalculatorController.cpp" />
-    <ClCompile Include="CFunction.cpp" />
-    <ClCompile Include="CIdentifier.cpp" />
-    <ClCompile Include="CVariable.cpp" />
+    <ClCompile Include="..\CCalculator.cpp" />
+    <ClCompile Include="..\CCalculatorController.cpp" />
+    <ClCompile Include="CalculatorTests.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
