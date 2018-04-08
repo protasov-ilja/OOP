@@ -8,6 +8,8 @@ dictionary
 словарь
 dog
 собака
+else
+иначе
 end
 конец
 exit

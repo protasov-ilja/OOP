@@ -35,7 +35,7 @@ bool FindAndDisplayTranslation(const DictionaryMap& dictionary, const std::strin
 	return false;
 }
 
-bool ConfirmTranslationAdding(const std::string& text, std::string& translation)
+bool ConfirmTranslationAdding(const std::string& text, std::string& translation) // узнать как переопределить стандартные потоки
 {
 	std::cout << "Ќеизвестное слово \"" << text << "\" ¬ведите перевод или пустую строку дл€ отказа.\n";
 	getline(std::cin, translation);

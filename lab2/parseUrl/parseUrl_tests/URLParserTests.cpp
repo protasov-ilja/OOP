@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_SUITE(ParseURL_function)
 	// берет неверный url и возвращает false
 	BOOST_AUTO_TEST_CASE(takes_invalid_url_and_returns_false)
 	{
-		CheckUrlParsing("http:/www.mysite.com/docs", 0, "", "", false);
+		CheckUrlParsing("http:/www.mysite.com/docs", 0, "", "", false);// отсутствует схема переименовать имя теста разбить на кейсы 
 		CheckUrlParsing("https//www.mysite.com/docs", 0, "", "", false);
 		CheckUrlParsing("ftpwww.mysite.com/docs", 0, "", "", false);
 	}
