@@ -25,3 +25,14 @@ CPoint CLineSegment::GetEndPoint() const
 {
 	return m_endPointLine;
 }
+
+
+double CLineSegment::GetPerimeter() const
+{
+	return 0;
+}
+
+std::string CLineSegment::GetOutlineColor() const
+{
+	return m_lineColor;
+}

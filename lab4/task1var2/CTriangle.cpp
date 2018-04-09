@@ -5,8 +5,8 @@ CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint&
 	: m_vertex1(vertex1)
 	, m_vertex2(vertex2)
 	, m_vertex3(vertex3)
-	, m_rectangleFillColor(triangleFillColor)
-	, m_rectangleOutlineColor(triangleOutlineColor)
+	, m_triangleFillColor(triangleFillColor)
+	, m_triangleOutlineColor(triangleOutlineColor)
 {
 }
 
@@ -27,4 +27,19 @@ CPoint CTriangle::GetVertex2() const
 CPoint CTriangle::GetVertex3() const
 {
 	return m_vertex3;
+}
+
+double CTriangle::GetPerimeter() const
+{
+	return 0;
+}
+
+//std::string CTriangle::GetFillColor() const
+//{
+//	return m_triangleFillColor;
+//}
+
+std::string CTriangle::GetOutlineColor() const
+{
+	return m_triangleOutlineColor;
 }

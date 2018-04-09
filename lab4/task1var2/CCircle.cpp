@@ -22,3 +22,23 @@ double CCircle::GetRadius() const
 {
 	return m_circleRadius;
 }
+
+double CCircle::GetPerimeter() const
+{
+	return CCircle::GetRadius() * 2 * M_PI;
+}
+
+//std::string CCircle::GetFillColor() const
+//{
+//	return m_circleFillColor;
+//}
+
+std::string CCircle::GetOutlineColor() const
+{
+	return m_circleOutlineColor;
+}
+
+//double CCircle::GetArea() const
+//{
+//	return CCircle::GetRadius() * 2 * M_PI;
+//}

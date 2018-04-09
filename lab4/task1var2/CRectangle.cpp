@@ -32,3 +32,18 @@ double CRectangle::GetHeight() const
 {
 	return GetLeftTop().m_y - GetRightBottom().m_y;
 }
+
+double CRectangle::GetPerimeter() const
+{
+	return 0;
+}
+
+//std::string CRectangle::GetFillColor() const 
+//{
+//	return m_rectangleFillColor;
+//}
+
+std::string CRectangle::GetOutlineColor() const
+{
+	return m_rectangleOutlineColor;
+}
