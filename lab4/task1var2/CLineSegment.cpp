@@ -2,7 +2,7 @@
 #include "CLineSegment.h"
 
 
-CLineSegment::CLineSegment(const CPoint2D& startPointLine, const CPoint2D& endPointLine, const std::string& lineColor)
+CLineSegment::CLineSegment(const CPoint& startPointLine, const CPoint& endPointLine, const std::string& lineColor)
 	: m_startPointLine(startPointLine)
 	, m_endPointLine(endPointLine)
 	, m_lineColor(lineColor)
@@ -12,4 +12,16 @@ CLineSegment::CLineSegment(const CPoint2D& startPointLine, const CPoint2D& endPo
 
 CLineSegment::~CLineSegment()
 {
+}
+
+
+CPoint CLineSegment::GetStartPoint() const
+{
+	return m_startPointLine;
+}
+
+
+CPoint CLineSegment::GetEndPoint() const
+{
+	return m_endPointLine;
 }

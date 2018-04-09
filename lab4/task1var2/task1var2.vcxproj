@@ -149,7 +149,7 @@
   <ItemGroup>
     <ClInclude Include="CCircle.h" />
     <ClInclude Include="CLineSegment.h" />
-    <ClInclude Include="CPoint2D.h" />
+    <ClInclude Include="CPoint.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="IShape.h" />
@@ -160,7 +160,7 @@
   <ItemGroup>
     <ClCompile Include="CCircle.cpp" />
     <ClCompile Include="CLineSegment.cpp" />
-    <ClCompile Include="CPoint2D.cpp" />
+    <ClCompile Include="CPoint.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="IShape.cpp" />

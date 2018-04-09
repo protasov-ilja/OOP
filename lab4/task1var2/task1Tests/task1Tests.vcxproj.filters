@@ -21,25 +21,25 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IShape.h">
+    <ClInclude Include="..\CCircle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ISolidShape.h">
+    <ClInclude Include="..\CLineSegment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CLineSegment.h">
+    <ClInclude Include="..\CRectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CTriangle.h">
+    <ClInclude Include="..\CTriangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CRectangle.h">
+    <ClInclude Include="..\IShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CCircle.h">
+    <ClInclude Include="..\ISolidShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPoint.h">
+    <ClInclude Include="..\CPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,28 +47,31 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="task1var2.cpp">
+    <ClCompile Include="task1Tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IShape.cpp">
+    <ClCompile Include="..\CCircle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ISolidShape.cpp">
+    <ClCompile Include="..\CLineSegment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CLineSegment.cpp">
+    <ClCompile Include="..\CRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CTriangle.cpp">
+    <ClCompile Include="..\CTriangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CRectangle.cpp">
+    <ClCompile Include="..\IShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CCircle.cpp">
+    <ClCompile Include="..\ISolidShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CPoint.cpp">
+    <ClCompile Include="..\CPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

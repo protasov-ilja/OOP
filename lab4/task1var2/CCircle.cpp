@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCircle.h"
 
-CCircle::CCircle(const CPoint2D& circleCenter, double circleRadius, const std::string& circleFillColor, const std::string& circleOutlineColor)
+CCircle::CCircle(const CPoint& circleCenter, double circleRadius, const std::string& circleFillColor, const std::string& circleOutlineColor)
 	: m_circleCenter(circleCenter)
 	, m_circleRadius(circleRadius)
 	, m_circleFillColor(circleFillColor)
@@ -11,4 +11,14 @@ CCircle::CCircle(const CPoint2D& circleCenter, double circleRadius, const std::s
 
 CCircle::~CCircle()
 {
+}
+
+CPoint CCircle::GetCenter() const
+{
+	return m_circleCenter;
+}
+
+double CCircle::GetRadius() const
+{
+	return m_circleRadius;
 }
