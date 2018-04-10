@@ -12,11 +12,11 @@ CShapeController::CShapeController(std::istream& input, std::ostream& output)
 	: m_input(input)
 	, m_output(output)
 	, m_actionMap({ { COMMAND_ADD_CIRCLE, bind(&CShapeController::AddCircle, this, std::placeholders::_1) },
-					{ COMMAND_ADD_RECTANGLE, bind(&CShapeController::AddRectangle, this, std::placeholders::_1) },
-					{ COMMAND_ADD_TRIANGLE, bind(&CShapeController::AddTriangle, this, std::placeholders::_1) },
-					{ COMMAND_ADD_LINE_SEGMENT, bind(&CShapeController::AddLineSegment, this, std::placeholders::_1) },
-					{ COMMAND_GET_MIN_PERIMETER, bind(&CShapeController::GetShapeWithMinPerimeter, this, std::placeholders::_1) },
-					{ COMMAND_GET_MAX_AREA, bind(&CShapeController::GetShapeWithMaxArea, this, std::placeholders::_1) } })
+		  { COMMAND_ADD_RECTANGLE, bind(&CShapeController::AddRectangle, this, std::placeholders::_1) },
+		  { COMMAND_ADD_TRIANGLE, bind(&CShapeController::AddTriangle, this, std::placeholders::_1) },
+		  { COMMAND_ADD_LINE_SEGMENT, bind(&CShapeController::AddLineSegment, this, std::placeholders::_1) },
+		  { COMMAND_GET_MIN_PERIMETER, bind(&CShapeController::GetShapeWithMinPerimeter, this, std::placeholders::_1) },
+		  { COMMAND_GET_MAX_AREA, bind(&CShapeController::GetShapeWithMaxArea, this, std::placeholders::_1) } })
 {
 }
 
@@ -42,26 +42,50 @@ bool CShapeController::HandleCommand()
 	return false;
 }
 
-std::shared_ptr<IShape> CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
+bool CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
 {
+	if (m_arrayOfShapes.empty())
+	{
+		return;
+	}
 
-}
-std::shared_ptr<IShape> CShapeController::GetShapeWithMaxArea(std::istream& args) const
-{
-}
-
-std::shared_ptr<IShape> CShapeController::AddCircle(std::istream& args)
-{
-}
-
-std::shared_ptr<IShape> CShapeController::AddLineSegment(std::istream& args)
-{
+	auto GetMinShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
+		return a->GetPerimeter() < b->GetPerimeter();
+	};
+	auto shapeWithMinPerimeter = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMinShapePtr);
+	m_output << shapeWithMinPerimeter->ToString() << std::endl;
 }
 
-std::shared_ptr<IShape> CShapeController::AddRectangle(std::istream& args)
+bool CShapeController::GetShapeWithMaxArea(std::istream& args) const
 {
+	if (m_arrayOfShapes.empty())
+	{
+		return;
+	}
+
+	auto GetMaxShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
+		return a->GetPerimeter() > b->GetPerimeter();
+	};
+	auto shapeWithMaxArea = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMaxShapePtr);
+	m_output << shapeWithMaxArea->ToString() << std::endl;
 }
 
-std::shared_ptr<IShape> CShapeController::AddTriangle(std::istream& args)
+bool CShapeController::AddCircle(std::istream& args)
 {
+	return false;
+}
+
+bool CShapeController::AddLineSegment(std::istream& args)
+{
+	return false;
+}
+
+bool CShapeController::AddRectangle(std::istream& args)
+{
+	return false;
+}
+
+bool CShapeController::AddTriangle(std::istream& args)
+{
+	return false;
 }

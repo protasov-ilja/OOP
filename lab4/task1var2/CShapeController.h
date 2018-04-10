@@ -17,12 +17,12 @@ public:
 private:
 	typedef std::map<std::string, std::function<bool(std::istream& args)>> ActionMap;
 
-	std::shared_ptr<IShape> GetShapeWithMinPerimeter(std::istream& args) const;
-	std::shared_ptr<IShape> GetShapeWithMaxArea(std::istream& args) const;
-	std::shared_ptr<IShape> AddCircle(std::istream& args);
-	std::shared_ptr<IShape> AddLineSegment(std::istream& args);
-	std::shared_ptr<IShape> AddRectangle(std::istream& args);
-	std::shared_ptr<IShape> AddTriangle(std::istream& args);
+	bool GetShapeWithMinPerimeter(std::istream& args) const;
+	bool GetShapeWithMaxArea(std::istream& args) const;
+	bool AddCircle(std::istream& args);
+	bool AddLineSegment(std::istream& args);
+	bool AddRectangle(std::istream& args);
+	bool AddTriangle(std::istream& args);
 
 	std::vector<std::shared_ptr<IShape>> m_arrayOfShapes;
 	std::istream& m_input;
