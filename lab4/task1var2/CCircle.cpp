@@ -25,20 +25,32 @@ double CCircle::GetRadius() const
 
 double CCircle::GetPerimeter() const
 {
-	return CCircle::GetRadius() * 2 * M_PI;
+	return m_circleRadius * 2 * M_PI;
 }
 
-//std::string CCircle::GetFillColor() const
-//{
-//	return m_circleFillColor;
-//}
+std::string CCircle::GetFillColor() const
+{
+	return m_circleFillColor;
+}
 
 std::string CCircle::GetOutlineColor() const
 {
 	return m_circleOutlineColor;
 }
 
-//double CCircle::GetArea() const
-//{
-//	return CCircle::GetRadius() * 2 * M_PI;
-//}
+double CCircle::GetArea() const
+{
+	return pow(m_circleRadius, 2) * M_PI;
+}
+
+std::string CCircle::ToString() const
+{
+	std::ostringstream strm;
+	strm << std::fixed << std::setprecision(2);
+	strm << GetPerimeter() << " " << GetArea()
+		 << " " << GetFillColor() << " " << GetOutlineColor()
+		 << " " << m_circleCenter.x << " " << m_circleCenter.y
+		 << " " << m_circleRadius << std::endl;
+
+	return strm.str();
+}

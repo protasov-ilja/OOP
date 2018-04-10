@@ -2,9 +2,9 @@
 class CPoint
 {
 public:
-	CPoint(double x, double y);
+	CPoint(double inputX, double inputY);
 	~CPoint();
 
-	double m_x;
-	double m_y;
+	double x;
+	double y;
 };

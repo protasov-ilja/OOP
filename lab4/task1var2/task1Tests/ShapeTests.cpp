@@ -5,9 +5,22 @@
 #include "..\CTriangle.h"
 #include <vector>
 
+const double EPSILON = 0.001;
+
 bool PointsAreEqual(const CPoint& firstPoint, const CPoint& secondPoint)
 {
-	return ((firstPoint.m_x == secondPoint.m_x) && (firstPoint.m_y == secondPoint.m_y));
+	return ((firstPoint.x == secondPoint.x) && (firstPoint.y == secondPoint.y));
+}
+
+bool StringsAreEqual(const std::string& a, const std::string& b)
+{
+	return a == b;
+}
+
+bool CompareDoubles(double a, double b)
+{
+	double diff = a - b;
+	return (diff < EPSILON) && (-diff < EPSILON);
 }
 
 // Отрезок
@@ -36,7 +49,19 @@ TEST_CASE("test lineSegment", "[lineSegment]")
 	// может возвращать цвет своего контура
 	SECTION("lineSegment4")
 	{
-		CHECK(lineSegment.GetOutlineColor() == "ffffff");
+		REQUIRE(lineSegment.GetOutlineColor() == "ffffff");
+	}
+
+	// может возвращать свою площадь
+	SECTION("lineSegment5")
+	{
+		REQUIRE(lineSegment.GetArea() == 0);
+	}
+
+	// может возвращать информацию о себе
+	SECTION("lineSegment6")
+	{
+		REQUIRE(lineSegment.ToString() == "2.00 0.00 ffffff 0.00 0.00 2.00 0.00\n");
 	}
 }
 
@@ -48,37 +73,49 @@ TEST_CASE("test triangle", "[triangle]")
 	// может возвращать координаты своей 1-ой вершины
 	SECTION("triangle1")
 	{
-		CHECK(PointsAreEqual(triangle.GetVertex1(), { 0, 0 }));
+		REQUIRE(PointsAreEqual(triangle.GetVertex1(), { 0, 0 }));
 	}
 
 	// может возвращать координаты своей 2-ой вершины
 	SECTION("triangle2")
 	{
-		CHECK(PointsAreEqual(triangle.GetVertex2(), { 2, 2 }));
+		REQUIRE(PointsAreEqual(triangle.GetVertex2(), { 2, 2 }));
 	}
 
 	// может возвращать координаты своей 3-ой вершины
 	SECTION("triangle3")
 	{
-		CHECK(PointsAreEqual(triangle.GetVertex3(), { 4, 0 }));
+		REQUIRE(PointsAreEqual(triangle.GetVertex3(), { 4, 0 }));
 	}
 
 	// может возвращать свой периметр
 	SECTION("triangle4")
 	{
-		REQUIRE(triangle.GetPerimeter() == 2);
+		REQUIRE(CompareDoubles(triangle.GetPerimeter(), 9.6568542495));
 	}
 
-	//// может возвращать цвет своей заливки
-	//SECTION("triangle5")
-	//{
-	//	CHECK(triangle.GetFillColor() == "ffffff");
-	//}
+	// может возвращать цвет своей заливки
+	SECTION("triangle5")
+	{
+		REQUIRE(triangle.GetFillColor() == "ffffff");
+	}
 
 	// может возвращать цвет своего контура
 	SECTION("triangle6")
 	{
-		CHECK(triangle.GetOutlineColor() == "000000");
+		REQUIRE(triangle.GetOutlineColor() == "000000");
+	}
+
+	// может возвращать свою площадь
+	SECTION("triangle7")
+	{
+		REQUIRE(triangle.GetArea() == 4);
+	}
+
+	// может возвращать информацию о себе
+	SECTION("triangle8")
+	{
+		REQUIRE(triangle.ToString() == "9.66 4.00 ffffff 000000 0.00 0.00 2.00 2.00 4.00 0.00\n");
 	}
 }
 
@@ -90,43 +127,55 @@ TEST_CASE("test rectangle", "[rectangle]")
 	// может возвращать координаты левой верхней вершины
 	SECTION("rectangle1")
 	{
-		CHECK(PointsAreEqual(rectangle.GetLeftTop(), { 0, 0 }));
+		REQUIRE(PointsAreEqual(rectangle.GetLeftTop(), { 0, 0 }));
 	}
 
 	// может возвращать координаты правой нижней вершины
 	SECTION("rectangle2")
 	{
-		CHECK(PointsAreEqual(rectangle.GetRightBottom(), { 2, -3 }));
+		REQUIRE(PointsAreEqual(rectangle.GetRightBottom(), { 2, -3 }));
 	}
 
 	// может возвращать свою ширину
 	SECTION("rectangle3")
 	{
-		CHECK(rectangle.GetWidth() == 2);
+		REQUIRE(rectangle.GetWidth() == 2);
 	}
 
 	// может возвращать свою высоту
 	SECTION("rectangle4")
 	{
-		CHECK(rectangle.GetHeight() == 3);
+		REQUIRE(rectangle.GetHeight() == 3);
 	}
 
 	// может возвращать свой периметр
 	SECTION("rectangle5")
 	{
-		REQUIRE(rectangle.GetPerimeter() == 2);
+		REQUIRE(rectangle.GetPerimeter() == 10);
 	}
 
-	//// может возвращать цвет своей заливки
-	//SECTION("rectangle6")
-	//{
-	//	CHECK(rectangle.GetFillColor() == "ffffff");
-	//}
+	// может возвращать цвет своей заливки
+	SECTION("rectangle6")
+	{
+		REQUIRE(rectangle.GetFillColor() == "ffffff");
+	}
 
 	// может возвращать цвет своего контура
 	SECTION("rectangle7")
 	{
-		CHECK(rectangle.GetOutlineColor() == "000000");
+		REQUIRE(rectangle.GetOutlineColor() == "000000");
+	}
+
+	// может возвращать свою площадь
+	SECTION("rectangle8")
+	{
+		REQUIRE(rectangle.GetArea() == 6);
+	}
+
+	// может возвращать информацию о себе
+	SECTION("rectangle9")
+	{
+		REQUIRE(rectangle.ToString() == "10.00 6.00 ffffff 000000 0.00 0.00 2.00 -3.00 2.00 3.00\n");
 	}
 }
 
@@ -138,13 +187,13 @@ TEST_CASE("test circle", "[circle]")
 	// может возвращать координаты своего центра
 	SECTION("circle1")
 	{
-		CHECK(PointsAreEqual(circle.GetCenter(), { 0, 0 }));
+		REQUIRE(PointsAreEqual(circle.GetCenter(), { 0, 0 }));
 	}
 
 	// может возвращать свой радиус
 	SECTION("circle2")
 	{
-		CHECK(circle.GetRadius() == 2);
+		REQUIRE(circle.GetRadius() == 2);
 	}
 
 	// может возвращать свой периметр
@@ -153,15 +202,27 @@ TEST_CASE("test circle", "[circle]")
 		REQUIRE(circle.GetPerimeter() == 2 * 2 * M_PI);
 	}
 
-	//// может возвращать цвет своей заливки
-	//SECTION("circle4")
-	//{
-	//	CHECK(circle.GetFillColor() == "ffffff");
-	//}
+	// может возвращать цвет своей заливки
+	SECTION("circle4")
+	{
+		REQUIRE(circle.GetFillColor() == "ffffff");
+	}
 
 	// может возвращать цвет своего контура
 	SECTION("circle5")
 	{
-		CHECK(circle.GetOutlineColor() == "000000");
+		REQUIRE(circle.GetOutlineColor() == "000000");
+	}
+
+	// может возвращать свою площадь
+	SECTION("circle6")
+	{
+		REQUIRE(circle.GetArea() == 2 * 2 * M_PI);
+	}
+
+	// может возвращать информацию о себе
+	SECTION("circle7")
+	{
+		REQUIRE(circle.ToString() == "12.57 12.57 ffffff 000000 0.00 0.00 2.00\n");
 	}
 }
