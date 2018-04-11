@@ -24,8 +24,12 @@ bool CompareDoubles(double a, double b)
 }
 
 // Отрезок
-TEST_CASE("test lineSegment", "[lineSegment]")
+TEST_CASE("test lineSegment")
 {
+	TEST_CASE("with all parameters")
+	{
+
+	}
 	CLineSegment lineSegment({ 0, 0 }, { 2, 0 }, "ffffff");
 
 	// может возвращать свою начальную точку
@@ -66,7 +70,7 @@ TEST_CASE("test lineSegment", "[lineSegment]")
 }
 
 // Треугольник
-TEST_CASE("test triangle", "[triangle]")
+TEST_CASE("test triangle")
 {
 	CTriangle triangle({ 0, 0 }, { 2, 2 }, { 4, 0 }, "ffffff", "000000");
 
@@ -120,7 +124,7 @@ TEST_CASE("test triangle", "[triangle]")
 }
 
 // Прямоугольник
-TEST_CASE("test rectangle", "[rectangle]")
+TEST_CASE("test rectangle")
 {
 	CRectangle rectangle({ 0, 0 }, { 2, -3 }, "ffffff", "000000");
 
@@ -180,7 +184,7 @@ TEST_CASE("test rectangle", "[rectangle]")
 }
 
 // Круг
-TEST_CASE("test circle", "[circle]")
+TEST_CASE("test circle")
 {
 	CCircle circle({ 0, 0 }, 2, "ffffff", "000000");
 

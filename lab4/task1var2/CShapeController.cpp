@@ -46,46 +46,93 @@ bool CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
 {
 	if (m_arrayOfShapes.empty())
 	{
-		return;
+		return false;
 	}
 
 	auto GetMinShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
 		return a->GetPerimeter() < b->GetPerimeter();
 	};
 	auto shapeWithMinPerimeter = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMinShapePtr);
+	m_output << "minPerimeterShape";
 	m_output << shapeWithMinPerimeter->ToString() << std::endl;
+	return true;
 }
 
 bool CShapeController::GetShapeWithMaxArea(std::istream& args) const
 {
 	if (m_arrayOfShapes.empty())
 	{
-		return;
+		return false;
 	}
 
 	auto GetMaxShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
 		return a->GetPerimeter() > b->GetPerimeter();
 	};
 	auto shapeWithMaxArea = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMaxShapePtr);
+	m_output << "maxAreaShape";
 	m_output << shapeWithMaxArea->ToString() << std::endl;
+	return true;
 }
 
 bool CShapeController::AddCircle(std::istream& args)
 {
+	std::string fillColor;
+	std::string outlineColor;
+	CPoint center(0, 0);
+	double radius;
+	if (args >> center.x >> center.y >> radius >> fillColor >> outlineColor)
+	{
+
+		m_output << "AddCircle\n";
+		return true;
+	}
+
 	return false;
 }
 
 bool CShapeController::AddLineSegment(std::istream& args)
 {
+	std::string fillColor;
+	std::string outlineColor;
+	CPoint center;
+	double radius;
+	if (args >> center.x >> center.y >> radius >> fillColor >> outlineColor)
+	{
+		m_arrayOfShapes.push_back();
+		m_output << "AddLineSegment\n";
+		return true;
+	}
+
 	return false;
 }
 
 bool CShapeController::AddRectangle(std::istream& args)
 {
+	std::string fillColor;
+	std::string outlineColor;
+	CPoint center(0, 0);
+	double radius;
+	if (args >> center.x >> center.y >> radius >> fillColor >> outlineColor)
+	{
+
+		m_output << "AddRectangle\n";
+		return true;
+	}
+
 	return false;
 }
 
 bool CShapeController::AddTriangle(std::istream& args)
 {
+	std::string fillColor;
+	std::string outlineColor;
+	CPoint center(0, 0);
+	double radius;
+	if (args >> center.x >> center.y >> radius >> fillColor >> outlineColor)
+	{
+		m_output << "AddTriangle\n";
+		return true;
+	}
+
 	return false;
 }

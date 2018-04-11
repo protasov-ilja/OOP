@@ -1,5 +1,10 @@
 #pragma once
 #include "IShape.h"
+#include "CPoint.h"
+#include "CCircle.h"
+#include "CLineSegment.h"
+#include "CRectangle.h"
+#include "CTriangle.h"
 #include <algorithm>
 #include <boost/noncopyable.hpp>
 #include <functional>

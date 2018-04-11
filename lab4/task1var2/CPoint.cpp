@@ -8,6 +8,11 @@ CPoint::CPoint(double inputX, double inputY)
 {
 }
 
+CPoint::CPoint()
+	: x(0)
+	, y(0)
+{
+}
 
 CPoint::~CPoint()
 {
