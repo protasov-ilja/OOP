@@ -41,10 +41,10 @@ std::string CLineSegment::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << "perimeter: " << GetPerimeter() << "area: " << GetArea()
-		 << "outlinecolor: " << GetOutlineColor() << "startpoint.x: " << m_startPointLine.x
-		 << "startpoint.y " << m_startPointLine.y << "endpoint.x: " << m_endPointLine.x
-		 << "endpoint.y: " << m_endPointLine.y << std::endl;
+	strm << "perimeter: " << GetPerimeter() << " area: " << GetArea()
+		 << " outlinecolor: " << GetOutlineColor() << " startpoint.x: " << m_startPointLine.x
+		 << " startpoint.y " << m_startPointLine.y << " endpoint.x: " << m_endPointLine.x
+		 << " endpoint.y: " << m_endPointLine.y << std::endl;
 
 	return strm.str();
 }

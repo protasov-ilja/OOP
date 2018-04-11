@@ -26,10 +26,6 @@ bool CompareDoubles(double a, double b)
 // Отрезок
 TEST_CASE("test lineSegment")
 {
-	TEST_CASE("with all parameters")
-	{
-
-	}
 	CLineSegment lineSegment({ 0, 0 }, { 2, 0 }, "ffffff");
 
 	// может возвращать свою начальную точку
@@ -65,7 +61,7 @@ TEST_CASE("test lineSegment")
 	// может возвращать информацию о себе
 	SECTION("lineSegment6")
 	{
-		REQUIRE(lineSegment.ToString() == "2.00 0.00 ffffff 0.00 0.00 2.00 0.00\n");
+		REQUIRE(lineSegment.ToString() == "perimeter: 2.00 area: 0.00 outlinecolor: ffffff startpoint.x: 0.00 startpoint.y 0.00 endpoint.x: 2.00 endpoint.y: 0.00\n");
 	}
 }
 
@@ -119,7 +115,7 @@ TEST_CASE("test triangle")
 	// может возвращать информацию о себе
 	SECTION("triangle8")
 	{
-		REQUIRE(triangle.ToString() == "9.66 4.00 ffffff 000000 0.00 0.00 2.00 2.00 4.00 0.00\n");
+		REQUIRE(triangle.ToString() == "perimeter: 9.66 area: 4.00 fillcolor: ffffff outlinecolor: 000000 vertex1.x: 0.00 vertex1.y: 0.00 vertex1.x: 2.00 vertex1.y: 2.00 vertex1.x: 4.00 vertex1.y : 0.00\n");
 	}
 }
 
@@ -179,7 +175,7 @@ TEST_CASE("test rectangle")
 	// может возвращать информацию о себе
 	SECTION("rectangle9")
 	{
-		REQUIRE(rectangle.ToString() == "10.00 6.00 ffffff 000000 0.00 0.00 2.00 -3.00 2.00 3.00\n");
+		REQUIRE(rectangle.ToString() == "perimeter: 10.00 area: 6.00 fillcolor: ffffff outlinecolor: 000000 lefttop.x: 0.00 lefttop.y : 0.00 rightBottom.x : 2.00 rightBottom.y : -3.00 width : 2.00 height : 3.00\n");
 	}
 }
 
@@ -227,6 +223,6 @@ TEST_CASE("test circle")
 	// может возвращать информацию о себе
 	SECTION("circle7")
 	{
-		REQUIRE(circle.ToString() == "12.57 12.57 ffffff 000000 0.00 0.00 2.00\n");
+		REQUIRE(circle.ToString() == "perimeter: 12.57 area: 12.57 fillcolor: ffffff outlinecolor: 000000 center.x: 0.00 center.y: 0.00 readius: 2.00\n");
 	}
 }

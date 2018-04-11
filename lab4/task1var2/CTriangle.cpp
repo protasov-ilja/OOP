@@ -63,11 +63,11 @@ std::string CTriangle::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << "perimeter: " << GetPerimeter() << "area: " << GetArea()
-		 << "fillcolor: " << GetFillColor() << "outlinecolor: " << GetOutlineColor()
-		 << "vertex1.x: " << m_vertex1.x << "vertex1.y: " << m_vertex1.y
-		 << "vertex1.x: " << m_vertex2.x << "vertex1.y: " << m_vertex2.y
-		 << "vertex1.x: " << m_vertex3.x << "vertex1.y: " << m_vertex3.y << std::endl;
+	strm << "perimeter: " << GetPerimeter() << " area: " << GetArea()
+		 << " fillcolor: " << GetFillColor() << " outlinecolor: " << GetOutlineColor()
+		 << " vertex1.x: " << m_vertex1.x << " vertex1.y: " << m_vertex1.y
+		 << " vertex1.x: " << m_vertex2.x << " vertex1.y: " << m_vertex2.y
+		 << " vertex1.x: " << m_vertex3.x << " vertex1.y: " << m_vertex3.y << std::endl;
 
 	return strm.str();
 }

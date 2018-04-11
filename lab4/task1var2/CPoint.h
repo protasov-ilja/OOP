@@ -3,7 +3,7 @@ class CPoint
 {
 public:
 	CPoint(double x, double y);
-	CPoint() {};
+	CPoint();
 	~CPoint();
 
 	double x = 0;

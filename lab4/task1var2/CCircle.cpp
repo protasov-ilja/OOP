@@ -51,10 +51,10 @@ std::string CCircle::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << "perimeter: " << GetPerimeter() << "area: " << GetArea()
-		 << "fillcolor: " << GetFillColor() << "outlinecolor: " << GetOutlineColor()
-		 << "center.x: " << m_circleCenter.x << "center.y: " << m_circleCenter.y
-		 << "readius: " << m_circleRadius << std::endl;
+	strm << "perimeter: " << GetPerimeter() << " area: " << GetArea()
+		 << " fillcolor: " << GetFillColor() << " outlinecolor: " << GetOutlineColor()
+		 << " center.x: " << m_circleCenter.x << " center.y: " << m_circleCenter.y
+		 << " readius: " << m_circleRadius << std::endl;
 
 	return strm.str();
 }

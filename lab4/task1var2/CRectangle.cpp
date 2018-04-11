@@ -61,11 +61,11 @@ std::string CRectangle::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << "perimeter: " << GetPerimeter() << "area: " << GetArea()
-		 << "fillcolor: " << GetFillColor() << "outlinecolor: " << GetOutlineColor()
-		 << "lefttop.x: " << m_leftTopVertex.x << "lefttop.y: " << m_leftTopVertex.y
-		 << "rightBottom.x: " << m_rightBottomVertex.x << "rightBottom.y: " << m_rightBottomVertex.y
-		 << "width: " << GetWidth() << "height: " << GetHeight() << std::endl;
+	strm << "perimeter: " << GetPerimeter() << " area: " << GetArea()
+		 << " fillcolor: " << GetFillColor() << " outlinecolor: " << GetOutlineColor()
+		 << " lefttop.x: " << m_leftTopVertex.x << " lefttop.y: " << m_leftTopVertex.y
+		 << " rightBottom.x: " << m_rightBottomVertex.x << " rightBottom.y: " << m_rightBottomVertex.y
+		 << " width: " << GetWidth() << " height: " << GetHeight() << std::endl;
 
 	return strm.str();
 }
