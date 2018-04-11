@@ -68,7 +68,7 @@ bool CShapeController::GetShapeWithMaxArea(std::istream& args) const
 	auto GetMaxShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
 		return a->GetPerimeter() > b->GetPerimeter();
 	};
-	auto shapeWithMaxArea = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMaxShapePtr);
+	auto shapeWithMaxArea = *std::max_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMaxShapePtr);
 	m_output << "maxAreaShape";
 	m_output << shapeWithMaxArea->ToString() << std::endl;
 	return true;
@@ -98,7 +98,7 @@ bool CShapeController::AddLineSegment(std::istream& args)
 	double radius;
 	if (args >> center.x >> center.y >> radius >> fillColor >> outlineColor)
 	{
-		m_arrayOfShapes.push_back();
+		//m_arrayOfShapes.push_back();
 		m_output << "AddLineSegment\n";
 		return true;
 	}

@@ -2,10 +2,11 @@
 #include "CPoint.h"
 #include "ISolidShape.h"
 
-class CTriangle : public ISolidShape
+class CTriangle final : public ISolidShape
 {
 public:
-	CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, const std::string& triangleFillColor, const std::string& triangleOutlineColor);
+	CTriangle();
+	CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, const std::string& fillColor, const std::string& outlineColor);
 	~CTriangle();
 	double GetArea() const override;
 	double GetPerimeter() const override;
@@ -20,6 +21,6 @@ private:
 	CPoint m_vertex1;
 	CPoint m_vertex2;
 	CPoint m_vertex3;
-	std::string m_triangleFillColor;
-	std::string m_triangleOutlineColor;
+	std::string m_fillColor;
+	std::string m_outlineColor;
 };

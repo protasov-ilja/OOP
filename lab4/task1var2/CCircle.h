@@ -2,10 +2,11 @@
 #include "CPoint.h"
 #include "ISolidShape.h"
 
-class CCircle : public ISolidShape
+class CCircle final : public ISolidShape
 {
 public:
-	CCircle(const CPoint& circleCenter, double circleRadius, const std::string& circleFillColor, const std::string& circleOutlineColor);
+	CCircle();
+	CCircle(const CPoint& circleCenter, double circleRadius, const std::string& fillColor, const std::string& outlineColor);
 	~CCircle();
 	double GetArea() const override;
 	double GetPerimeter() const override;
@@ -18,6 +19,6 @@ public:
 private:
 	CPoint m_circleCenter;
 	double m_circleRadius;
-	std::string m_circleFillColor;
-	std::string m_circleOutlineColor;
+	std::string m_fillColor;
+	std::string m_outlineColor;
 };

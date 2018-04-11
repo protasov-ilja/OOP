@@ -4,8 +4,12 @@
 CCircle::CCircle(const CPoint& circleCenter, double circleRadius, const std::string& circleFillColor, const std::string& circleOutlineColor)
 	: m_circleCenter(circleCenter)
 	, m_circleRadius(circleRadius)
-	, m_circleFillColor(circleFillColor)
-	, m_circleOutlineColor(circleOutlineColor)
+	, m_fillColor(circleFillColor)
+	, m_outlineColor(circleOutlineColor)
+{
+}
+
+CCircle::CCircle()
 {
 }
 
@@ -30,12 +34,12 @@ double CCircle::GetPerimeter() const
 
 std::string CCircle::GetFillColor() const
 {
-	return m_circleFillColor;
+	return m_fillColor;
 }
 
 std::string CCircle::GetOutlineColor() const
 {
-	return m_circleOutlineColor;
+	return m_outlineColor;
 }
 
 double CCircle::GetArea() const
@@ -47,10 +51,10 @@ std::string CCircle::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << GetPerimeter() << " " << GetArea()
-		 << " " << GetFillColor() << " " << GetOutlineColor()
-		 << " " << m_circleCenter.x << " " << m_circleCenter.y
-		 << " " << m_circleRadius << std::endl;
+	strm << "perimeter: " << GetPerimeter() << "area: " << GetArea()
+		 << "fillcolor: " << GetFillColor() << "outlinecolor: " << GetOutlineColor()
+		 << "center.x: " << m_circleCenter.x << "center.y: " << m_circleCenter.y
+		 << "readius: " << m_circleRadius << std::endl;
 
 	return strm.str();
 }

@@ -2,9 +2,10 @@
 #include "CPoint.h"
 #include "ISolidShape.h"
 
-class CRectangle : public ISolidShape
+class CRectangle final : public ISolidShape
 {
 public:
+	CRectangle();
 	CRectangle(const CPoint& leftTopAngle, const CPoint& rightBottomAngle, const std::string& rectangleFillColor, const std::string& rectangleOutlineColor);
 	~CRectangle();
 	double GetArea() const override;
@@ -20,6 +21,6 @@ public:
 private:
 	CPoint m_leftTopVertex;
 	CPoint m_rightBottomVertex;
-	std::string m_rectangleFillColor;
-	std::string m_rectangleOutlineColor;
+	std::string m_fillColor;
+	std::string m_outlineColor;
 };

@@ -1,11 +1,15 @@
 #include "stdafx.h"
 #include "CRectangle.h"
 
-CRectangle::CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex, const std::string& rectangleFillColor, const std::string& rectangleOutlineColor)
+CRectangle::CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex, const std::string& fillColor, const std::string& outlineColor)
 	: m_leftTopVertex(leftTopVertex)
 	, m_rightBottomVertex(rightBottomVertex)
-	, m_rectangleFillColor(rectangleFillColor)
-	, m_rectangleOutlineColor(rectangleOutlineColor)
+	, m_fillColor(fillColor)
+	, m_outlineColor(outlineColor)
+{
+}
+
+CRectangle::CRectangle()
 {
 }
 
@@ -45,23 +49,23 @@ double CRectangle::GetArea() const
 
 std::string CRectangle::GetFillColor() const
 {
-	return m_rectangleFillColor;
+	return m_fillColor;
 }
 
 std::string CRectangle::GetOutlineColor() const
 {
-	return m_rectangleOutlineColor;
+	return m_outlineColor;
 }
 
 std::string CRectangle::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << GetPerimeter() << " " << GetArea()
-		 << " " << GetFillColor() << " " << GetOutlineColor()
-		 << " " << m_leftTopVertex.x << " " << m_leftTopVertex.y
-		 << " " << m_rightBottomVertex.x << " " << m_rightBottomVertex.y
-		 << " " << GetWidth() << " " << GetHeight() << std::endl;
+	strm << "perimeter: " << GetPerimeter() << "area: " << GetArea()
+		 << "fillcolor: " << GetFillColor() << "outlinecolor: " << GetOutlineColor()
+		 << "lefttop.x: " << m_leftTopVertex.x << "lefttop.y: " << m_leftTopVertex.y
+		 << "rightBottom.x: " << m_rightBottomVertex.x << "rightBottom.y: " << m_rightBottomVertex.y
+		 << "width: " << GetWidth() << "height: " << GetHeight() << std::endl;
 
 	return strm.str();
 }

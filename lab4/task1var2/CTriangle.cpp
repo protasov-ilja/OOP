@@ -1,12 +1,16 @@
 #include "stdafx.h"
 #include "CTriangle.h"
 
-CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, const std::string& triangleFillColor, const std::string& triangleOutlineColor)
+CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, const std::string& fillColor, const std::string& outlineColor)
 	: m_vertex1(vertex1)
 	, m_vertex2(vertex2)
 	, m_vertex3(vertex3)
-	, m_triangleFillColor(triangleFillColor)
-	, m_triangleOutlineColor(triangleOutlineColor)
+	, m_fillColor(fillColor)
+	, m_outlineColor(outlineColor)
+{
+}
+
+CTriangle::CTriangle()
 {
 }
 
@@ -38,12 +42,12 @@ double CTriangle::GetPerimeter() const
 
 std::string CTriangle::GetFillColor() const
 {
-	return m_triangleFillColor;
+	return m_fillColor;
 }
 
 std::string CTriangle::GetOutlineColor() const
 {
-	return m_triangleOutlineColor;
+	return m_outlineColor;
 }
 
 double CTriangle::GetArea() const
@@ -59,11 +63,11 @@ std::string CTriangle::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << GetPerimeter() << " " << GetArea()
-		 << " " << GetFillColor() << " " << GetOutlineColor()
-		 << " " << m_vertex1.x << " " << m_vertex1.y
-		 << " " << m_vertex2.x << " " << m_vertex2.y
-		 << " " << m_vertex3.x << " " << m_vertex3.y << std::endl;
+	strm << "perimeter: " << GetPerimeter() << "area: " << GetArea()
+		 << "fillcolor: " << GetFillColor() << "outlinecolor: " << GetOutlineColor()
+		 << "vertex1.x: " << m_vertex1.x << "vertex1.y: " << m_vertex1.y
+		 << "vertex1.x: " << m_vertex2.x << "vertex1.y: " << m_vertex2.y
+		 << "vertex1.x: " << m_vertex3.x << "vertex1.y: " << m_vertex3.y << std::endl;
 
 	return strm.str();
 }

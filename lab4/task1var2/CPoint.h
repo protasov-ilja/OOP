@@ -2,10 +2,10 @@
 class CPoint
 {
 public:
-	CPoint(double inputX, double inputY);
-	CPoint();
+	CPoint(double x, double y);
+	CPoint() {};
 	~CPoint();
 
-	double x;
-	double y;
+	double x = 0;
+	double y = 0;
 };

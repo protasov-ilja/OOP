@@ -3,7 +3,6 @@
 class ISolidShape : public IShape
 {
 public:
-	ISolidShape();
-	virtual ~ISolidShape();
+	virtual ~ISolidShape() = default;
 	virtual std::string GetFillColor() const = 0;
 };
