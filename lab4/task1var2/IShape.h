@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include <sstream>
+#include <string>
 
 class IShape
 {
@@ -11,4 +11,3 @@ public:
 	virtual std::string ToString() const = 0;
 	virtual std::string GetOutlineColor() const = 0;
 };
-

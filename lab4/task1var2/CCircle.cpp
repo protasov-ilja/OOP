@@ -1,20 +1,25 @@
 #include "stdafx.h"
 #include "CCircle.h"
 
-CCircle::CCircle(const CPoint& circleCenter, double circleRadius, const std::string& circleFillColor, const std::string& circleOutlineColor)
+CCircle::CCircle(const CPoint& circleCenter, double circleRadius)
 	: m_circleCenter(circleCenter)
 	, m_circleRadius(circleRadius)
-	, m_fillColor(circleFillColor)
-	, m_outlineColor(circleOutlineColor)
 {
 }
 
-CCircle::CCircle()
+CCircle::CCircle(const CPoint& circleCenter, double circleRadius, const std::string& outlineColor)
+	: m_circleCenter(circleCenter)
+	, m_circleRadius(circleRadius)
 {
+	SetOutlineColor(outlineColor);
 }
 
-CCircle::~CCircle()
+CCircle::CCircle(const CPoint& circleCenter, double circleRadius, const std::string& outlineColor, const std::string& fillColor)
+	: m_circleCenter(circleCenter)
+	, m_circleRadius(circleRadius)
 {
+	SetFillColor(fillColor);
+	SetOutlineColor(outlineColor);
 }
 
 CPoint CCircle::GetCenter() const
@@ -32,16 +37,6 @@ double CCircle::GetPerimeter() const
 	return m_circleRadius * 2 * M_PI;
 }
 
-std::string CCircle::GetFillColor() const
-{
-	return m_fillColor;
-}
-
-std::string CCircle::GetOutlineColor() const
-{
-	return m_outlineColor;
-}
-
 double CCircle::GetArea() const
 {
 	return pow(m_circleRadius, 2) * M_PI;
@@ -51,10 +46,10 @@ std::string CCircle::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << "perimeter: " << GetPerimeter() << " area: " << GetArea()
-		 << " fillcolor: " << GetFillColor() << " outlinecolor: " << GetOutlineColor()
-		 << " center.x: " << m_circleCenter.x << " center.y: " << m_circleCenter.y
-		 << " readius: " << m_circleRadius << std::endl;
+	strm << "perimeter:" << GetPerimeter() << " area:" << GetArea()
+		 << " fillcolor:" << GetFillColor() << " outlinecolor:" << GetOutlineColor()
+		 << " center.x:" << m_circleCenter.x << " center.y:" << m_circleCenter.y
+		 << " readius:" << m_circleRadius << std::endl;
 
 	return strm.str();
 }

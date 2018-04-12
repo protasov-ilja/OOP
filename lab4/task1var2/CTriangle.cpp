@@ -1,21 +1,28 @@
 #include "stdafx.h"
 #include "CTriangle.h"
 
-CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, const std::string& fillColor, const std::string& outlineColor)
+CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3)
 	: m_vertex1(vertex1)
 	, m_vertex2(vertex2)
 	, m_vertex3(vertex3)
-	, m_fillColor(fillColor)
-	, m_outlineColor(outlineColor)
 {
 }
 
-CTriangle::CTriangle()
+CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, const std::string& outlineColor)
+	: m_vertex1(vertex1)
+	, m_vertex2(vertex2)
+	, m_vertex3(vertex3)
 {
+	SetOutlineColor(outlineColor);
 }
 
-CTriangle::~CTriangle()
+CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, const std::string& outlineColor, const std::string& fillColor)
+	: m_vertex1(vertex1)
+	, m_vertex2(vertex2)
+	, m_vertex3(vertex3)
 {
+	SetFillColor(fillColor);
+	SetOutlineColor(outlineColor);
 }
 
 CPoint CTriangle::GetVertex1() const
@@ -40,16 +47,6 @@ double CTriangle::GetPerimeter() const
 		   sqrt(pow((m_vertex3.x - m_vertex2.x), 2) + pow((m_vertex3.y - m_vertex2.y), 2));
 }
 
-std::string CTriangle::GetFillColor() const
-{
-	return m_fillColor;
-}
-
-std::string CTriangle::GetOutlineColor() const
-{
-	return m_outlineColor;
-}
-
 double CTriangle::GetArea() const
 {
 	CPoint vector1 = { m_vertex2.x - m_vertex1.x, m_vertex2.y - m_vertex1.y };
@@ -63,11 +60,11 @@ std::string CTriangle::ToString() const
 {
 	std::ostringstream strm;
 	strm << std::fixed << std::setprecision(2);
-	strm << "perimeter: " << GetPerimeter() << " area: " << GetArea()
-		 << " fillcolor: " << GetFillColor() << " outlinecolor: " << GetOutlineColor()
-		 << " vertex1.x: " << m_vertex1.x << " vertex1.y: " << m_vertex1.y
-		 << " vertex1.x: " << m_vertex2.x << " vertex1.y: " << m_vertex2.y
-		 << " vertex1.x: " << m_vertex3.x << " vertex1.y: " << m_vertex3.y << std::endl;
+	strm << "perimeter:" << GetPerimeter() << " area:" << GetArea()
+		 << " fillcolor:" << GetFillColor() << " outlinecolor:" << GetOutlineColor()
+		 << " vertex1.x:" << m_vertex1.x << " vertex1.y:" << m_vertex1.y
+		 << " vertex2.x:" << m_vertex2.x << " vertex2.y:" << m_vertex2.y
+		 << " vertex3.x:" << m_vertex3.x << " vertex3.y:" << m_vertex3.y << std::endl;
 
 	return strm.str();
 }

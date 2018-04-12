@@ -1,18 +1,18 @@
 #pragma once
 #include "CPoint.h"
-#include "ISolidShape.h"
+#include "CSolidShape.h"
 
-class CRectangle final : public ISolidShape
+class CRectangle final : public CSolidShape
 {
 public:
-	CRectangle();
-	CRectangle(const CPoint& leftTopAngle, const CPoint& rightBottomAngle, const std::string& rectangleFillColor, const std::string& rectangleOutlineColor);
-	~CRectangle();
+	CRectangle() = default;
+	CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex);
+	CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex, const std::string& outlineColor);
+	CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex, const std::string& outlineColor, const std::string& fillColor);
+	~CRectangle() = default;
 	double GetArea() const override;
 	double GetPerimeter() const override;
 	std::string ToString() const override;
-	std::string GetFillColor() const override;
-	std::string GetOutlineColor() const override;
 	CPoint GetLeftTop() const;
 	CPoint GetRightBottom() const;
 	double GetWidth() const;
@@ -21,6 +21,4 @@ public:
 private:
 	CPoint m_leftTopVertex;
 	CPoint m_rightBottomVertex;
-	std::string m_fillColor;
-	std::string m_outlineColor;
 };

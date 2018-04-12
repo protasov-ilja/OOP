@@ -42,6 +42,12 @@
     <ClInclude Include="..\CPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\CShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CSolidShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -75,6 +81,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShapeControllerTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CSolidShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
