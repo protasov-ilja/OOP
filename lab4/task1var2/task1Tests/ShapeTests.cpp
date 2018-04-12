@@ -46,26 +46,10 @@ TEST_CASE("test lineSegment")
 		REQUIRE(lineSegment.GetPerimeter() == 2);
 	}
 
-	// с цветом по умолчанию
-	SECTION("color1")
+	// может возвращать цвет своего контура
+	SECTION("lineSegment4.2")
 	{
-		CLineSegment lineSegment1({ 0, 0 }, { 2, 0 });
-
-		// может возвращать цвет своего контура
-		SECTION("lineSegment4.1")
-		{
-			REQUIRE(lineSegment1.GetOutlineColor() == "aaaaaa");
-		}
-	}
-
-	// с проставлением цвета
-	SECTION("color2")
-	{
-		// может возвращать цвет своего контура
-		SECTION("lineSegment4.2")
-		{
-			REQUIRE(lineSegment.GetOutlineColor() == "ffffff");
-		}
+		REQUIRE(lineSegment.GetOutlineColor() == "ffffff");
 	}
 
 	// может возвращать свою площадь
@@ -110,56 +94,16 @@ TEST_CASE("test triangle")
 		REQUIRE(CompareDoubles(triangle.GetPerimeter(), 9.6568542495));
 	}
 
-	// с цветом по умолчанию
-	SECTION("color1")
+	// может возвращать цвет своей заливки
+	SECTION("triangle5.3")
 	{
-		CTriangle triangle1({ 0, 0 }, { 2, 2 }, { 4, 0 });
-
-		// может возвращать цвет своей заливки
-		SECTION("triangle5.1")
-		{
-			REQUIRE(triangle1.GetFillColor() == "aaaaaa");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("triangle6.1")
-		{
-			REQUIRE(triangle1.GetOutlineColor() == "aaaaaa");
-		}
+		REQUIRE(triangle.GetFillColor() == "ffffff");
 	}
 
-	// с проставлением цвета обводки
-	SECTION("color2")
+	// может возвращать цвет своего контура
+	SECTION("triangle6.3")
 	{
-		CTriangle triangle2({ 0, 0 }, { 2, 2 }, { 4, 0 }, "000000");
-
-		// может возвращать цвет своей заливки
-		SECTION("triangle5.2")
-		{
-			REQUIRE(triangle2.GetFillColor() == "aaaaaa");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("triangle6.2")
-		{
-			REQUIRE(triangle2.GetOutlineColor() == "000000");
-		}
-	}
-
-	// с проставлением цвета
-	SECTION("color3")
-	{
-		// может возвращать цвет своей заливки
-		SECTION("triangle5.3")
-		{
-			REQUIRE(triangle.GetFillColor() == "ffffff");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("triangle6.3")
-		{
-			REQUIRE(triangle.GetOutlineColor() == "000000");
-		}
+		REQUIRE(triangle.GetOutlineColor() == "000000");
 	}
 
 	// может возвращать свою площадь
@@ -210,56 +154,16 @@ TEST_CASE("test rectangle")
 		REQUIRE(rectangle.GetPerimeter() == 10);
 	}
 
-	// с цветом по умолчанию
-	SECTION("color1")
+	// может возвращать цвет своей заливки
+	SECTION("rectangle6")
 	{
-		CRectangle rectangle1({ 0, 0 }, { 2, -3 });
-
-		// может возвращать цвет своей заливки
-		SECTION("rectangle6.1")
-		{
-			REQUIRE(rectangle1.GetFillColor() == "aaaaaa");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("rectangle7.1")
-		{
-			REQUIRE(rectangle1.GetOutlineColor() == "aaaaaa");
-		}
+		REQUIRE(rectangle.GetFillColor() == "ffffff");
 	}
 
-	// с проставлением цвета обводки
-	SECTION("color2")
+	// может возвращать цвет своего контура
+	SECTION("rectangle7")
 	{
-		CRectangle rectangle2({ 0, 0 }, { 2, -3 }, "000000");
-
-		// может возвращать цвет своей заливки
-		SECTION("rectangle6.2")
-		{
-			REQUIRE(rectangle2.GetFillColor() == "aaaaaa");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("rectangle7.2")
-		{
-			REQUIRE(rectangle2.GetOutlineColor() == "000000");
-		}
-	}
-
-	// с проставлением цвета
-	SECTION("color3")
-	{
-		// может возвращать цвет своей заливки
-		SECTION("rectangle6")
-		{
-			REQUIRE(rectangle.GetFillColor() == "ffffff");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("rectangle7")
-		{
-			REQUIRE(rectangle.GetOutlineColor() == "000000");
-		}
+		REQUIRE(rectangle.GetOutlineColor() == "000000");
 	}
 
 	// может возвращать свою площадь
@@ -298,56 +202,16 @@ TEST_CASE("test circle")
 		REQUIRE(circle.GetPerimeter() == 2 * 2 * M_PI);
 	}
 
-	// с цветом по умолчанию
-	SECTION("color1")
+	// может возвращать цвет своей заливки
+	SECTION("circle4")
 	{
-		CCircle circle1({ 0, 0 }, 2);
-
-		// может возвращать цвет своей заливки
-		SECTION("circle4.1")
-		{
-			REQUIRE(circle1.GetFillColor() == "aaaaaa");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("circle5.2")
-		{
-			REQUIRE(circle1.GetOutlineColor() == "aaaaaa");
-		}
+		REQUIRE(circle.GetFillColor() == "ffffff");
 	}
 
-	// с проставлением цвета обводки
-	SECTION("color2")
+	// может возвращать цвет своего контура
+	SECTION("circle5")
 	{
-		CCircle circle2({ 0, 0 }, 2, "000000");
-
-		// может возвращать цвет своей заливки
-		SECTION("circle4.2")
-		{
-			REQUIRE(circle2.GetFillColor() == "aaaaaa");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("circle5.2")
-		{
-			REQUIRE(circle2.GetOutlineColor() == "000000");
-		}
-	}
-
-	// с проставлением цвета
-	SECTION("color3")
-	{
-		// может возвращать цвет своей заливки
-		SECTION("circle4")
-		{
-			REQUIRE(circle.GetFillColor() == "ffffff");
-		}
-
-		// может возвращать цвет своего контура
-		SECTION("circle5")
-		{
-			REQUIRE(circle.GetOutlineColor() == "000000");
-		}
+		REQUIRE(circle.GetOutlineColor() == "000000");
 	}
 
 	// может возвращать свою площадь

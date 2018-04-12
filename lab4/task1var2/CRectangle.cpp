@@ -1,19 +1,6 @@
 #include "stdafx.h"
 #include "CRectangle.h"
 
-CRectangle::CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex)
-	: m_leftTopVertex(leftTopVertex)
-	, m_rightBottomVertex(rightBottomVertex)
-{
-}
-
-CRectangle::CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex, const std::string& outlineColor)
-	: m_leftTopVertex(leftTopVertex)
-	, m_rightBottomVertex(rightBottomVertex)
-{
-	SetOutlineColor(outlineColor);
-}
-
 CRectangle::CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex, const std::string& outlineColor, const std::string& fillColor)
 	: m_leftTopVertex(leftTopVertex)
 	, m_rightBottomVertex(rightBottomVertex)

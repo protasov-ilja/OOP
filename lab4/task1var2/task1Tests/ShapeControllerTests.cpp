@@ -26,7 +26,7 @@ struct ShapeControllerDependencies
 //		output = std::stringstream();
 //		input = std::stringstream();
 //		REQUIRE(input << command);
-//		REQUIRE(remoteControl.HandleCommand());
+//		REQUIRE(shapeController.HandleCommand());
 //		REQUIRE(tv.IsTurnedOn(), expectedChannel.is_initialized());
 //		REQUIRE(tv.GetChannel(), expectedChannel.get_value_or(0));
 //		REQUIRE(input.eof());

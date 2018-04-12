@@ -82,7 +82,6 @@ bool CShapeController::AddCircle(std::istream& args)
 	double radius;
 	if (args >> center.x >> center.y >> radius >> fillColor >> outlineColor)
 	{
-
 		m_output << "AddCircle\n";
 		return true;
 	}
