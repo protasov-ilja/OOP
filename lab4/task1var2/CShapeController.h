@@ -11,6 +11,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <regex>
 
 class CShapeController
 {
@@ -28,6 +29,7 @@ private:
 	bool AddLineSegment(std::istream& args);
 	bool AddRectangle(std::istream& args);
 	bool AddTriangle(std::istream& args);
+	bool IsColor(const std::string& color) const;
 
 	std::vector<std::shared_ptr<IShape>> m_arrayOfShapes;
 	std::istream& m_input;
