@@ -24,204 +24,204 @@ bool CompareDoubles(double a, double b)
 }
 
 // Отрезок
-TEST_CASE("test lineSegment")
+TEST_CASE("test lineSegment ")
 {
 	CLineSegment lineSegment({ 0, 0 }, { 2, 0 }, "ffffff");
 
 	// может возвращать свою начальную точку
-	SECTION("lineSegment1")
+	SECTION("can return its start point")
 	{
 		REQUIRE(PointsAreEqual(lineSegment.GetStartPoint(), { 0, 0 }));
 	}
 
 	// может возвращать свою конечную точку
-	SECTION("lineSegment2")
+	SECTION("can return its end point")
 	{
 		REQUIRE(PointsAreEqual(lineSegment.GetEndPoint(), { 2, 0 }));
 	}
 
 	// может возвращать свою длину
-	SECTION("lineSegment3")
+	SECTION("can return its length")
 	{
 		REQUIRE(lineSegment.GetPerimeter() == 2);
 	}
 
 	// может возвращать цвет своего контура
-	SECTION("lineSegment4.2")
+	SECTION("can return its outline color")
 	{
 		REQUIRE(lineSegment.GetOutlineColor() == "ffffff");
 	}
 
 	// может возвращать свою площадь
-	SECTION("lineSegment5")
+	SECTION("can return its area")
 	{
 		REQUIRE(lineSegment.GetArea() == 0);
 	}
 
 	// может возвращать информацию о себе
-	SECTION("lineSegment6")
+	SECTION("can return information about itself")
 	{
 		REQUIRE(lineSegment.ToString() == "perimeter:2.00 area:0.00 outlinecolor:ffffff startpoint.x:0.00 startpoint.y:0.00 endpoint.x:2.00 endpoint.y:0.00\n");
 	}
 }
 
 // Треугольник
-TEST_CASE("test triangle")
+TEST_CASE("test triangle ")
 {
 	CTriangle triangle({ 0, 0 }, { 2, 2 }, { 4, 0 }, "000000", "ffffff");
 
 	// может возвращать координаты своей 1-ой вершины
-	SECTION("triangle1")
+	SECTION("can return coordinates of its first vertex")
 	{
 		REQUIRE(PointsAreEqual(triangle.GetVertex1(), { 0, 0 }));
 	}
 
 	// может возвращать координаты своей 2-ой вершины
-	SECTION("triangle2")
+	SECTION("can return coordinates of its 2nd vertex")
 	{
 		REQUIRE(PointsAreEqual(triangle.GetVertex2(), { 2, 2 }));
 	}
 
 	// может возвращать координаты своей 3-ой вершины
-	SECTION("triangle3")
+	SECTION("can return coordinates of its 3rd vertex")
 	{
 		REQUIRE(PointsAreEqual(triangle.GetVertex3(), { 4, 0 }));
 	}
 
 	// может возвращать свой периметр
-	SECTION("triangle4")
+	SECTION("can return its perimeter")
 	{
 		REQUIRE(CompareDoubles(triangle.GetPerimeter(), 9.6568542495));
 	}
 
 	// может возвращать цвет своей заливки
-	SECTION("triangle5.3")
+	SECTION("can return its fill color")
 	{
 		REQUIRE(triangle.GetFillColor() == "ffffff");
 	}
 
 	// может возвращать цвет своего контура
-	SECTION("triangle6.3")
+	SECTION("can return its outline color")
 	{
 		REQUIRE(triangle.GetOutlineColor() == "000000");
 	}
 
 	// может возвращать свою площадь
-	SECTION("triangle7")
+	SECTION("can return its area")
 	{
 		REQUIRE(triangle.GetArea() == 4);
 	}
 
 	// может возвращать информацию о себе
-	SECTION("triangle8")
+	SECTION("can return information about itself")
 	{
 		REQUIRE(triangle.ToString() == "perimeter:9.66 area:4.00 fillcolor:ffffff outlinecolor:000000 vertex1.x:0.00 vertex1.y:0.00 vertex2.x:2.00 vertex2.y:2.00 vertex3.x:4.00 vertex3.y:0.00\n");
 	}
 }
 
 // Прямоугольник
-TEST_CASE("test rectangle")
+TEST_CASE("test rectangle ")
 {
 	CRectangle rectangle({ 0, 0 }, { 2, -3 }, "000000", "ffffff");
 
 	// может возвращать координаты левой верхней вершины
-	SECTION("rectangle1")
+	SECTION("can return coordinates of left top vertex")
 	{
 		REQUIRE(PointsAreEqual(rectangle.GetLeftTop(), { 0, 0 }));
 	}
 
 	// может возвращать координаты правой нижней вершины
-	SECTION("rectangle2")
+	SECTION("can return coordinates of right bottom vertex")
 	{
 		REQUIRE(PointsAreEqual(rectangle.GetRightBottom(), { 2, -3 }));
 	}
 
 	// может возвращать свою ширину
-	SECTION("rectangle3")
+	SECTION("can return its width")
 	{
 		REQUIRE(rectangle.GetWidth() == 2);
 	}
 
 	// может возвращать свою высоту
-	SECTION("rectangle4")
+	SECTION("can return its height")
 	{
 		REQUIRE(rectangle.GetHeight() == 3);
 	}
 
 	// может возвращать свой периметр
-	SECTION("rectangle5")
+	SECTION("can return its perimeter")
 	{
 		REQUIRE(rectangle.GetPerimeter() == 10);
 	}
 
 	// может возвращать цвет своей заливки
-	SECTION("rectangle6")
+	SECTION("can return its fill color")
 	{
 		REQUIRE(rectangle.GetFillColor() == "ffffff");
 	}
 
 	// может возвращать цвет своего контура
-	SECTION("rectangle7")
+	SECTION("can return its outline color")
 	{
 		REQUIRE(rectangle.GetOutlineColor() == "000000");
 	}
 
 	// может возвращать свою площадь
-	SECTION("rectangle8")
+	SECTION("can return its area")
 	{
 		REQUIRE(rectangle.GetArea() == 6);
 	}
 
 	// может возвращать информацию о себе
-	SECTION("rectangle9")
+	SECTION("can return information about itself")
 	{
 		REQUIRE(rectangle.ToString() == "perimeter:10.00 area:6.00 fillcolor:ffffff outlinecolor:000000 lefttop.x:0.00 lefttop.y:0.00 rightBottom.x:2.00 rightBottom.y:-3.00 width:2.00 height:3.00\n");
 	}
 }
 
 // Круг
-TEST_CASE("test circle")
+TEST_CASE("test circle ")
 {
 	CCircle circle({ 0, 0 }, 2, "000000", "ffffff");
 
 	// может возвращать координаты своего центра
-	SECTION("circle1")
+	SECTION("can return coordinates of its center")
 	{
 		REQUIRE(PointsAreEqual(circle.GetCenter(), { 0, 0 }));
 	}
 
 	// может возвращать свой радиус
-	SECTION("circle2")
+	SECTION("can return its radius")
 	{
 		REQUIRE(circle.GetRadius() == 2);
 	}
 
 	// может возвращать свой периметр
-	SECTION("circle3")
+	SECTION("can return its perimeter")
 	{
 		REQUIRE(circle.GetPerimeter() == 2 * 2 * M_PI);
 	}
 
 	// может возвращать цвет своей заливки
-	SECTION("circle4")
+	SECTION("can return its fill color")
 	{
 		REQUIRE(circle.GetFillColor() == "ffffff");
 	}
 
 	// может возвращать цвет своего контура
-	SECTION("circle5")
+	SECTION("can return its outline color")
 	{
 		REQUIRE(circle.GetOutlineColor() == "000000");
 	}
 
 	// может возвращать свою площадь
-	SECTION("circle6")
+	SECTION("can return its area")
 	{
 		REQUIRE(circle.GetArea() == 2 * 2 * M_PI);
 	}
 
 	// может возвращать информацию о себе
-	SECTION("circle7")
+	SECTION("can return information about itself")
 	{
 		REQUIRE(circle.ToString() == "perimeter:12.57 area:12.57 fillcolor:ffffff outlinecolor:000000 center.x:0.00 center.y:0.00 readius:2.00\n");
 	}

@@ -20,10 +20,6 @@ CShapeController::CShapeController(std::istream& input, std::ostream& output)
 {
 }
 
-CShapeController::~CShapeController()
-{
-}
-
 bool CShapeController::HandleCommand()
 {
 	std::string commandLine;
@@ -44,7 +40,7 @@ bool CShapeController::HandleCommand()
 
 bool CShapeController::IsColor(const std::string& color) const
 {
-	std::regex regex(R"(^([A-Fa-f0-9]){6}?)");
+	std::regex regex(R"(^([A-Fa-f0-9]){6}$)");
 	std::smatch result;
 	if (!std::regex_match(color, result, regex))
 	{
@@ -63,7 +59,7 @@ bool CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
 	if (m_arrayOfShapes.empty())
 	{
 		m_output << "array of shapes is empty!" << std::endl;
-		return false;
+		return true;
 	}
 
 	auto GetMinShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
@@ -71,7 +67,7 @@ bool CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
 	};
 	auto shapeWithMinPerimeter = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMinShapePtr);
 	m_output << "minPerimeterShape: ";
-	m_output << shapeWithMinPerimeter->ToString() << std::endl;
+	m_output << shapeWithMinPerimeter->ToString();
 	return true;
 }
 
@@ -80,7 +76,7 @@ bool CShapeController::GetShapeWithMaxArea(std::istream& args) const
 	if (m_arrayOfShapes.empty())
 	{
 		m_output << "array of shapes is empty!" << std::endl;
-		return false;
+		return true;
 	}
 
 	auto GetMaxShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
@@ -88,7 +84,7 @@ bool CShapeController::GetShapeWithMaxArea(std::istream& args) const
 	};
 	auto shapeWithMaxArea = *std::max_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMaxShapePtr);
 	m_output << "maxAreaShape: ";
-	m_output << shapeWithMaxArea->ToString() << std::endl;
+	m_output << shapeWithMaxArea->ToString();
 	return true;
 }
 
@@ -102,13 +98,13 @@ bool CShapeController::AddCircle(std::istream& args)
 	{
 		if (!(IsColor(outlineColor) && IsColor(fillColor)))
 		{
-			m_output << "you wrote uncorect color\ncolor must be hex color" << std::endl;
+			m_output << "you wrote incorrect color\ncolor must be hex color" << std::endl;
 			return true;
 		}
 
 		if (radius < 0)
 		{
-			m_output << "you wrote uncorect radius\nradius < 0" << std::endl;
+			m_output << "you wrote incorrect radius\nradius less than 0" << std::endl;
 			return true;
 		}
 		
@@ -118,7 +114,7 @@ bool CShapeController::AddCircle(std::istream& args)
 	}
 	else
 	{
-		m_output << "you wrote uncorrect arguments\n" 
+		m_output << "you wrote incorrect arguments\n" 
 				 << "please write: circle center.x center.y radius outlinecolor fillcolor" 
 				 << std::endl;
 	}
@@ -135,7 +131,7 @@ bool CShapeController::AddLineSegment(std::istream& args)
 	{
 		if (!IsColor(outlineColor))
 		{
-			m_output << "you wrote uncorect color\ncolor must be hex color" << std::endl;
+			m_output << "you wrote incorrect color\ncolor must be hex color" << std::endl;
 			return true;
 		}
 
@@ -145,7 +141,7 @@ bool CShapeController::AddLineSegment(std::istream& args)
 	}
 	else
 	{
-		m_output << "you wrote uncorrect arguments\n"
+		m_output << "you wrote incorrect arguments\n"
 				 << "please write: lineSegment start.x start.y end.x end.y outlinecolor"
 				 << std::endl;
 	}
@@ -163,13 +159,13 @@ bool CShapeController::AddRectangle(std::istream& args)
 	{
 		if (!(IsColor(outlineColor) && IsColor(fillColor)))
 		{
-			m_output << "you wrote uncorect color\ncolor must be hex color" << std::endl;
+			m_output << "you wrote incorrect color\ncolor must be hex color" << std::endl;
 			return true;
 		}
 
 		if ((leftTop.x > rightBottom.x) || (leftTop.y < rightBottom.y))
 		{
-			m_output << "you wrote uncorect lefttop and rightbottom points\n leftTop.x < rightBottom.x and leftTop.y > rightBottom.y" << std::endl;
+			m_output << "you wrote incorrect lefttop or rightbottom points\n leftTop.x < rightBottom.x and leftTop.y > rightBottom.y" << std::endl;
 			return true;
 		}
 
@@ -179,7 +175,7 @@ bool CShapeController::AddRectangle(std::istream& args)
 	}
 	else
 	{
-		m_output << "you wrote uncorrect arguments\n"
+		m_output << "you wrote incorrect arguments\n"
 				 << "please write: rectangle lefttop.x lefttop.y rightbottom.x rightbottom.y outlinecolor fillcolor"
 				 << std::endl;
 	}
@@ -198,7 +194,7 @@ bool CShapeController::AddTriangle(std::istream& args)
 	{
 		if (!(IsColor(outlineColor) && IsColor(fillColor)))
 		{
-			m_output << "you wrote uncorect color\ncolor must be hex color" << std::endl;
+			m_output << "you wrote incorrect color\ncolor must be hex color" << std::endl;
 			return true;
 		}
 
@@ -208,7 +204,7 @@ bool CShapeController::AddTriangle(std::istream& args)
 	}
 	else
 	{
-		m_output << "you wrote uncorrect arguments\n"
+		m_output << "you wrote incorrect arguments\n"
 				 << "please write: vertex1.x vertex1.y vertex2.x vertex2.y vertex3.x vertex3.y outlinecolor fillcolor"
 				 << std::endl;
 	}

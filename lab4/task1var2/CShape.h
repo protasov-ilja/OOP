@@ -10,5 +10,5 @@ public:
 	void SetOutlineColor(const std::string& outlineColor);
 
 private:
-	std::string m_outlineColor = "aaaaaa";
+	std::string m_outlineColor;
 };

@@ -5,19 +5,13 @@
 #include "CLineSegment.h"
 #include "CRectangle.h"
 #include "CTriangle.h"
-#include <algorithm>
-#include <boost/noncopyable.hpp>
-#include <functional>
-#include <map>
-#include <memory>
-#include <vector>
-#include <regex>
 
 class CShapeController
 {
 public:
+	CShapeController() = default;
 	CShapeController(std::istream& input, std::ostream& output);
-	~CShapeController();
+	~CShapeController() = default;
 	bool HandleCommand();
 
 private:

@@ -9,5 +9,5 @@ public:
 	std::string GetFillColor() const override;
 
 private:
-	std::string m_fillColor = "aaaaaa";
+	std::string m_fillColor;
 };
