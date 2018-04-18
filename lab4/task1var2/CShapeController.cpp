@@ -32,7 +32,8 @@ bool CShapeController::HandleCommand()
 	auto it = m_actionMap.find(action);
 	if (it != m_actionMap.end())
 	{
-		return it->second(strm);
+		it->second(strm);
+		return true;
 	}
 
 	return false;
@@ -47,19 +48,20 @@ bool CShapeController::IsColor(const std::string& color) const
 		return false;
 	}
 
-	if (result[1].str().empty()) {
+	if (result[1].str().empty())
+	{
 		return false;
 	}
 
 	return true;
 }
 
-bool CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
+void CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
 {
 	if (m_arrayOfShapes.empty())
 	{
 		m_output << "array of shapes is empty!" << std::endl;
-		return true;
+		return;
 	}
 
 	auto GetMinShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
@@ -68,15 +70,15 @@ bool CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
 	auto shapeWithMinPerimeter = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMinShapePtr);
 	m_output << "minPerimeterShape: ";
 	m_output << shapeWithMinPerimeter->ToString();
-	return true;
+	return;
 }
 
-bool CShapeController::GetShapeWithMaxArea(std::istream& args) const
+void CShapeController::GetShapeWithMaxArea(std::istream& args) const
 {
 	if (m_arrayOfShapes.empty())
 	{
 		m_output << "array of shapes is empty!" << std::endl;
-		return true;
+		return;
 	}
 
 	auto GetMaxShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
@@ -85,10 +87,10 @@ bool CShapeController::GetShapeWithMaxArea(std::istream& args) const
 	auto shapeWithMaxArea = *std::max_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMaxShapePtr);
 	m_output << "maxAreaShape: ";
 	m_output << shapeWithMaxArea->ToString();
-	return true;
+	return;
 }
 
-bool CShapeController::AddCircle(std::istream& args)
+void CShapeController::AddCircle(std::istream& args)
 {
 	std::string fillColor;
 	std::string outlineColor;
@@ -99,30 +101,30 @@ bool CShapeController::AddCircle(std::istream& args)
 		if (!(IsColor(outlineColor) && IsColor(fillColor)))
 		{
 			m_output << "you wrote incorrect color\ncolor must be hex color" << std::endl;
-			return true;
+			return;
 		}
 
 		if (radius < 0)
 		{
 			m_output << "you wrote incorrect radius\nradius less than 0" << std::endl;
-			return true;
+			return;
 		}
-		
+
 		std::shared_ptr<IShape> circlePtr(new CCircle(center, radius, outlineColor, fillColor));
 		m_arrayOfShapes.push_back(std::move(circlePtr));
 		m_output << "CircleWasAdded\n";
 	}
 	else
 	{
-		m_output << "you wrote incorrect arguments\n" 
-				 << "please write: circle center.x center.y radius outlinecolor fillcolor" 
+		m_output << "you wrote incorrect arguments\n"
+				 << "please write: circle center.x center.y radius outlinecolor fillcolor"
 				 << std::endl;
 	}
 
-	return true;
+	return;
 }
 
-bool CShapeController::AddLineSegment(std::istream& args)
+void CShapeController::AddLineSegment(std::istream& args)
 {
 	std::string outlineColor;
 	CPoint start;
@@ -132,7 +134,7 @@ bool CShapeController::AddLineSegment(std::istream& args)
 		if (!IsColor(outlineColor))
 		{
 			m_output << "you wrote incorrect color\ncolor must be hex color" << std::endl;
-			return true;
+			return;
 		}
 
 		std::shared_ptr<IShape> lineSegmentPtr(new CLineSegment(start, end, outlineColor));
@@ -146,10 +148,10 @@ bool CShapeController::AddLineSegment(std::istream& args)
 				 << std::endl;
 	}
 
-	return true;
+	return;
 }
 
-bool CShapeController::AddRectangle(std::istream& args)
+void CShapeController::AddRectangle(std::istream& args)
 {
 	std::string fillColor;
 	std::string outlineColor;
@@ -160,13 +162,13 @@ bool CShapeController::AddRectangle(std::istream& args)
 		if (!(IsColor(outlineColor) && IsColor(fillColor)))
 		{
 			m_output << "you wrote incorrect color\ncolor must be hex color" << std::endl;
-			return true;
+			return;
 		}
 
 		if ((leftTop.x > rightBottom.x) || (leftTop.y < rightBottom.y))
 		{
 			m_output << "you wrote incorrect lefttop or rightbottom points\n leftTop.x < rightBottom.x and leftTop.y > rightBottom.y" << std::endl;
-			return true;
+			return;
 		}
 
 		std::shared_ptr<IShape> rectanglePtr(new CRectangle(leftTop, rightBottom, outlineColor, fillColor));
@@ -180,10 +182,10 @@ bool CShapeController::AddRectangle(std::istream& args)
 				 << std::endl;
 	}
 
-	return true;
+	return;
 }
 
-bool CShapeController::AddTriangle(std::istream& args)
+void CShapeController::AddTriangle(std::istream& args)
 {
 	std::string fillColor;
 	std::string outlineColor;
@@ -195,7 +197,7 @@ bool CShapeController::AddTriangle(std::istream& args)
 		if (!(IsColor(outlineColor) && IsColor(fillColor)))
 		{
 			m_output << "you wrote incorrect color\ncolor must be hex color" << std::endl;
-			return true;
+			return;
 		}
 
 		std::shared_ptr<IShape> trianglePtr(new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor));
@@ -209,5 +211,5 @@ bool CShapeController::AddTriangle(std::istream& args)
 				 << std::endl;
 	}
 
-	return true;
+	return;
 }

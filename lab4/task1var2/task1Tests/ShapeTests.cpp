@@ -12,11 +12,6 @@ bool PointsAreEqual(const CPoint& firstPoint, const CPoint& secondPoint)
 	return ((firstPoint.x == secondPoint.x) && (firstPoint.y == secondPoint.y));
 }
 
-bool StringsAreEqual(const std::string& a, const std::string& b)
-{
-	return a == b;
-}
-
 bool CompareDoubles(double a, double b)
 {
 	double diff = a - b;

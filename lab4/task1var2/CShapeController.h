@@ -15,14 +15,14 @@ public:
 	bool HandleCommand();
 
 private:
-	typedef std::map<std::string, std::function<bool(std::istream& args)>> ActionMap;
+	typedef std::map<std::string, std::function<void(std::istream& args)>> ActionMap;
 
-	bool GetShapeWithMinPerimeter(std::istream& args) const;
-	bool GetShapeWithMaxArea(std::istream& args) const;
-	bool AddCircle(std::istream& args);
-	bool AddLineSegment(std::istream& args);
-	bool AddRectangle(std::istream& args);
-	bool AddTriangle(std::istream& args);
+	void GetShapeWithMinPerimeter(std::istream& args) const;
+	void GetShapeWithMaxArea(std::istream& args) const;
+	void AddCircle(std::istream& args);
+	void AddLineSegment(std::istream& args);
+	void AddRectangle(std::istream& args);
+	void AddTriangle(std::istream& args);
 	bool IsColor(const std::string& color) const;
 
 	std::vector<std::shared_ptr<IShape>> m_arrayOfShapes;
