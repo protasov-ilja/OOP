@@ -152,6 +152,7 @@
     <ClInclude Include="..\CPoint.h" />
     <ClInclude Include="..\CRectangle.h" />
     <ClInclude Include="..\CShape.h" />
+    <ClInclude Include="..\CShapeController.h" />
     <ClInclude Include="..\CSolidShape.h" />
     <ClInclude Include="..\CTriangle.h" />
     <ClInclude Include="..\IShape.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="..\CPoint.cpp" />
     <ClCompile Include="..\CRectangle.cpp" />
     <ClCompile Include="..\CShape.cpp" />
+    <ClCompile Include="..\CShapeController.cpp" />
     <ClCompile Include="..\CSolidShape.cpp" />
     <ClCompile Include="..\CTriangle.cpp" />
     <ClCompile Include="..\IShape.cpp" />

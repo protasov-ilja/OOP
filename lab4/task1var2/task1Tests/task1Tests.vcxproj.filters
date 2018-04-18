@@ -48,6 +48,9 @@
     <ClInclude Include="..\CSolidShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\CShapeController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -87,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\CSolidShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CShapeController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,10 +1,13 @@
 #pragma once
 #include "ISolidShape.h"
-class CSolidShape : public ISolidShape
+#include "CShape.h"
+
+class CSolidShape : public ISolidShape, public CShape
 {
 public:
 	CSolidShape() = default;
 	virtual ~CSolidShape() = default;
+	std::string GetOutlineColor() const override;
 	void SetFillColor(const std::string& fillColor);
 	std::string GetFillColor() const override;
 

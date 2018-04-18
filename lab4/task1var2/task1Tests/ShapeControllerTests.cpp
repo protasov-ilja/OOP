@@ -35,14 +35,6 @@ struct ShapeControllerFixture : ShapeControllerDependencies
 // контроллер фигур
 TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 {
-	// не может ничего добавить при вводе некоректной команды
-	SECTION("cant add anything when typing an invalid command")
-	{
-		VerifyCommandHandling("line 1 2 3 4 ffffff", "");
-		VerifyCommandHandling("circlee 1 2 2 4 000000 ffffff", "");
-		VerifyCommandHandling("1triange 1 2 3 4 aaaaaa ffffff", "");
-	}
-	
 	// может добавить отрезок
 	SECTION("can add line segment")
 	{
@@ -55,15 +47,15 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 	// не может добавить отрезок если параметры не указаны или неправильного типа и возвращает информацию об ошибке
 	SECTION("cant add line if parameters are not specified or wrong type and returns error information")
 	{
-		VerifyCommandHandling("lineSegment 1 d 3 4 ffffff", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
-		VerifyCommandHandling("lineSegment 1 1 1f 4 ffffff", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
-		VerifyCommandHandling("lineSegment 1 1 3 d4 ffffff", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
-		VerifyCommandHandling("lineSegment 1a2 1 3 d ffffff", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
-		VerifyCommandHandling("lineSegment a 1 3 d ffffff", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
-		VerifyCommandHandling("lineSegment a 1 3 d", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
-		VerifyCommandHandling("lineSegment 1 1 3 ffffff", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
-		VerifyCommandHandling("lineSegment ffffff", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
-		VerifyCommandHandling("lineSegment", "you wrote incorrect arguments\nplease, write lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment 1 d 3 4 ffffff", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment 1 1 1f 4 ffffff", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment 1 1 3 d4 ffffff", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment 1a2 1 3 d ffffff", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment a 1 3 d ffffff", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment a 1 3 d", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment 1 1 3 ffffff", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment ffffff", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
+		VerifyCommandHandling("lineSegment", "you wrote incorrect arguments\nplease write: lineSegment start.x start.y end.x end.y outlinecolor\n");
 	}
 
 	// не может добавить отрезок если цвет не в 16-ти ричной системе счисления и его длина меньше или больше 6
@@ -142,7 +134,6 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 		VerifyCommandHandling("rectangle 1 1a 4 0 ffffff 000000", "you wrote incorrect arguments\nplease write: rectangle lefttop.x lefttop.y rightbottom.x rightbottom.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("rectangle 1 1 d2 0 ffffff 000000", "you wrote incorrect arguments\nplease write: rectangle lefttop.x lefttop.y rightbottom.x rightbottom.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("rectangle 2a1 1 3 0 ffffff 000000", "you wrote incorrect arguments\nplease write: rectangle lefttop.x lefttop.y rightbottom.x rightbottom.y outlinecolor fillcolor\n");
-		VerifyCommandHandling("rectangle 2 1 3 0 ffffff 000000", "you wrote incorrect arguments\nplease write: rectangle lefttop.x lefttop.y rightbottom.x rightbottom.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("rectangle 1 3 9 0", "you wrote incorrect arguments\nplease write: rectangle lefttop.x lefttop.y rightbottom.x rightbottom.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("rectangle ffffff", "you wrote incorrect arguments\nplease write: rectangle lefttop.x lefttop.y rightbottom.x rightbottom.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("rectangle", "you wrote incorrect arguments\nplease write: rectangle lefttop.x lefttop.y rightbottom.x rightbottom.y outlinecolor fillcolor\n");
@@ -192,7 +183,6 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 		VerifyCommandHandling("triangle 1 1a 2 2 4 0 ffffff 000000", "you wrote incorrect arguments\nplease write: vertex1.x vertex1.y vertex2.x vertex2.y vertex3.x vertex3.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("triangle 1 1 d2 0 4 0 ffffff 000000", "you wrote incorrect arguments\nplease write: vertex1.x vertex1.y vertex2.x vertex2.y vertex3.x vertex3.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("triangle 2a1 1 3 0 4 0 ffffff 000000", "you wrote incorrect arguments\nplease write: vertex1.x vertex1.y vertex2.x vertex2.y vertex3.x vertex3.y outlinecolor fillcolor\n");
-		VerifyCommandHandling("triangle 0 0 2 2 4 0 ffffff 000000", "you wrote incorrect arguments\nplease write: vertex1.x vertex1.y vertex2.x vertex2.y vertex3.x vertex3.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("triangle 0 0 2 2 4 0 ", "you wrote incorrect arguments\nplease write: vertex1.x vertex1.y vertex2.x vertex2.y vertex3.x vertex3.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("triangle ffffff", "you wrote incorrect arguments\nplease write: vertex1.x vertex1.y vertex2.x vertex2.y vertex3.x vertex3.y outlinecolor fillcolor\n");
 		VerifyCommandHandling("triangle", "you wrote incorrect arguments\nplease write: vertex1.x vertex1.y vertex2.x vertex2.y vertex3.x vertex3.y outlinecolor fillcolor\n");
@@ -225,15 +215,15 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 		SECTION("can find figure with min perimeter and display information about it")
 		{
 			VerifyCommandHandling("lineSegment 0 0 2 0 aad32d", "LineSegmentWasAdded\n");
-			VerifyCommandHandling("minPerimeter", "minPerimeterShape: perimeter:2.00 area : 0.00 outlinecolor : asd32d startpoint.x : 0.00 startpoint.y : 0.00 endpoint.x : 2.00 endpoint.y : 0.00\n");
+			VerifyCommandHandling("minPerimeter", "minPerimeterShape: perimeter:2.00 area:0.00 outlinecolor:aad32d startpoint.x:0.00 startpoint.y:0.00 endpoint.x:2.00 endpoint.y:0.00\n");
 		}
 
 		// может найти фигуру с мах площадью и вывести информацию о ней
 		SECTION("can find figure with max area and display information about it")
 		{
 			VerifyCommandHandling("lineSegment 0 0 2 0 aad32d", "LineSegmentWasAdded\n");
-			VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 ffffff\n", "TriangleWasAdded\n");
-			VerifyCommandHandling("maxArea", "maxAreaShape: perimeter:9.66 area:4.00 fillcolor:ffffff outlinecolor:000000 vertex1.x:0.00 vertex1.y:0.00 vertex2.x:2.00 vertex2.y:2.00 vertex3.x:4.00 vertex3.y:0.00\n");
+			VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 ffffff", "TriangleWasAdded\n");
+			VerifyCommandHandling("maxArea", "maxAreaShape: perimeter:2.00 area:0.00 outlinecolor:aad32d startpoint.x:0.00 startpoint.y:0.00 endpoint.x:2.00 endpoint.y:0.00\n");
 		}
 	}
 
