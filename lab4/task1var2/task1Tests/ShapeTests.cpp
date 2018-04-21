@@ -117,7 +117,7 @@ TEST_CASE("test triangle ")
 // Прямоугольник
 TEST_CASE("test rectangle ")
 {
-	CRectangle rectangle({ 0, 0 }, { 2, -3 }, "000000", "ffffff");
+	CRectangle rectangle({ 0, 0 },  2, 3, "000000", "ffffff");
 
 	// может возвращать координаты левой верхней вершины
 	SECTION("can return coordinates of left top vertex")
@@ -128,7 +128,7 @@ TEST_CASE("test rectangle ")
 	// может возвращать координаты правой нижней вершины
 	SECTION("can return coordinates of right bottom vertex")
 	{
-		REQUIRE(PointsAreEqual(rectangle.GetRightBottom(), { 2, -3 }));
+		REQUIRE(PointsAreEqual(rectangle.GetRightBottom(), { 2, 3 }));
 	}
 
 	// может возвращать свою ширину
@@ -170,7 +170,7 @@ TEST_CASE("test rectangle ")
 	// может возвращать информацию о себе
 	SECTION("can return information about itself")
 	{
-		REQUIRE(rectangle.ToString() == "perimeter:10.00 area:6.00 fillcolor:ffffff outlinecolor:000000 lefttop.x:0.00 lefttop.y:0.00 rightBottom.x:2.00 rightBottom.y:-3.00 width:2.00 height:3.00\n");
+		REQUIRE(rectangle.ToString() == "perimeter:10.00 area:6.00 fillcolor:ffffff outlinecolor:000000 lefttop.x:0.00 lefttop.y:0.00 rightBottom.x:2.00 rightBottom.y:3.00 width:2.00 height:3.00\n");
 	}
 }
 

@@ -68,7 +68,7 @@ void CShapeController::DrawShapes(std::istream&)
 		return;
 	}
 
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Canvas");
+	sf::RenderWindow window(sf::VideoMode(800, 700), "Canvas");
 	CCanvas canvas(window);
 	for (auto shape : m_arrayOfShapes)
 	{
@@ -191,8 +191,9 @@ void CShapeController::AddRectangle(std::istream& args)
 	std::string fillColor;
 	std::string outlineColor;
 	CPoint leftTop;
-	CPoint rightBottom;
-	if (args >> leftTop.x >> leftTop.y >> rightBottom.x >> rightBottom.y >> outlineColor >> fillColor)
+	double width;
+	double height;
+	if (args >> leftTop.x >> leftTop.y >> width >> height >> outlineColor >> fillColor)
 	{
 		if (!(IsColor(outlineColor) && IsColor(fillColor)))
 		{
@@ -202,13 +203,19 @@ void CShapeController::AddRectangle(std::istream& args)
 
 		AddAlphaToColor(outlineColor);
 		AddAlphaToColor(fillColor);
-		if ((leftTop.x > rightBottom.x) || (leftTop.y < rightBottom.y))
+		if (width < 0)
 		{
-			m_output << "you wrote incorrect lefttop or rightbottom points\n leftTop.x < rightBottom.x and leftTop.y > rightBottom.y" << std::endl;
+			m_output << "you wrote incorrect width\nwidth less than 0" << std::endl;
 			return;
 		}
 
-		std::shared_ptr<IShape> rectanglePtr(new CRectangle(leftTop, rightBottom, outlineColor, fillColor));
+		if (height < 0)
+		{
+			m_output << "you wrote incorrect height\nheight less than 0" << std::endl;
+			return;
+		}
+
+		std::shared_ptr<IShape> rectanglePtr(new CRectangle(leftTop, width, height, outlineColor, fillColor));
 		m_arrayOfShapes.push_back(std::move(rectanglePtr));
 		m_output << "RectangleWasAdded\n";
 	}

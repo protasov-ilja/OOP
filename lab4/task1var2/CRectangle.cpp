@@ -3,9 +3,10 @@
 #include "CUtils.h"
 #include "Config.h"
 
-CRectangle::CRectangle(const CPoint& leftTopVertex, const CPoint& rightBottomVertex, const std::string& outlineColor, const std::string& fillColor)
+CRectangle::CRectangle(const CPoint& leftTopVertex, const double width, const double height, const std::string& outlineColor, const std::string& fillColor)
 	: m_leftTopVertex(leftTopVertex)
-	, m_rightBottomVertex(rightBottomVertex)
+	, m_width(width)
+	, m_height(height)
 {
 	SetFillColor(fillColor);
 	SetOutlineColor(outlineColor);
@@ -18,7 +19,7 @@ CPoint CRectangle::GetLeftTop() const
 
 CPoint CRectangle::GetRightBottom() const
 {
-	return m_rightBottomVertex;
+	return { GetLeftTop().x + GetWidth(), GetLeftTop().y + GetHeight() };
 }
 
 CPoint CRectangle::GetRightTop() const
@@ -33,12 +34,12 @@ CPoint CRectangle::GetLeftBottom() const
 
 double CRectangle::GetWidth() const
 {
-	return GetRightBottom().x - GetLeftTop().x;
+	return m_width;
 }
 
 double CRectangle::GetHeight() const
 {
-	return GetLeftTop().y - GetRightBottom().y;
+	return m_height;
 }
 
 double CRectangle::GetPerimeter() const
@@ -73,8 +74,8 @@ std::string CRectangle::ToString() const
 	strm << std::fixed << std::setprecision(PRECISION);
 	strm << "perimeter:" << GetPerimeter() << " area:" << GetArea()
 		 << " fillcolor:" << GetFillColor() << " outlinecolor:" << GetOutlineColor()
-		 << " lefttop.x:" << m_leftTopVertex.x << " lefttop.y:" << m_leftTopVertex.y
-		 << " rightBottom.x:" << m_rightBottomVertex.x << " rightBottom.y:" << m_rightBottomVertex.y
+		 << " lefttop.x:" << GetLeftTop().x << " lefttop.y:" << GetLeftTop().y
+		 << " rightBottom.x:" << GetRightBottom().x << " rightBottom.y:" << GetRightBottom().y
 		 << " width:" << GetWidth() << " height:" << GetHeight() << std::endl;
 
 	return strm.str();

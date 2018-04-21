@@ -39,6 +39,7 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 	SECTION("can add line segment")
 	{
 		VerifyCommandHandling("lineSegment 1 2 3 4 ffffff", "LineSegmentWasAdded\n");
+		VerifyCommandHandling("lineSegment 1 2 3 4 ffffffff", "LineSegmentWasAdded\n");
 		VerifyCommandHandling("lineSegment 11 22 22 34 000000", "LineSegmentWasAdded\n");
 		VerifyCommandHandling("lineSegment 12 22 33 4 aaaaaa", "LineSegmentWasAdded\n");
 		VerifyCommandHandling("lineSegment 13.4 4.2 3.5 4.4 999999", "LineSegmentWasAdded\n");
@@ -72,6 +73,8 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 	SECTION("can add circle")
 	{
 		VerifyCommandHandling("circle 1 2 2 ffffff ffffff", "CircleWasAdded\n");
+		VerifyCommandHandling("circle 1 2 2 ffffffff ffffff", "CircleWasAdded\n");
+		VerifyCommandHandling("circle 1 2 2 ffffff ffffffff", "CircleWasAdded\n");
 		VerifyCommandHandling("circle 1 2 2 000000 000000", "CircleWasAdded\n");
 		VerifyCommandHandling("circle 1 2 3 aaaaaa aaaaaa", "CircleWasAdded\n");
 		VerifyCommandHandling("circle 1 2 5 999999 999999", "CircleWasAdded\n");
@@ -121,10 +124,13 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 	// может добавить пр€моугольник
 	SECTION("can add rectangle")
 	{
-		VerifyCommandHandling("rectangle 1 1 2 0 ffffff ffffff", "RectangleWasAdded\n");
-		VerifyCommandHandling("rectangle 1 1 2 0 000000 000000", "RectangleWasAdded\n");
-		VerifyCommandHandling("rectangle 1 1 2 0 aaaaaa aaaaaa", "RectangleWasAdded\n");
-		VerifyCommandHandling("rectangle 1 1 2 0 999999 999999", "RectangleWasAdded\n");
+		VerifyCommandHandling("rectangle 1 1 2 2 ffffffff ffffff", "RectangleWasAdded\n");
+		VerifyCommandHandling("rectangle 1 1 2 2 ffffff aaffffff", "RectangleWasAdded\n");
+		VerifyCommandHandling("rectangle 1 1 2 2 ffffff ffffff", "RectangleWasAdded\n");
+		VerifyCommandHandling("rectangle 1 1 2 2 ffffff ffffff", "RectangleWasAdded\n");
+		VerifyCommandHandling("rectangle 1 1 2 2 000000 000000", "RectangleWasAdded\n");
+		VerifyCommandHandling("rectangle 1 1 2 2 aaaaaa aaaaaa", "RectangleWasAdded\n");
+		VerifyCommandHandling("rectangle 1 1 2 2 999999 999999", "RectangleWasAdded\n");
 	}
 
 	// не может добавить пр€моугольник если параметры не указаны или неправильного типа и возвращает информацию об ошибке
@@ -159,17 +165,27 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 		VerifyCommandHandling("circle 1 2 3 0 000000 fff99fd", "you wrote incorrect color\ncolor must be hex color\n");
 	}
 
-	// не может добавить пр€моугольник если верхн€€ лева€ точка находитс€ правее или ниже нижней правой точки
-	SECTION("cant add a rectangle if the top left point is to the right of or below the lower right point")
+	// не может добавить пр€моугольник если ширина меньше 0
+	SECTION("cant add rectangle if width is less than 0")
 	{
-		VerifyCommandHandling("rectangle 4 2 3 0 ffffff ffffff", "you wrote incorrect lefttop or rightbottom points\n leftTop.x < rightBottom.x and leftTop.y > rightBottom.y\n");
-		VerifyCommandHandling("rectangle 1 2 3 4 ffffff ffffff", "you wrote incorrect lefttop or rightbottom points\n leftTop.x < rightBottom.x and leftTop.y > rightBottom.y\n");
-		VerifyCommandHandling("rectangle 4 2 3 4 ffffff ffffff", "you wrote incorrect lefttop or rightbottom points\n leftTop.x < rightBottom.x and leftTop.y > rightBottom.y\n");
+		VerifyCommandHandling("rectangle 4 2 -1 0 ffffff ffffff", "you wrote incorrect width\nwidth less than 0\n");
+		VerifyCommandHandling("rectangle 1 2 -0.1 4 ffffff ffffff", "you wrote incorrect width\nwidth less than 0\n");
+		VerifyCommandHandling("rectangle 4 2 -10 4 ffffff ffffff", "you wrote incorrect width\nwidth less than 0\n");
+	}
+
+	// не может добавить пр€моугольник если высота меньше 0
+	SECTION("cant add rectangle if height is less than 0")
+	{
+		VerifyCommandHandling("rectangle 4 2 2 -1 ffffff ffffff", "you wrote incorrect height\nheight less than 0\n");
+		VerifyCommandHandling("rectangle 1 2 2 -0.1 ffffff ffffff", "you wrote incorrect height\nheight less than 0\n");
+		VerifyCommandHandling("rectangle 4 2 2 -10 ffffff ffffff", "you wrote incorrect height\nheight less than 0\n");
 	}
 
 	// может добавить треугольник
 	SECTION("can add triangle")
 	{
+		VerifyCommandHandling("triangle 0 0 2 2 4 0 ffffffff ffffff", "TriangleWasAdded\n");
+		VerifyCommandHandling("triangle 0 0 2 2 4 0 ffffff aaffffff", "TriangleWasAdded\n");
 		VerifyCommandHandling("triangle 0 0 2 2 4 0 ffffff ffffff", "TriangleWasAdded\n");
 		VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 000000", "TriangleWasAdded\n");
 		VerifyCommandHandling("triangle 0 0 2 2 4 0 aaaaaa aaaaaa", "TriangleWasAdded\n");
@@ -189,7 +205,7 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 	}
 
 	// не может добавить треугольник если цвет контура указан неправильно
-	SECTION("cant add rectangle if outline color is not in the 16-bit number system and its length is less than or greater than 6")
+	SECTION("cant add triangle if outline color is not in the 16-bit number system and its length is less than or greater than 6")
 	{
 		VerifyCommandHandling("rectangle 0 0 2 2 4 0 afd32 000000", "you wrote incorrect color\ncolor must be hex color\n");
 		VerifyCommandHandling("rectangle 0 0 2 2 4 0 fgFfff 000000", "you wrote incorrect color\ncolor must be hex color\n");
@@ -199,13 +215,13 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 	}
 
 	// не может добавить треугольник если цвет заливки указан неправильно
-	SECTION("cant add rectangle if fill color is not in the 16-bit number system and its length is less than or greater than 6")
+	SECTION("cant add triangle if fill color is not in the 16-bit number system and its length is less than or greater than 6")
 	{
-		VerifyCommandHandling("rectangle 0 0 2 2 4 0 000000 afd32", "you wrote incorrect color\ncolor must be hex color\n");
-		VerifyCommandHandling("rectangle 0 0 2 2 4 0 000000 fgFfff", "you wrote incorrect color\ncolor must be hex color\n");
-		VerifyCommandHandling("rectangle 0 0 2 2 4 0 000000 gfFfff", "you wrote incorrect color\ncolor must be hex color\n");
-		VerifyCommandHandling("rectangle 0 0 2 2 4 0 000000 fFfffg", "you wrote incorrect color\ncolor must be hex color\n");
-		VerifyCommandHandling("rectangle 0 0 2 2 4 0 000000 fff99fd", "you wrote incorrect color\ncolor must be hex color\n");
+		VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 afd32", "you wrote incorrect color\ncolor must be hex color\n");
+		VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 fgFfff", "you wrote incorrect color\ncolor must be hex color\n");
+		VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 gfFfff", "you wrote incorrect color\ncolor must be hex color\n");
+		VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 fFfffg", "you wrote incorrect color\ncolor must be hex color\n");
+		VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 fff99fd", "you wrote incorrect color\ncolor must be hex color\n");
 	}
 	
 	// если массив фигур не пуст
@@ -215,7 +231,7 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 		SECTION("can find figure with min perimeter and display information about it")
 		{
 			VerifyCommandHandling("lineSegment 0 0 2 0 aad32d", "LineSegmentWasAdded\n");
-			VerifyCommandHandling("minPerimeter", "minPerimeterShape: perimeter:2.00 area:0.00 outlinecolor:aad32d startpoint.x:0.00 startpoint.y:0.00 endpoint.x:2.00 endpoint.y:0.00\n");
+			VerifyCommandHandling("minPerimeter", "minPerimeterShape: perimeter:2.00 area:0.00 outlinecolor:aad32dff startpoint.x:0.00 startpoint.y:0.00 endpoint.x:2.00 endpoint.y:0.00\n");
 		}
 
 		// может найти фигуру с мах площадью и вывести информацию о ней
@@ -223,7 +239,7 @@ TEST_CASE_METHOD(ShapeControllerFixture, "test shapeController ",)
 		{
 			VerifyCommandHandling("lineSegment 0 0 2 0 aad32d", "LineSegmentWasAdded\n");
 			VerifyCommandHandling("triangle 0 0 2 2 4 0 000000 ffffff", "TriangleWasAdded\n");
-			VerifyCommandHandling("maxArea", "maxAreaShape: perimeter:2.00 area:0.00 outlinecolor:aad32d startpoint.x:0.00 startpoint.y:0.00 endpoint.x:2.00 endpoint.y:0.00\n");
+			VerifyCommandHandling("maxArea", "maxAreaShape: perimeter:2.00 area:0.00 outlinecolor:aad32dff startpoint.x:0.00 startpoint.y:0.00 endpoint.x:2.00 endpoint.y:0.00\n");
 		}
 	}
 
