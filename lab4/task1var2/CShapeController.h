@@ -17,6 +17,7 @@ public:
 private:
 	typedef std::map<std::string, std::function<void(std::istream& args)>> ActionMap;
 
+	void DrawShapes(std::istream& args);
 	void GetShapeWithMinPerimeter(std::istream& args) const;
 	void GetShapeWithMaxArea(std::istream& args) const;
 	void AddCircle(std::istream& args);
@@ -24,6 +25,7 @@ private:
 	void AddRectangle(std::istream& args);
 	void AddTriangle(std::istream& args);
 	bool IsColor(const std::string& color) const;
+	void AddAlphaToColor(std::string& color);
 
 	std::vector<std::shared_ptr<IShape>> m_arrayOfShapes;
 	std::istream& m_input;

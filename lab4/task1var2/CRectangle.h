@@ -15,8 +15,11 @@ public:
 	CPoint GetRightBottom() const;
 	double GetWidth() const;
 	double GetHeight() const;
+	void Draw(ICanvas& canvas) override;
 
 private:
+	CPoint GetRightTop() const;
+	CPoint GetLeftBottom() const;
 	CPoint m_leftTopVertex;
 	CPoint m_rightBottomVertex;
 };

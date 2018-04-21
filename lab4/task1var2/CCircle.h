@@ -13,6 +13,7 @@ public:
 	std::string ToString() const override;
 	CPoint GetCenter() const;
 	double GetRadius() const;
+	void Draw(ICanvas& canvas) override;
 
 private:
 	CPoint m_circleCenter;

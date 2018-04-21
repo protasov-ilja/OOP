@@ -1,12 +1,7 @@
 #include "stdafx.h"
 #include "CShapeController.h"
-
-const std::string COMMAND_ADD_CIRCLE = "circle";
-const std::string COMMAND_ADD_RECTANGLE = "rectangle";
-const std::string COMMAND_ADD_TRIANGLE = "triangle";
-const std::string COMMAND_ADD_LINE_SEGMENT = "lineSegment";
-const std::string COMMAND_GET_MIN_PERIMETER = "minPerimeter";
-const std::string COMMAND_GET_MAX_AREA = "maxArea";
+#include "CCanvas.h"
+#include "Config.h"
 
 CShapeController::CShapeController(std::istream& input, std::ostream& output)
 	: m_input(input)
@@ -16,7 +11,8 @@ CShapeController::CShapeController(std::istream& input, std::ostream& output)
 		  { COMMAND_ADD_TRIANGLE, bind(&CShapeController::AddTriangle, this, std::placeholders::_1) },
 		  { COMMAND_ADD_LINE_SEGMENT, bind(&CShapeController::AddLineSegment, this, std::placeholders::_1) },
 		  { COMMAND_GET_MIN_PERIMETER, bind(&CShapeController::GetShapeWithMinPerimeter, this, std::placeholders::_1) },
-		  { COMMAND_GET_MAX_AREA, bind(&CShapeController::GetShapeWithMaxArea, this, std::placeholders::_1) } })
+		  { COMMAND_GET_MAX_AREA, bind(&CShapeController::GetShapeWithMaxArea, this, std::placeholders::_1) },
+		  { COMMAND_DRAW_ALL, bind(&CShapeController::DrawShapes, this, std::placeholders::_1) }})
 {
 }
 
@@ -41,7 +37,7 @@ bool CShapeController::HandleCommand()
 
 bool CShapeController::IsColor(const std::string& color) const
 {
-	std::regex regex(R"(^([A-Fa-f0-9]){6}$)");
+	std::regex regex(R"(^([A-Fa-f0-9]){6}(([A-Fa-f0-9]){2})?$)");
 	std::smatch result;
 	if (!std::regex_match(color, result, regex))
 	{
@@ -54,6 +50,42 @@ bool CShapeController::IsColor(const std::string& color) const
 	}
 
 	return true;
+}
+
+void CShapeController::AddAlphaToColor(std::string& color)
+{
+	if (color.length() == 6)
+	{
+		color += "ff";
+	}
+}
+
+void CShapeController::DrawShapes(std::istream&)
+{
+	if (m_arrayOfShapes.empty())
+	{
+		m_output << "array of shapes is empty!" << std::endl;
+		return;
+	}
+
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Canvas");
+	CCanvas canvas(window);
+	for (auto shape : m_arrayOfShapes)
+	{
+		shape->Draw(canvas);
+	}
+
+	window.display();
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+	}
 }
 
 void CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
@@ -110,6 +142,8 @@ void CShapeController::AddCircle(std::istream& args)
 			return;
 		}
 
+		AddAlphaToColor(outlineColor);
+		AddAlphaToColor(fillColor);
 		std::shared_ptr<IShape> circlePtr(new CCircle(center, radius, outlineColor, fillColor));
 		m_arrayOfShapes.push_back(std::move(circlePtr));
 		m_output << "CircleWasAdded\n";
@@ -137,6 +171,7 @@ void CShapeController::AddLineSegment(std::istream& args)
 			return;
 		}
 
+		AddAlphaToColor(outlineColor);
 		std::shared_ptr<IShape> lineSegmentPtr(new CLineSegment(start, end, outlineColor));
 		m_arrayOfShapes.push_back(std::move(lineSegmentPtr));
 		m_output << "LineSegmentWasAdded\n";
@@ -165,6 +200,8 @@ void CShapeController::AddRectangle(std::istream& args)
 			return;
 		}
 
+		AddAlphaToColor(outlineColor);
+		AddAlphaToColor(fillColor);
 		if ((leftTop.x > rightBottom.x) || (leftTop.y < rightBottom.y))
 		{
 			m_output << "you wrote incorrect lefttop or rightbottom points\n leftTop.x < rightBottom.x and leftTop.y > rightBottom.y" << std::endl;
@@ -200,6 +237,8 @@ void CShapeController::AddTriangle(std::istream& args)
 			return;
 		}
 
+		AddAlphaToColor(outlineColor);
+		AddAlphaToColor(fillColor);
 		std::shared_ptr<IShape> trianglePtr(new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor));
 		m_arrayOfShapes.push_back(std::move(trianglePtr));
 		m_output << "TriangleWasAdded\n";

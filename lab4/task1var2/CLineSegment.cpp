@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "CLineSegment.h"
+#include "CUtils.h"
+#include "Config.h"
 
 CLineSegment::CLineSegment(const CPoint& startPointLine, const CPoint& endPointLine, const std::string& lineColor)
 	: m_startPointLine(startPointLine)
@@ -28,10 +30,15 @@ double CLineSegment::GetArea() const
 	return 0;
 }
 
+void CLineSegment::Draw(ICanvas& canvas)
+{
+	canvas.DrawLine(GetStartPoint(), GetEndPoint(), CUtils::StringToUint32(GetOutlineColor()));
+}
+
 std::string CLineSegment::ToString() const
 {
 	std::ostringstream strm;
-	strm << std::fixed << std::setprecision(2);
+	strm << std::fixed << std::setprecision(PRECISION);
 	strm << "perimeter:" << GetPerimeter() << " area:" << GetArea()
 		 << " outlinecolor:" << GetOutlineColor() << " startpoint.x:" << m_startPointLine.x
 		 << " startpoint.y:" << m_startPointLine.y << " endpoint.x:" << m_endPointLine.x

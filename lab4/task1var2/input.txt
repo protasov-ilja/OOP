@@ -1,0 +1,18 @@
+rectangle 0 300 -800 300 00ff00ff 00ff00ff
+rectangle 0 0 800 -300 42aaffff 42aaffff
+rectangle 300 250 200 -200 964b00ff 964b00ff
+triangle 290 250 400 100 510 250 7b3f00ff 7b3f00ff
+rectangle 350 300 100 -100 000000ff ffffffff
+rectangle 395 300 10 -100 000000ff 964b00ff
+rectangle 440 100 30 -100 7b3f00ff 7b3f00ff 
+circle 450 70 10 808080ff 808080ff
+circle 480 40 10 808080ff 808080ff
+circle 180 40 40 ffffffff ffffffff
+circle 160 30 30 ffffffff ffffffff
+circle 155 40 20 ffffffff ffffffff
+circle 155 70 25 ffffffff ffffffff
+circle 580 40 30 ffffffff ffffffff
+circle 560 30 30 ffffffff ffffffff
+circle 555 40 30 ffffffff ffffffff
+circle 610 34 30 ffffffff ffffffff
+drawAll
