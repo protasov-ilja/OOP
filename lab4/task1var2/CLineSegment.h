@@ -13,7 +13,7 @@ public:
 	std::string ToString() const override;
 	CPoint GetStartPoint() const;
 	CPoint GetEndPoint() const;
-	void Draw(ICanvas& canvas) override;
+	void Draw(ICanvas& canvas) const override;
 
 private:
 	CPoint m_startPointLine;

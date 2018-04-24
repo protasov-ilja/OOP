@@ -41,7 +41,7 @@ double CTriangle::GetArea() const
 	return result < 0 ? result * -1 : result;
 }
 
-void CTriangle::Draw(ICanvas& canvas)
+void CTriangle::Draw(ICanvas& canvas) const
 {
 	std::vector<CPoint> vertices = {
 		GetVertex1(),

@@ -52,7 +52,7 @@ double CRectangle::GetArea() const
 	return CRectangle::GetWidth() * CRectangle::GetHeight();
 }
 
-void CRectangle::Draw(ICanvas& canvas)
+void CRectangle::Draw(ICanvas& canvas) const
 {
 	Points vertices = {
 		GetLeftTop(),

@@ -16,7 +16,7 @@ CPoint CCircle::GetCenter() const
 	return m_circleCenter;
 }
 
-void CCircle::Draw(ICanvas& canvas)
+void CCircle::Draw(ICanvas& canvas) const
 {
 	canvas.FillCircle(GetCenter(), GetRadius(), CUtils::StringToUint32(GetFillColor()));
 	canvas.DrawCircle(GetCenter(), GetRadius(), CUtils::StringToUint32(GetOutlineColor()));

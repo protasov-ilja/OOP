@@ -30,7 +30,7 @@ double CLineSegment::GetArea() const
 	return 0;
 }
 
-void CLineSegment::Draw(ICanvas& canvas)
+void CLineSegment::Draw(ICanvas& canvas) const
 {
 	canvas.DrawLine(GetStartPoint(), GetEndPoint(), CUtils::StringToUint32(GetOutlineColor()));
 }
