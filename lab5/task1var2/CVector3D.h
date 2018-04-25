@@ -9,10 +9,10 @@ public:
 	void Normalize();
 	CVector3D const operator-() const;
 	CVector3D const operator+() const;
-	CVector3D const operator+(const CVector3D& vector2) const;
-	CVector3D const operator-(const CVector3D& vector2) const;
-	CVector3D operator+=(const CVector3D& vector2);
-	CVector3D operator-=(const CVector3D& vector2);
+	CVector3D const operator+(const CVector3D& vector) const;
+	CVector3D const operator-(const CVector3D& vector) const;
+	CVector3D operator+=(const CVector3D& vector);
+	CVector3D operator-=(const CVector3D& vector);
 	CVector3D const operator*(double scalar) const;
 	CVector3D const operator/(double scalar) const;
 	CVector3D operator*=(double scalar);
