@@ -28,7 +28,6 @@ private:
 	bool CompareDoubleNumbers(double number1, double number2) const;
 };
 
-
-CVector3D const operator *(double scalar, const CVector3D& vector);
-std::istream& operator >>(std::istream& stream, CVector3D& vector);
-std::ostream& operator <<(std::ostream& stream, const CVector3D& vector);
+CVector3D const operator*(double scalar, const CVector3D& vector);
+std::istream& operator>>(std::istream& stream, CVector3D& vector);
+std::ostream& operator<<(std::ostream& stream, const CVector3D& vector);

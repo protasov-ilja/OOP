@@ -29,7 +29,7 @@ TEST_CASE("test vector3D")
 	SECTION("can create its own instance with the specified parameters")
 	{
 		CVector3D vector(2, 4, 5);
-		REQUIRE(compareVectors3D(vector, {2, 4, 5}));
+		REQUIRE(compareVectors3D(vector, { 2, 4, 5 }));
 	}
 
 	// может вернуть свою длину
@@ -45,7 +45,7 @@ TEST_CASE("test vector3D")
 		CVector3D vector(2, 2, 1);
 		double lengthInversion = 1 / vector.GetLength();
 		vector.Normalize();
-		REQUIRE(compareVectors3D(vector, { (2 * lengthInversion) , (2 * lengthInversion), (1 * lengthInversion) }));
+		REQUIRE(compareVectors3D(vector, { (2 * lengthInversion), (2 * lengthInversion), (1 * lengthInversion) }));
 	}
 
 	// не меняет своих данных при использовании унарного плюса
@@ -70,7 +70,7 @@ TEST_CASE("test vector3D")
 		CVector3D vector1(2, 4.4, 5);
 		CVector3D vector2(0, 0, 0);
 		CVector3D addVector = vector1 + vector2;
-		REQUIRE(compareVectors3D(addVector, {2, 4.4, 5}));
+		REQUIRE(compareVectors3D(addVector, { 2, 4.4, 5 }));
 	}
 
 	// может вычесть длину второго вектора из длины первого
@@ -109,7 +109,7 @@ TEST_CASE("test vector3D")
 		REQUIRE(compareVectors3D(vector2, { 2, 4, 6 }));
 	}
 
-	// может вернуть результат умножения скаляра на свою длину 
+	// может вернуть результат умножения скаляра на свою длину
 	SECTION("can return the result of multiplying the scalar by its length")
 	{
 		double scalar = 2;
