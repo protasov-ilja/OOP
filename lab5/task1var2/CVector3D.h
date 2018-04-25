@@ -1,10 +1,10 @@
 #pragma once
+#include <iostream>
 class CVector3D
 {
 public:
 	CVector3D() = default;
 	CVector3D(double x0, double y0, double z0);
-	~CVector3D() = default;
 	double GetLength() const;
 	void Normalize();
 	CVector3D const operator-() const;

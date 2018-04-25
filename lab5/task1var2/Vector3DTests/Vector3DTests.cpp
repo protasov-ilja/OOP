@@ -153,7 +153,7 @@ TEST_CASE("test vector3D")
 		REQUIRE(vector1 == vector2);
 	}
 
-	// при сравнении двух векторов возвращает ложь при их не равенстве
+	// при проверке на равенство сравнении двух векторов возвращает ложь при их не равенстве
 	SECTION("when comparing two vectors returns false if they do not equal")
 	{
 		CVector3D vector1(2, 2, 2);
@@ -195,3 +195,5 @@ TEST_CASE("test vector3D")
 		REQUIRE(strm.str() == "1, 2, 3");
 	}
 }
+
+// TODO: разделить на Test unitы

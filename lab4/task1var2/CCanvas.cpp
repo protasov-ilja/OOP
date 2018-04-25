@@ -19,6 +19,7 @@ void CCanvas::DrawLine(CPoint from, CPoint to, uint32_t lineColor)
 					   static_cast<float>(to.y)),
 			sf::Color(sf::Uint32(lineColor)))
 	};
+
 	m_window.draw(points, THICKNESS, sf::Lines);
 }
 void CCanvas::FillPolygon(Points points, uint32_t fillColor)
