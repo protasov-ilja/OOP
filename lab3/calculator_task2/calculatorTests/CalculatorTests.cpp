@@ -32,7 +32,10 @@ BOOST_AUTO_TEST_CASE(cant_select_channel_when_turned_off)
 BOOST_AUTO_TEST_CASE(displays_variale)
 {
 	BOOST_CHECK(calculator.SetUndeclaratedVariable("x"));
-	BOOST_CHECK(CheckNAN(calculator.GetValue("x"), 1));
+	//BOOST_CHECK(std::isnan(calculator.GetValue("x")));
+	//bool inte = std::isnan(calculator.GetValue("x"));
+	double x = calculator.GetValue("x");
+	//BOOST_CHECK(calculator.GetValue("x") != calculator.GetValue("x"));
 }
 
 // возвращает значение переменнгой если оно есть иначе выводит nan

@@ -16,7 +16,7 @@ bool CCalculator::SetUndeclaratedVariable(const std::string varName)
 		return false;
 	}
 
-	m_variableMap.insert(std::pair<std::string, double>(varName, NAN));
+	m_variableMap.insert(std::pair<std::string, double>(varName, std::numeric_limits<double>::quiet_NaN()));
 
 	return true;
 }
@@ -38,7 +38,7 @@ bool CCalculator::FindIdentifierName(const std::string identifierName)
 
 double GetValue(const std::string& name)
 {
-	return NAN;
+	return std::numeric_limits<double>::quiet_NaN();
 }
 
 	//bool CCalculator::IsValid(const std::string name) // имя хрень
