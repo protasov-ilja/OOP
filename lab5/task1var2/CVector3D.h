@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+
 class CVector3D
 {
 public:
@@ -11,12 +12,12 @@ public:
 	CVector3D const operator+() const;
 	CVector3D const operator+(const CVector3D& vector) const;
 	CVector3D const operator-(const CVector3D& vector) const;
-	CVector3D operator+=(const CVector3D& vector);
-	CVector3D operator-=(const CVector3D& vector);
+	CVector3D& operator+=(const CVector3D& vector);
+	CVector3D& operator-=(const CVector3D& vector);
 	CVector3D const operator*(double scalar) const;
 	CVector3D const operator/(double scalar) const;
-	CVector3D operator*=(double scalar);
-	CVector3D operator/=(double scalar);
+	CVector3D& operator*=(double scalar);
+	CVector3D& operator/=(double scalar);
 	bool operator==(const CVector3D& otherVector) const;
 	bool operator!=(const CVector3D& otherVector) const;
 
@@ -31,3 +32,7 @@ private:
 CVector3D const operator*(double scalar, const CVector3D& vector);
 std::istream& operator>>(std::istream& stream, CVector3D& vector);
 std::ostream& operator<<(std::ostream& stream, const CVector3D& vector);
+
+double DotProduct(const CVector3D& v1, const CVector3D& v2);
+CVector3D CrossProduct(const CVector3D& v1, const CVector3D& v2);
+CVector3D Normalize(const CVector3D& v);

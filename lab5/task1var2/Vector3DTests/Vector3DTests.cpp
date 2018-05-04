@@ -26,7 +26,7 @@ TEST_CASE("test vector3D")
 	}
 
 	// может создать свой экземпляр с заданными параметрами
-	SECTION("can create its own instance with the specified parameters")
+	SECTION("can create its own instance with specified parameters")
 	{
 		CVector3D vector(2, 4, 5);
 		REQUIRE(compareVectors3D(vector, { 2, 4, 5 }));
@@ -47,153 +47,253 @@ TEST_CASE("test vector3D")
 		vector.Normalize();
 		REQUIRE(compareVectors3D(vector, { (2 * lengthInversion), (2 * lengthInversion), (1 * lengthInversion) }));
 	}
+}
 
-	// не меняет своих данных при использовании унарного плюса
-	SECTION("doesnt change its data when using the unary plus")
+// перегруженый оператор
+TEST_CASE("override")
+{
+	// унарный плюс
+	SECTION("unary plus")
 	{
-		CVector3D vector(2, 4, 5);
-		CVector3D vector1 = +vector;
-		REQUIRE(compareVectors3D(vector1, { 2, 4, 5 }));
+		// не меняет данных вектора
+		SECTION("doesnt change vectors data")
+		{
+			CVector3D vector(2, 4, 5);
+			CVector3D vector1 = +vector;
+			REQUIRE(compareVectors3D(vector1, { 2, 4, 5 }));
+		}
 	}
 
-	// может изменить свои параметры на противоположные при использовании унарного минуса
-	SECTION("can change its parameters to the opposite when using the unary minus")
+	// унарный минус
+	SECTION("unary minus")
 	{
-		CVector3D vector(2, 4, 5);
-		CVector3D vector1 = -vector;
-		REQUIRE(compareVectors3D(vector1, { -2, -4, -5 }));
+		// может поменять параметры вектора на противоположные
+		SECTION("can change parameters of vector to opposite")
+		{
+			CVector3D vector(2, 4, 5);
+			CVector3D vector1 = -vector;
+			REQUIRE(compareVectors3D(vector1, { -2, -4, -5 }));
+		}
 	}
 
-	// может сложить длину второго вектора с длиной первого
-	SECTION("can add the length of the second vector with the length of the first")
+	// плюс
+	SECTION("plus")
 	{
-		CVector3D vector1(2, 4.4, 5);
-		CVector3D vector2(0, 0, 0);
-		CVector3D addVector = vector1 + vector2;
-		REQUIRE(compareVectors3D(addVector, { 2, 4.4, 5 }));
+		// может сложить длину второго вектора с длиной первого
+		SECTION("can add length of second vector with length of first")
+		{
+			CVector3D vector1(2, 4.4, 5);
+			CVector3D vector2(0, 0, 0);
+			CVector3D addVector = vector1 + vector2;
+			REQUIRE(compareVectors3D(addVector, { 2, 4.4, 5 }));
+		}
 	}
 
-	// может вычесть длину второго вектора из длины первого
-	SECTION("can subtract the length of the second vector from the length of the first")
+	// минус
+	SECTION("minus")
 	{
-		CVector3D vector1(2, 4.4, 5);
-		CVector3D vector2(0, 0, 0);
-		CVector3D subVector = vector1 - vector2;
-		REQUIRE(compareVectors3D(subVector, { 2, 4.4, 5 }));
+		// может вычесть длину второго вектора из длины первого
+		SECTION("can subtract length of second vector from length of first")
+		{
+			CVector3D vector1(2, 4.4, 5);
+			CVector3D vector2(0, 0, 0);
+			CVector3D subVector = vector1 - vector2;
+			REQUIRE(compareVectors3D(subVector, { 2, 4.4, 5 }));
+		}
 	}
 
-	// может вернуть результат увеличения своей длины на длину второго вектора
-	SECTION("can return the result of increasing its length by the length of the second vector")
+	// +=
+	SECTION("+=")
 	{
-		CVector3D vector1(2, 4.4, 5);
-		CVector3D vector2(0, 0, 0);
-		vector1 += vector2;
-		REQUIRE(compareVectors3D(vector1, { 2, 4.4, 5 }));
+		// может увеличить длину вектора на длину второго вектора
+		SECTION("can increase length of vector by length of second vector")
+		{
+			CVector3D vector1(2, 4.4, 5);
+			CVector3D vector2(0, 0, 0);
+			vector1 += vector2;
+			REQUIRE(compareVectors3D(vector1, { 2, 4.4, 5 }));
+		}
 	}
 
-	// может вернуть результат уменьшения своей длины на длинну второго вектора
-	SECTION("can return the result of decreasing its length by the length of the second vector")
+	// -=
+	SECTION("-=")
 	{
-		CVector3D vector1(2, 4.4, 5);
-		CVector3D vector2(0, 0, 0);
-		vector1 -= vector2;
-		REQUIRE(compareVectors3D(vector1, { 2, 4.4, 5 }));
+		// может вычесть длину второго вектора из длины первого вектора
+		SECTION("can subtract length of second vector from length of first vector")
+		{
+			CVector3D vector1(2, 4.4, 5);
+			CVector3D vector2(0, 0, 0);
+			vector1 -= vector2;
+			REQUIRE(compareVectors3D(vector1, { 2, 4.4, 5 }));
+		}
 	}
 
-	// может вернуть результат умножения своей длины на скаляр
-	SECTION("can return the result of multiplying its length by scalar")
+	// умножения
+	SECTION("multiplication")
 	{
-		double scalar = 2;
-		CVector3D vector1(1, 2, 3);
-		CVector3D vector2 = vector1 * scalar;
-		REQUIRE(compareVectors3D(vector2, { 2, 4, 6 }));
+		// может умножить длину вектора на скаляр
+		SECTION("can multiply length of vector by scalar")
+		{
+			double scalar = 2;
+			CVector3D vector1(1, 2, 3);
+			CVector3D vector2 = vector1 * scalar;
+			REQUIRE(compareVectors3D(vector2, { 2, 4, 6 }));
+		}
+
+		// может умножить скаляр на длину вектора
+		SECTION("can multiply scalar by length of vector")
+		{
+			double scalar = 2;
+			CVector3D vector1(1, 2, 3);
+			CVector3D vector2 = scalar * vector1;
+			REQUIRE(compareVectors3D(vector2, { 2, 4, 6 }));
+		}
 	}
 
-	// может вернуть результат умножения скаляра на свою длину
-	SECTION("can return the result of multiplying the scalar by its length")
+	// деления
+	SECTION("division")
 	{
-		double scalar = 2;
-		CVector3D vector1(1, 2, 3);
-		CVector3D vector2 = scalar * vector1;
-		REQUIRE(compareVectors3D(vector2, { 2, 4, 6 }));
+		// может разделить длину вектора на скаляр
+		SECTION("can divide length of vector into scalar")
+		{
+			double scalar = 2;
+			CVector3D vector1(2, 2, 2);
+			CVector3D vector2 = vector1 / scalar;
+			REQUIRE(compareVectors3D(vector2, { 1, 1, 1 }));
+		}
 	}
 
-	// может вернуть результат деления своей длины на скаляр
-	SECTION("can return the result of dividing its length by a scalar")
+	// *=
+	SECTION("*=")
 	{
-		double scalar = 2;
-		CVector3D vector1(2, 2, 2);
-		CVector3D vector2 = vector1 / scalar;
-		REQUIRE(compareVectors3D(vector2, { 1, 1, 1 }));
+		// может умножить длину вектора на скаляр
+		SECTION("can multiply length of vector by scalar")
+		{
+			double scalar = 2;
+			CVector3D vector(1, 2, 3);
+			vector *= scalar;
+			REQUIRE(compareVectors3D(vector, { 2, 4, 6 }));
+		}
 	}
 
-	// может умножить свою длинну на скаляр
-	SECTION("can multiply its length by scalar")
+	// /=
+	SECTION("/=")
 	{
-		double scalar = 2;
-		CVector3D vector(1, 2, 3);
-		vector *= scalar;
-		REQUIRE(compareVectors3D(vector, { 2, 4, 6 }));
+		// может разделить длину вектора на скаляр
+		SECTION("can divide length of vector into scalar")
+		{
+			double scalar = 2;
+			CVector3D vector(2, 2, 2);
+			vector /= scalar;
+			REQUIRE(compareVectors3D(vector, { 1, 1, 1 }));
+		}
 	}
 
-	// может разделить свою длинну на скаляр
-	SECTION("can divide its length by scalar")
+	// равенства
+	SECTION("==")
 	{
-		double scalar = 2;
-		CVector3D vector(2, 2, 2);
-		vector /= scalar;
-		REQUIRE(compareVectors3D(vector, { 1, 1, 1 }));
+		// при сравнении двух векторов возвращает истину когда они равны
+		SECTION("when comparing two vectors returns true when they are equal")
+		{
+			CVector3D vector1(2, 2, 2);
+			CVector3D vector2(2, 2, 2);
+			REQUIRE(vector1 == vector2);
+		}
+
+		// при сравнении двух векторов возвращает ложь если они не равны
+		SECTION("when comparing two vectors returns false if they do not equal")
+		{
+			CVector3D vector1(2, 2, 2);
+			CVector3D vector2(2, 3, 2);
+			REQUIRE(!(vector1 == vector2));
+		}
 	}
 
-	// при сравнении двух векторов возвращает истину при их равенстве
-	SECTION("when comparing two vectors returns true when they are equal")
+	// неравенства
+	SECTION("!=")
 	{
-		CVector3D vector1(2, 2, 2);
-		CVector3D vector2(2, 2, 2);
-		REQUIRE(vector1 == vector2);
+		// при сравнении двух векторов возвращает истину если они не равны
+		SECTION("when comparing two vectors returns true if they do not equal")
+		{
+			CVector3D vector1(2, 2, 2);
+			CVector3D vector2(2, 3, 2);
+			REQUIRE(vector1 != vector2);
+		}
+
+		// при сравнении двух векторов возвращает ложь если они равны
+		SECTION("when comparing two vectors returns false if they are equal")
+		{
+			CVector3D vector1(2, 2, 2);
+			CVector3D vector2(2, 2, 2);
+			REQUIRE(!(vector1 != vector2));
+		}
 	}
 
-	// при проверке на равенство сравнении двух векторов возвращает ложь при их не равенстве
-	SECTION("when comparing two vectors returns false if they do not equal")
+	// считывания из потока
+	SECTION(">>")
 	{
-		CVector3D vector1(2, 2, 2);
-		CVector3D vector2(2, 3, 2);
-		REQUIRE(!(vector1 == vector2));
+		// может считывать вектор из потока в формате x, y, z
+		SECTION("can read a vector from a stream in the format x, y, z")
+		{
+			std::stringstream strm("2, 2, 2");
+			CVector3D vector;
+			strm >> vector;
+			REQUIRE(compareVectors3D(vector, { 2, 2, 2 }));
+		}
 	}
 
-	// при сравнении двух векторов возвращает истину при их не равенстве
-	SECTION("when comparing two vectors returns true if they do not equal")
+	// записи в поток
+	SECTION("<<")
 	{
-		CVector3D vector1(2, 2, 2);
-		CVector3D vector2(2, 3, 2);
-		REQUIRE(vector1 != vector2);
-	}
-
-	// при сравнении двух векторов возвращает ложь при их равенстве
-	SECTION("when comparing two vectors returns false if they are equal")
-	{
-		CVector3D vector1(2, 2, 2);
-		CVector3D vector2(2, 2, 2);
-		REQUIRE(!(vector1 != vector2));
-	}
-
-	// может считывать вектор из потока
-	SECTION("can read a vector from the stream")
-	{
-		std::stringstream strm("2, 2, 2");
-		CVector3D vector;
-		strm >> vector;
-		REQUIRE(compareVectors3D(vector, { 2, 2, 2 }));
-	}
-
-	// может записать вектор в поток
-	SECTION("can write a vector into a stream")
-	{
-		std::stringstream strm;
-		CVector3D vector(1, 2, 3);
-		strm << vector;
-		REQUIRE(strm.str() == "1, 2, 3");
+		// может записать вектор в поток в формате x, y, z
+		SECTION("can write a vector into a stream in the format x, y, z")
+		{
+			std::stringstream strm;
+			CVector3D vector(1, 2, 3);
+			strm << vector;
+			REQUIRE(strm.str() == "1, 2, 3");
+		}
 	}
 }
 
-// TODO: разделить на Test unitы
+// функция скалярного произведения
+TEST_CASE("DotProduct function")
+{
+	// может вернуть результат скалярного произведения двух трехмерных векторов
+	SECTION("can return result of scalar product of two three-dimensional vectors")
+	{
+		CVector3D vector1(1, 2, 3);
+		CVector3D vector2(-1, -2, -3);
+		double PoluchenResult = DotProduct(vector1, vector2);
+		double requireResult = (vector1.x * vector2.x) + (vector1.y * vector2.y) + (vector1.z * vector2.z);
+		REQUIRE(CompareDoubles(PoluchenResult, requireResult));
+	}
+}
+
+// функция векторного произведения
+TEST_CASE("CrossProduct function")
+{
+	// может вернуть результат векторного произведения двух трехмерных векторов
+	SECTION("can return result of cross product of two three-dimensional vectors")
+	{
+		CVector3D v1(1, 2, 3);
+		CVector3D v2(1, 2, 3);
+		CVector3D PoluchenResult = CrossProduct(v1, v2);
+		CVector3D requireResult((v1.y * v2.z) - (v1.z * v2.y), -1 * ((v1.x * v2.z) - (v1.z * v2.x)), (v1.x * v2.y) - (v1.y * v2.x));
+		REQUIRE(compareVectors3D(PoluchenResult, requireResult));
+	}
+}
+
+// функция нормализации
+TEST_CASE("Normalize function")
+{
+	// может вернуть единичный вектор, имеющий то же направление, что и вектор, выступающий в качестве аргумента функции
+	SECTION("can return unit vector which having same direction as vector that acting as argument of function")
+	{
+		CVector3D v1(1, 2, 3);
+		CVector3D PoluchenResult = Normalize(v1);
+		CVector3D normalizeVector(v1.x, v1.y, v1.z);
+		normalizeVector.Normalize();
+		REQUIRE(compareVectors3D(PoluchenResult, normalizeVector));
+	}
+}

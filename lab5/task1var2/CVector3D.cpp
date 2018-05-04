@@ -44,7 +44,7 @@ CVector3D const CVector3D::operator-(const CVector3D& vector) const
 	return CVector3D(x - vector.x, y - vector.y, z - vector.z);
 }
 
-CVector3D CVector3D::operator+=(const CVector3D& vector)
+CVector3D& CVector3D::operator+=(const CVector3D& vector)
 {
 	x += vector.x;
 	y += vector.y;
@@ -53,7 +53,7 @@ CVector3D CVector3D::operator+=(const CVector3D& vector)
 	return *this;
 }
 
-CVector3D CVector3D::operator-=(const CVector3D& vector)
+CVector3D& CVector3D::operator-=(const CVector3D& vector)
 {
 	x -= vector.x;
 	y -= vector.y;
@@ -72,7 +72,7 @@ CVector3D const CVector3D::operator/(double scalar) const
 	return CVector3D(x / scalar, y / scalar, z / scalar);
 }
 
-CVector3D CVector3D::operator*=(double scalar)
+CVector3D& CVector3D::operator*=(double scalar)
 {
 	x *= scalar;
 	y *= scalar;
@@ -81,7 +81,7 @@ CVector3D CVector3D::operator*=(double scalar)
 	return *this;
 }
 
-CVector3D CVector3D::operator/=(double scalar)
+CVector3D& CVector3D::operator/=(double scalar)
 {
 	x /= scalar;
 	y /= scalar;
@@ -93,6 +93,7 @@ CVector3D CVector3D::operator/=(double scalar)
 bool CVector3D::CompareDoubleNumbers(double number1, double number2) const
 {
 	double diff = number1 - number2;
+
 	return (diff < DBL_EPSILON) && (-diff < DBL_EPSILON);
 }
 
@@ -133,4 +134,27 @@ std::istream& operator>>(std::istream& stream, CVector3D& vector)
 CVector3D const operator*(double scalar, const CVector3D& vector)
 {
 	return CVector3D((scalar * vector.x), (scalar * vector.y), (scalar * vector.z));
+}
+
+double DotProduct(CVector3D const& v1, CVector3D const& v2)
+{
+	return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+}
+
+CVector3D CrossProduct(const CVector3D& v1, const CVector3D& v2)
+{
+	double x = (v1.y * v2.z) - (v1.z * v2.y);
+	double y = ((v1.x * v2.z) - (v1.z * v2.x));
+	y = (y == 0) ? y : (y * -1);
+	double z = (v1.x * v2.y) - (v1.y * v2.x);
+
+	return CVector3D(x, y, z);
+}
+
+CVector3D Normalize(const CVector3D& v)
+{
+	CVector3D normalizeVector(v.x, v.y, v.z);
+	normalizeVector.Normalize();
+
+	return normalizeVector;
 }
