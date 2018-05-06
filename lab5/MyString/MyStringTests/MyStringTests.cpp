@@ -135,6 +135,54 @@ TEST_CASE("SubString method")
 		CMyString emptyString("");
 		REQUIRE(emptyString.SubString(0, 0) == "");
 	}
+
+
+	// не может вернуть подстроку если начальная позиция копирования < 0 или > m_length
+	SECTION("can return substring specified by starting position and length")
+	{
+		CMyString string("string");
+		try
+		{
+			CMyString str = string.SubString(-1, 1);
+		}
+		catch (std::out_of_range const& error)
+		{
+			REQUIRE(static_cast<const std::string&>("substring is out of range") == error.what());
+		}
+
+		try
+		{
+			CMyString str = string.SubString(7, 1);
+		}
+		catch (std::out_of_range const& error)
+		{
+			REQUIRE(static_cast<const std::string&>("substring is out of range") == error.what());
+		}
+	}
+
+	// не может вернуть подстроку если длина строки меньше суммы начальной позиции копирования и длины подстроки
+	SECTION("can return substring specified by starting position and length")
+	{
+		CMyString string("string");
+		try
+		{
+			CMyString str = string.SubString(0, 7);
+		}
+		catch (std::out_of_range const& error)
+		{
+			REQUIRE(static_cast<const std::string&>("substring is out of range") == error.what());
+		}
+
+		try
+		{
+			CMyString str = string.SubString(3, 4);
+		}
+		catch (std::out_of_range const& error)
+		{
+			REQUIRE(static_cast<const std::string&>("substring is out of range") == error.what());
+		}
+	}
+	
 }
 
 // метод очистка
@@ -152,10 +200,10 @@ TEST_CASE("Clear method")
 
 struct CMyStringFixture
 {
-	size_t stringLength = 7;
+	size_t stringLength = 6;
 	CMyString string;
 	CMyStringFixture()
-		: string("string1", stringLength)
+		: string("string", stringLength)
 	{
 	}
 };
@@ -170,13 +218,12 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		SECTION("doesnt change data of string when assigning itself")
 		{
 			string = string;
-			REQUIRE(AreStringsEqual(string, "string1", stringLength));
+			REQUIRE(AreStringsEqual(string, "string", stringLength));
 		}
 
 		// меняет данные первой строки на данные второй
 		SECTION("changes data of first string to the data of second")
 		{
-			//CMyString str("string");
 			string = "new str";
 			REQUIRE(AreStringsEqual(string, "new str", 7));
 			CMyString str2("str");
@@ -191,33 +238,31 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может возвращать результат сложения двух экземпляров класса CMyString
 		SECTION("can return result of addition of two instances of class CMyString")
 		{
-			string = "string1";//CMyString string1("string1");
+			string = "string";
 			CMyString string2("string2");
 			CMyString string3("str");
-			CMyString str = string/*string1*/ + string2 + string3;
-			REQUIRE(str == "string1string2str");
-			REQUIRE(AreStringsEqual(str, "string1string2str", 17));
+			CMyString str = string + string2 + string3;
+			REQUIRE(str == "stringstring2str");
+			REQUIRE(AreStringsEqual(str, "stringstring2str", 16));
 		}
 
 		// может возвращать результат сложения экземпляра класса CMyString и класса std::string
 		SECTION("can return result of adding instance of class CMyString and class std::string")
 		{
-			//CMyString string1("string1");
 			std::string string2("string2");
-			CMyString str1 = string/*string1*/ + string2;
-			CMyString str2 = string2 + string/*string1*/;
-			REQUIRE(AreStringsEqual(str1, "string1string2", 14));
-			REQUIRE(AreStringsEqual(str2, "string2string1", 14));
+			CMyString str1 = string + string2;
+			CMyString str2 = string2 + string;
+			REQUIRE(AreStringsEqual(str1, "stringstring2", 13));
+			REQUIRE(AreStringsEqual(str2, "string2string", 13));
 		}
 
 		// может возвращать результат сложения экземпляра класса CMyString и const char*
 		SECTION("can return result of adding instance of class CMyString and const char*")
 		{
-			//CMyString string1("string1");
 			CMyString str1 = string + "string2";
 			CMyString str2 = "string2" + string;
-			REQUIRE(AreStringsEqual(str1, "string1string2", 14));
-			REQUIRE(AreStringsEqual(str2, "string2string1", 14));
+			REQUIRE(AreStringsEqual(str1, "stringstring2", 13));
+			REQUIRE(AreStringsEqual(str2, "string2string", 13));
 		}
 	}
 
@@ -229,7 +274,7 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		{
 			CMyString string1("string1");
 			string1 += string;
-			REQUIRE(AreStringsEqual(string1, "string1string1", 14));
+			REQUIRE(AreStringsEqual(string1, "string1string", 13));
 		}
 	}
 
@@ -239,29 +284,27 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// при сравнении двух строк возвращает истину при их равенстве
 		SECTION("when comparing two strings returns true if they are equal")
 		{
-			CMyString string1("string");
 			CMyString string2("string");
-			REQUIRE(string1 == string2);
-			REQUIRE(AreStringsEqual(string1, string2.GetStringData(), 6));
+			REQUIRE(string == string2);
+			REQUIRE(AreStringsEqual(string, string2.GetStringData(), 6));
 			CMyString string3("");
-			string1 = "";
-			REQUIRE(string1 == string3);
-			REQUIRE(AreStringsEqual(string1, string3.GetStringData(), 0));
+			string2 = "";
+			REQUIRE(string2 == string3);
+			REQUIRE(AreStringsEqual(string2, string3.GetStringData(), 0));
 		}
 
 		// при сравнении двух строк возвращает ложь при их не равенстве
 		SECTION("when comparing two strings returns false if they dont equal")
 		{
-			CMyString string1("string");
 			CMyString string2("strinh");
-			REQUIRE_FALSE((string1 == string2));
-			REQUIRE_FALSE(AreStringsEqual(string1, string2.GetStringData(), 6));
+			REQUIRE_FALSE((string == string2));
+			REQUIRE_FALSE(AreStringsEqual(string, string2.GetStringData(), 6));
 			string2 = "tes";
-			REQUIRE_FALSE((string1 == string2));
-			REQUIRE_FALSE(AreStringsEqual(string1, string2.GetStringData(), 3));
+			REQUIRE_FALSE((string == string2));
+			REQUIRE_FALSE(AreStringsEqual(string, string2.GetStringData(), 3));
 			string2 = "string1";
-			REQUIRE_FALSE((string1 == string2));
-			REQUIRE_FALSE(AreStringsEqual(string1, string2.GetStringData(), 7));
+			REQUIRE_FALSE((string == string2));
+			REQUIRE_FALSE(AreStringsEqual(string, string2.GetStringData(), 7));
 		}
 	}
 
@@ -271,25 +314,23 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// при сравнении двух строк возвращает истину при их не равенстве
 		SECTION("when comparing two strings returns true if they dont equal")
 		{
-			CMyString string1("string");
 			CMyString string2("strinh");
-			REQUIRE(string1 != string2);
-			REQUIRE_FALSE(AreStringsEqual(string1, string2.GetStringData(), 6));
+			REQUIRE(string != string2);
+			REQUIRE_FALSE(AreStringsEqual(string, string2.GetStringData(), 6));
 			string2 = "tes";
-			REQUIRE(string1 != string2);
-			REQUIRE_FALSE(AreStringsEqual(string1, string2.GetStringData(), 3));
+			REQUIRE(string != string2);
+			REQUIRE_FALSE(AreStringsEqual(string, string2.GetStringData(), 3));
 			string2 = "string1";
-			REQUIRE(string1 != string2);
-			REQUIRE_FALSE(AreStringsEqual(string1, string2.GetStringData(), 7));
+			REQUIRE(string != string2);
+			REQUIRE_FALSE(AreStringsEqual(string, string2.GetStringData(), 7));
 		}
 
 		// при сравнении двух строк возвращает ложь при их равенстве
 		SECTION("when comparing two strings returns false if they are equal")
 		{
-			CMyString string1("string");
 			CMyString string2("string");
-			REQUIRE_FALSE(string1 != string2);
-			REQUIRE(AreStringsEqual(string1, string2.GetStringData(), 6));
+			REQUIRE_FALSE(string != string2);
+			REQUIRE(AreStringsEqual(string, string2.GetStringData(), 6));
 		}
 	}
 
@@ -299,13 +340,43 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может по индексу считывать символ из строки
 		SECTION("can read character from string by index")
 		{
-			CMyString string("string");
 			auto ch = string[0];
 			REQUIRE(ch == 's');
 			ch = string[5];
 			REQUIRE(ch == 'g');
 			ch = string[2];
 			REQUIRE(ch == 'r');
+		}
+
+		// не может считывать символ из строки если индекс < 0 или >= длине строки
+		SECTION("can read character from string by index")
+		{
+			try
+			{
+				auto ch = string[-1];
+			}
+			catch (std::out_of_range const& error)
+			{
+				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
+			}
+			
+			try
+			{
+				auto ch = string[6];
+			}
+			catch (std::out_of_range const& error)
+			{
+				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
+			}
+
+			try
+			{
+				auto ch = string[100];
+			}
+			catch (std::out_of_range const& error)
+			{
+				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
+			}
 		}
 	}
 
@@ -315,14 +386,47 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может по индексу записывать символ в строку
 		SECTION("can write character in string by index")
 		{
-			CMyString string("string");
+			CMyString str("string");
 			auto ch = 'g';
-			string[0] = ch;
-			REQUIRE(string[0] == 'g');
-			string[2] = ch;
-			REQUIRE(string[2] == 'g');
-			string[5] = 's';
-			REQUIRE(string[5] == 's');
+			str[0] = ch;
+			REQUIRE(str[0] == 'g');
+			str[2] = ch;
+			REQUIRE(str[2] == 'g');
+			str[5] = 's';
+			REQUIRE(str[5] == 's');
+		}
+
+		// не может записывать символ в строку если индекс < 0 или >= длине строки
+		SECTION("can write character in string by index")
+		{
+			CMyString str("string");
+			auto ch = 'g';
+			try
+			{
+				str[-1] = ch;
+			}
+			catch (std::out_of_range const& error)
+			{
+				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
+			}
+
+			try
+			{
+				str[6] = ch;
+			}
+			catch (std::out_of_range const& error)
+			{
+				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
+			}
+
+			try
+			{
+				str[7] = ch;
+			}
+			catch (std::out_of_range const& error)
+			{
+				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
+			}
 		}
 	}
 
@@ -332,7 +436,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может вернуть истину если строка 1 меньше строки 2
 		SECTION("can return true if string 1 is less than string 2")
 		{
-			CMyString string("string");
 			CMyString string2("string1");
 			REQUIRE(string < string2);
 			string2 = "strink";
@@ -342,7 +445,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может вернуть ложь если строка 1 не меньше строки 2
 		SECTION("can return false if string 1 isnt less than string 2")
 		{
-			CMyString string("string");
 			CMyString string2("strin");
 			REQUIRE_FALSE(string < string2);
 			string2 = "string";
@@ -358,7 +460,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может вернуть истину если строка 1 больше или равна строке 2
 		SECTION("can return true if string 1 is greater than or equal to string 2")
 		{
-			CMyString string("string");
 			CMyString string2("strin");
 			REQUIRE(string >= string2);
 			string2 = "strina";
@@ -370,7 +471,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может вернуть ложь если строка 1 меньше строки 2
 		SECTION("can return false if string 1 is less than string 2")
 		{
-			CMyString string("string");
 			CMyString string2("string1");
 			REQUIRE_FALSE(string >= string2);
 			string2 = "strink";
@@ -384,7 +484,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может вернуть истину если строка 1 больше строки 2
 		SECTION("can return true if string 1 is greater than string 2")
 		{
-			CMyString string("string");
 			CMyString string2("strin");
 			REQUIRE(string > string2);
 			string2 = "strina";
@@ -394,7 +493,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может вернуть ложь если строка 1 не больше строки 2
 		SECTION("can return false if string 1 isnt greater than string 2")
 		{
-			CMyString string("string");
 			CMyString string2("string1");
 			REQUIRE_FALSE(string > string2);
 			string2 = "strink";
@@ -410,7 +508,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может вернуть истину если строка 1 меньше или равна строке 2
 		SECTION("can return true if string 1 is less than or equal to string 2")
 		{
-			CMyString string("string");
 			CMyString string2("string1");
 			REQUIRE(string <= string2);
 			string2 = "strink";
@@ -422,7 +519,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// может вернуть ложь если строка 1 больше строки 2
 		SECTION("can return false if string 1 is greater than string 2")
 		{
-			CMyString string("string");
 			CMyString string2("strin");
 			REQUIRE_FALSE(string <= string2);
 			string2 = "strina";
@@ -450,7 +546,6 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		SECTION("can write string into stream")
 		{
 			std::stringstream strm;
-			CMyString string("string");
 			strm << string;
 			REQUIRE(strm.str() == "string");
 		}

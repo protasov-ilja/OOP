@@ -141,14 +141,20 @@ bool CMyString::operator!=(const CMyString& string) const
 
 char const& CMyString::operator[](size_t index) const
 {
-	assert(index < m_length);
+	if ((index >= m_length) || (index < 0))
+	{
+		throw std::out_of_range("index is out of range");
+	}
 
 	return m_pChars[index];
 }
 
 char& CMyString::operator[](size_t index)
 {
-	assert(index < m_length);
+	if ((index >= m_length) || (index < 0))
+	{
+		throw std::out_of_range("index is out of range");
+	}
 
 	return m_pChars[index];
 }
