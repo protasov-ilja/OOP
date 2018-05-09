@@ -107,9 +107,6 @@
     <ClCompile Include="..\CShapeController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\CUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\CCanvas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -120,6 +117,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

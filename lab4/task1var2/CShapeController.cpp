@@ -12,7 +12,7 @@ CShapeController::CShapeController(std::istream& input, std::ostream& output)
 		  { COMMAND_ADD_LINE_SEGMENT, bind(&CShapeController::AddLineSegment, this, std::placeholders::_1) },
 		  { COMMAND_GET_MIN_PERIMETER, bind(&CShapeController::GetShapeWithMinPerimeter, this, std::placeholders::_1) },
 		  { COMMAND_GET_MAX_AREA, bind(&CShapeController::GetShapeWithMaxArea, this, std::placeholders::_1) },
-		  { COMMAND_DRAW_ALL, bind(&CShapeController::DrawShapes, this, std::placeholders::_1) }})
+		  { COMMAND_DRAW_ALL, bind(&CShapeController::DrawShapes, this, std::placeholders::_1) } })
 {
 }
 
@@ -68,14 +68,8 @@ void CShapeController::DrawShapes(std::istream&)
 		return;
 	}
 
-	sf::RenderWindow window(sf::VideoMode(800, 700), "Canvas");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Canvas");
 	CCanvas canvas(window);
-	for (auto shape : m_arrayOfShapes)
-	{
-		shape->Draw(canvas);
-	}
-
-	window.display();
 
 	while (window.isOpen())
 	{
@@ -83,12 +77,22 @@ void CShapeController::DrawShapes(std::istream&)
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
 				window.close();
+			}
 		}
+
+		window.clear();
+		for (auto shape : m_arrayOfShapes)
+		{
+			shape->Draw(canvas);
+		}
+
+		window.display();
 	}
 }
 
-void CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
+void CShapeController::GetShapeWithMinPerimeter(std::istream&) const
 {
 	if (m_arrayOfShapes.empty())
 	{
@@ -105,7 +109,7 @@ void CShapeController::GetShapeWithMinPerimeter(std::istream& args) const
 	return;
 }
 
-void CShapeController::GetShapeWithMaxArea(std::istream& args) const
+void CShapeController::GetShapeWithMaxArea(std::istream&) const
 {
 	if (m_arrayOfShapes.empty())
 	{
@@ -144,8 +148,7 @@ void CShapeController::AddCircle(std::istream& args)
 
 		AddAlphaToColor(outlineColor);
 		AddAlphaToColor(fillColor);
-		std::shared_ptr<IShape> circlePtr(new CCircle(center, radius, outlineColor, fillColor));
-		m_arrayOfShapes.push_back(std::move(circlePtr));
+		m_arrayOfShapes.push_back(std::make_shared<CCircle>(center, radius, outlineColor, fillColor));
 		m_output << "CircleWasAdded\n";
 	}
 	else
@@ -172,8 +175,7 @@ void CShapeController::AddLineSegment(std::istream& args)
 		}
 
 		AddAlphaToColor(outlineColor);
-		std::shared_ptr<IShape> lineSegmentPtr(new CLineSegment(start, end, outlineColor));
-		m_arrayOfShapes.push_back(std::move(lineSegmentPtr));
+		m_arrayOfShapes.push_back(std::make_shared<CLineSegment>(start, end, outlineColor));
 		m_output << "LineSegmentWasAdded\n";
 	}
 	else
@@ -215,8 +217,7 @@ void CShapeController::AddRectangle(std::istream& args)
 			return;
 		}
 
-		std::shared_ptr<IShape> rectanglePtr(new CRectangle(leftTop, width, height, outlineColor, fillColor));
-		m_arrayOfShapes.push_back(std::move(rectanglePtr));
+		m_arrayOfShapes.push_back(std::make_shared<CRectangle>(leftTop, width, height, outlineColor, fillColor));
 		m_output << "RectangleWasAdded\n";
 	}
 	else
@@ -246,8 +247,7 @@ void CShapeController::AddTriangle(std::istream& args)
 
 		AddAlphaToColor(outlineColor);
 		AddAlphaToColor(fillColor);
-		std::shared_ptr<IShape> trianglePtr(new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor));
-		m_arrayOfShapes.push_back(std::move(trianglePtr));
+		m_arrayOfShapes.push_back(std::make_shared<CTriangle>(vertex1, vertex2, vertex3, outlineColor, fillColor));
 		m_output << "TriangleWasAdded\n";
 	}
 	else

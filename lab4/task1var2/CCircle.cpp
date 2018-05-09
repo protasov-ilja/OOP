@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "CCircle.h"
-#include "CUtils.h"
 #include "Config.h"
+#include "Utils.h"
+
+using namespace Utils;
 
 CCircle::CCircle(const CPoint& circleCenter, const double circleRadius, const std::string& outlineColor, const std::string& fillColor)
 	: m_circleCenter(circleCenter)
@@ -18,8 +20,8 @@ CPoint CCircle::GetCenter() const
 
 void CCircle::Draw(ICanvas& canvas) const
 {
-	canvas.FillCircle(GetCenter(), GetRadius(), CUtils::StringToUint32(GetFillColor()));
-	canvas.DrawCircle(GetCenter(), GetRadius(), CUtils::StringToUint32(GetOutlineColor()));
+	canvas.FillCircle(GetCenter(), GetRadius(), StringToUint32(GetFillColor()));
+	canvas.DrawCircle(GetCenter(), GetRadius(), StringToUint32(GetOutlineColor()));
 }
 
 double CCircle::GetRadius() const

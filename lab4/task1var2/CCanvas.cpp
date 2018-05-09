@@ -2,6 +2,8 @@
 #include "CCanvas.h"
 #include "Config.h"
 
+const float THICKNESS = 3;
+
 CCanvas::CCanvas(sf::RenderWindow& window)
 	: m_window(window)
 {
@@ -20,8 +22,9 @@ void CCanvas::DrawLine(CPoint from, CPoint to, uint32_t lineColor)
 			sf::Color(sf::Uint32(lineColor)))
 	};
 
-	m_window.draw(points, THICKNESS, sf::Lines);
+	m_window.draw(points, 2, sf::Lines);
 }
+
 void CCanvas::FillPolygon(Points points, uint32_t fillColor)
 {
 	sf::ConvexShape polygon;
@@ -34,6 +37,7 @@ void CCanvas::FillPolygon(Points points, uint32_t fillColor)
 
 	m_window.draw(polygon);
 }
+
 void CCanvas::DrawCircle(CPoint center, double radius, uint32_t lineColor)
 {
 	sf::CircleShape circle(static_cast<float>(radius));
@@ -45,6 +49,7 @@ void CCanvas::DrawCircle(CPoint center, double radius, uint32_t lineColor)
 	circle.setOutlineColor(sf::Color(sf::Uint32(lineColor)));
 	m_window.draw(circle);
 }
+
 void CCanvas::FillCircle(CPoint center, double radius, uint32_t fillColor)
 {
 	sf::CircleShape circle(static_cast<float>(radius));

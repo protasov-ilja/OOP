@@ -1,7 +1,9 @@
+#pragma once
 #include "stdafx.h"
-#include "CUtils.h"
 
-uint32_t CUtils::StringToUint32(std::string str)
+namespace Utils
+{
+inline uint32_t StringToUint32(std::string str)
 {
 	uint32_t x;
 	std::stringstream ss;
@@ -9,3 +11,4 @@ uint32_t CUtils::StringToUint32(std::string str)
 	ss >> x;
 	return x;
 }
+} // namespace Utils

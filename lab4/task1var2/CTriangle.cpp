@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "CTriangle.h"
-#include "CUtils.h"
 #include "Config.h"
+#include "Utils.h"
+
+using namespace Utils;
 
 CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, const std::string& outlineColor, const std::string& fillColor)
 	: m_vertex1(vertex1)
@@ -48,8 +50,8 @@ void CTriangle::Draw(ICanvas& canvas) const
 		GetVertex2(),
 		GetVertex3()
 	};
-	canvas.FillPolygon(vertices, CUtils::StringToUint32(GetFillColor()));
-	uint32_t outlineColor = CUtils::StringToUint32(GetOutlineColor());
+	canvas.FillPolygon(vertices, StringToUint32(GetFillColor()));
+	uint32_t outlineColor = StringToUint32(GetOutlineColor());
 	canvas.DrawLine(vertices[0], vertices[1], outlineColor);
 	canvas.DrawLine(vertices[1], vertices[2], outlineColor);
 	canvas.DrawLine(vertices[0], vertices[2], outlineColor);

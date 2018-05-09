@@ -11,7 +11,6 @@ class CShapeController
 public:
 	CShapeController() = default;
 	CShapeController(std::istream& input, std::ostream& output);
-	~CShapeController() = default;
 	bool HandleCommand();
 
 private:

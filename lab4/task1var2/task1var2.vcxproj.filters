@@ -63,7 +63,7 @@
     <ClInclude Include="Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CUtils.h">
+    <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -113,7 +113,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CUtils.cpp">
+    <ClCompile Include="Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
