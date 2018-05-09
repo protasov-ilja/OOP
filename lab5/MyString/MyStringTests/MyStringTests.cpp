@@ -138,7 +138,7 @@ TEST_CASE("SubString method")
 
 
 	// не может вернуть подстроку если начальная позиция копирования < 0 или > m_length
-	SECTION("can return substring specified by starting position and length")
+	SECTION("cant return substring if initial copy position is < 0 or > m_length")
 	{
 		CMyString string("string");
 		try
@@ -161,7 +161,7 @@ TEST_CASE("SubString method")
 	}
 
 	// не может вернуть подстроку если длина строки меньше суммы начальной позиции копирования и длины подстроки
-	SECTION("can return substring specified by starting position and length")
+	SECTION("cant return substring if length of string is less than sum of initial copy position and length of substring")
 	{
 		CMyString string("string");
 		try
@@ -349,7 +349,7 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		}
 
 		// не может считывать символ из строки если индекс < 0 или >= длине строки
-		SECTION("can read character from string by index")
+		SECTION("cant read character from string if index is < 0 or > = length of string")
 		{
 			try
 			{
@@ -397,7 +397,7 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		}
 
 		// не может записывать символ в строку если индекс < 0 или >= длине строки
-		SECTION("can write character in string by index")
+		SECTION("cant write character to string if index is < 0 or > = length of string")
 		{
 			CMyString str("string");
 			auto ch = 'g';
