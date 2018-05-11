@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CHttpUrl.h"
 #include "CUrlParsingError.h"
-#include <regex>
 #include <algorithm>
+#include <regex>
 
 CHttpUrl::CHttpUrl(const std::string& url)
 	: m_url(url)
@@ -25,8 +25,7 @@ CHttpUrl::CHttpUrl(const std::string& url)
 	m_document = SetDocument(result[4]);
 }
 
-CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Protocol protocol = HTTP)
-try
+CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Protocol protocol = HTTP) try
 	: m_protocol(protocol)
 	, m_domain(SetDomain(domain))
 	, m_port(SetPort(""))
@@ -39,8 +38,7 @@ catch (const CUrlParsingError& err)
 	throw err;
 }
 
-CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port)
-try
+CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port) try
 	: m_protocol(protocol)
 	, m_domain(SetDomain(domain))
 	, m_document(SetDocument(document))
