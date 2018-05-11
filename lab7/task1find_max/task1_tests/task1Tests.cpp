@@ -3,13 +3,13 @@
 #include <string>
 
 // функция FindMax
-TEST_CASE("function FindMaxEx")
+TEST_CASE("function FindMax")
 {
 	// для типа int
-	SECTION("can return its start point")
+	SECTION("for type int")
 	{
 		// может вернуть максимальное число, если вектор не пуст
-		SECTION("can return its start point")
+		SECTION("can return maximum number if vector isnt empty")
 		{
 			std::vector<int> intVector{ 1, 2, 3, 4 };
 			int maxElement;
@@ -20,7 +20,7 @@ TEST_CASE("function FindMaxEx")
 		}
 
 		// может вернуть число, если вектор состоит из 1 элемента
-		SECTION("can return its start point")
+		SECTION("can return number if vector consists of 1 element")
 		{
 			std::vector<int> intVector{ 4 };
 			int maxElement;
@@ -30,8 +30,8 @@ TEST_CASE("function FindMaxEx")
 			REQUIRE(maxElement == 4);
 		}
 
-		// не может вернуть число, если вектор пуст
-		SECTION("can return its start point")
+		// не может вернуть число, если вектор пуст возвращает ложь
+		SECTION("cant return number if vector is empty returns false")
 		{
 			std::vector<int> intVector;
 			int maxElement;
@@ -42,10 +42,10 @@ TEST_CASE("function FindMaxEx")
 	}
 
 	// для типа float
-	SECTION("can return its start point")
+	SECTION("for type float")
 	{
 		// может вернуть максимальное число, если вектор не пуст
-		SECTION("can return its start point")
+		SECTION("can return maximum number if vector isnt empty")
 		{
 			std::vector<float> floatVector{ 1.2f, 2.2f, 3.3f, 4.3f };
 			float maxElement;
@@ -56,7 +56,7 @@ TEST_CASE("function FindMaxEx")
 		}
 
 		// может вернуть число, если вектор состоит из 1 элемента
-		SECTION("can return its start point")
+		SECTION("can return number if vector consists of 1 element")
 		{
 			std::vector<float> floatVector{ 4.5f };
 			float maxElement;
@@ -67,7 +67,7 @@ TEST_CASE("function FindMaxEx")
 		}
 
 		// не может вернуть число, если вектор пуст
-		SECTION("can return its start point")
+		SECTION("cant return number if vector is empty returns false")
 		{
 			std::vector<float> floatVector;
 			float maxElement;
@@ -78,10 +78,10 @@ TEST_CASE("function FindMaxEx")
 	}
 
 	// для типа string
-	SECTION("can return its start point")
+	SECTION("for string type")
 	{
 		// может вернуть наибольшую строку, если вектор не пуст
-		SECTION("can return its start point")
+		SECTION("can return largest string if vector isnt empty")
 		{
 			std::vector<std::string> floatVector{ "a", "ab", "abc", "abd" };
 			std::string maxElement;
@@ -92,7 +92,7 @@ TEST_CASE("function FindMaxEx")
 		}
 
 		// может вернуть строку, если вектор состоит из 1 элемента
-		SECTION("can return its start point")
+		SECTION("can return string if vector consists of 1 element")
 		{
 			std::vector<std::string> floatVector{ "abc" };
 			std::string maxElement;
@@ -102,44 +102,8 @@ TEST_CASE("function FindMaxEx")
 			REQUIRE(maxElement == "abc");
 		}
 
-		// не может вернуть наибольшую строку, если вектор пуст
-		SECTION("can return its start point")
-		{
-			std::vector<std::string> floatVector;
-			std::string maxElement;
-			REQUIRE_FALSE(FindMax(floatVector, maxElement, [](const auto& x, const auto& y) {
-				return x < y;
-			}));
-		}
-	}
-
-	// для типа string
-	SECTION("can return its start point")
-	{
-		// может вернуть наибольшую строку, если вектор не пуст
-		SECTION("can return its start point")
-		{
-			std::vector<std::string> floatVector{ "a", "ab", "abc", "abd" };
-			std::string maxElement;
-			REQUIRE(FindMax(floatVector, maxElement, [](const auto& x, const auto& y) {
-				return x < y;
-			}));
-			REQUIRE(maxElement == "abd");
-		}
-
-		// может вернуть строку, если вектор состоит из 1 элемента
-		SECTION("can return its start point")
-		{
-			std::vector<std::string> floatVector{ "abc" };
-			std::string maxElement;
-			REQUIRE(FindMax(floatVector, maxElement, [](const auto& x, const auto& y) {
-				return x < y;
-			}));
-			REQUIRE(maxElement == "abc");
-		}
-
-		// не может вернуть наибольшую строку, если вектор пуст
-		SECTION("can return its start point")
+		// не может вернуть наибольшую строку, если вектор пуст возвращает ложь
+		SECTION("cant return largest string if vector is empty returns false")
 		{
 			std::vector<std::string> floatVector;
 			std::string maxElement;
@@ -153,7 +117,7 @@ TEST_CASE("function FindMaxEx")
 	SECTION("can return its start point")
 	{
 		// может вернуть наибольшую строку, если вектор не пуст
-		SECTION("can return its start point")
+		SECTION("can return largest string if vector isnt empty")
 		{
 			std::vector<const char*> floatVector{ "a", "ab", "abc", "abd" };
 			const char* maxElement;
@@ -164,7 +128,7 @@ TEST_CASE("function FindMaxEx")
 		}
 
 		// может вернуть строку, если вектор состоит из 1 элемента
-		SECTION("can return its start point")
+		SECTION("can return string if vector consists of 1 element")
 		{
 			std::vector<const char*> floatVector{ "abc" };
 			const char* maxElement;
@@ -174,8 +138,8 @@ TEST_CASE("function FindMaxEx")
 			REQUIRE(maxElement == "abc");
 		}
 
-		// не может вернуть наибольшую строку, если вектор пуст
-		SECTION("can return its start point")
+		// не может вернуть наибольшую строку, если вектор пуст возвращает ложь
+		SECTION("cant return largest string if vector is empty returns false")
 		{
 			std::vector<const char*> floatVector;
 			const char* maxElement;
@@ -186,7 +150,7 @@ TEST_CASE("function FindMaxEx")
 	}
 
 	// для типа someType
-	SECTION("can return its start point")
+	SECTION("for someType")
 	{
 		struct SomeType
 		{
@@ -196,7 +160,7 @@ TEST_CASE("function FindMaxEx")
 		};
 
 		// может вернуть наибольший элемент, если вектор не пуст
-		SECTION("can return its start point")
+		SECTION("can return largest element if vector isnt empty")
 		{
 			std::vector<SomeType> someTypeVector{ { 1, 1.1f, "a" }, { 2, 2.1f, "abd" }, { 3, 4.1f, "abc" }, { 4, 3.1f, "ab" } };
 			SomeType maxElement;
@@ -217,7 +181,7 @@ TEST_CASE("function FindMaxEx")
 		}
 
 		// может вернуть элемент, если вектор состоит из 1 элемента
-		SECTION("can return its start point")
+		SECTION("can return element if vector consists of 1 element")
 		{
 			std::vector<SomeType> someTypeVector{ { 1, 1.1f, "abc" } };
 			SomeType maxElement;
@@ -237,8 +201,8 @@ TEST_CASE("function FindMaxEx")
 			REQUIRE(maxElement.stringElem == "abc");
 		}
 
-		// не может вернуть наибольший элемент, если вектор пуст
-		SECTION("can return its start point")
+		// не может вернуть наибольший элемент, если вектор пуст возвращает ложь
+		SECTION("cant return largest element if vector is empty returns false")
 		{
 			std::vector<SomeType> someTypeVector;
 			SomeType maxElement;
