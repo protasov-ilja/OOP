@@ -5,7 +5,7 @@
 
 using namespace Utils;
 
-bool compareVectors3D(const CVector3D& vector1, const CVector3D& vector2)
+bool CompareVectors3D(const CVector3D& vector1, const CVector3D& vector2)
 {
 	return ((CompareDoubleNumbers(vector1.x, vector2.x)) && (CompareDoubleNumbers(vector1.y, vector2.y)) && (CompareDoubleNumbers(vector1.z, vector2.z)));
 }
@@ -17,14 +17,14 @@ TEST_CASE("test vector3D")
 	SECTION("can create its own instance with zero parameters")
 	{
 		CVector3D vector;
-		REQUIRE(compareVectors3D(vector, { 0, 0, 0 }));
+		REQUIRE(CompareVectors3D(vector, { 0, 0, 0 }));
 	}
 
 	// может создать свой экземпл€р с заданными параметрами
 	SECTION("can create its own instance with specified parameters")
 	{
 		CVector3D vector(2, 4, 5);
-		REQUIRE(compareVectors3D(vector, { 2, 4, 5 }));
+		REQUIRE(CompareVectors3D(vector, { 2, 4, 5 }));
 	}
 
 	// может вернуть свою длину
@@ -40,7 +40,7 @@ TEST_CASE("test vector3D")
 		CVector3D vector(2, 2, 1);
 		double lengthInversion = 1 / vector.GetLength();
 		vector.Normalize();
-		REQUIRE(compareVectors3D(vector, { (2 * lengthInversion), (2 * lengthInversion), (1 * lengthInversion) }));
+		REQUIRE(CompareVectors3D(vector, { (2 * lengthInversion), (2 * lengthInversion), (1 * lengthInversion) }));
 	}
 }
 
@@ -55,7 +55,7 @@ TEST_CASE("override")
 		{
 			CVector3D vector(2, 4, 5);
 			CVector3D vector1 = +vector;
-			REQUIRE(compareVectors3D(vector1, { 2, 4, 5 }));
+			REQUIRE(CompareVectors3D(vector1, { 2, 4, 5 }));
 		}
 	}
 
@@ -67,7 +67,7 @@ TEST_CASE("override")
 		{
 			CVector3D vector(2, 4, 5);
 			CVector3D vector1 = -vector;
-			REQUIRE(compareVectors3D(vector1, { -2, -4, -5 }));
+			REQUIRE(CompareVectors3D(vector1, { -2, -4, -5 }));
 		}
 	}
 
@@ -80,7 +80,7 @@ TEST_CASE("override")
 			CVector3D vector1(2, 4.4, 5);
 			CVector3D vector2(0, 0, 0);
 			CVector3D addVector = vector1 + vector2;
-			REQUIRE(compareVectors3D(addVector, { 2, 4.4, 5 }));
+			REQUIRE(CompareVectors3D(addVector, { 2, 4.4, 5 }));
 		}
 	}
 
@@ -93,7 +93,7 @@ TEST_CASE("override")
 			CVector3D vector1(2, 4.4, 5);
 			CVector3D vector2(0, 0, 0);
 			CVector3D subVector = vector1 - vector2;
-			REQUIRE(compareVectors3D(subVector, { 2, 4.4, 5 }));
+			REQUIRE(CompareVectors3D(subVector, { 2, 4.4, 5 }));
 		}
 	}
 
@@ -106,7 +106,7 @@ TEST_CASE("override")
 			CVector3D vector1(2, 4.4, 5);
 			CVector3D vector2(0, 0, 0);
 			vector1 += vector2;
-			REQUIRE(compareVectors3D(vector1, { 2, 4.4, 5 }));
+			REQUIRE(CompareVectors3D(vector1, { 2, 4.4, 5 }));
 		}
 	}
 
@@ -119,7 +119,7 @@ TEST_CASE("override")
 			CVector3D vector1(2, 4.4, 5);
 			CVector3D vector2(0, 0, 0);
 			vector1 -= vector2;
-			REQUIRE(compareVectors3D(vector1, { 2, 4.4, 5 }));
+			REQUIRE(CompareVectors3D(vector1, { 2, 4.4, 5 }));
 		}
 	}
 
@@ -132,7 +132,7 @@ TEST_CASE("override")
 			double scalar = 2;
 			CVector3D vector1(1, 2, 3);
 			CVector3D vector2 = vector1 * scalar;
-			REQUIRE(compareVectors3D(vector2, { 2, 4, 6 }));
+			REQUIRE(CompareVectors3D(vector2, { 2, 4, 6 }));
 		}
 
 		// может умножить скал€р на длину вектора
@@ -141,7 +141,7 @@ TEST_CASE("override")
 			double scalar = 2;
 			CVector3D vector1(1, 2, 3);
 			CVector3D vector2 = scalar * vector1;
-			REQUIRE(compareVectors3D(vector2, { 2, 4, 6 }));
+			REQUIRE(CompareVectors3D(vector2, { 2, 4, 6 }));
 		}
 	}
 
@@ -154,7 +154,7 @@ TEST_CASE("override")
 			double scalar = 2;
 			CVector3D vector1(2, 2, 2);
 			CVector3D vector2 = vector1 / scalar;
-			REQUIRE(compareVectors3D(vector2, { 1, 1, 1 }));
+			REQUIRE(CompareVectors3D(vector2, { 1, 1, 1 }));
 		}
 	}
 
@@ -167,7 +167,7 @@ TEST_CASE("override")
 			double scalar = 2;
 			CVector3D vector(1, 2, 3);
 			vector *= scalar;
-			REQUIRE(compareVectors3D(vector, { 2, 4, 6 }));
+			REQUIRE(CompareVectors3D(vector, { 2, 4, 6 }));
 		}
 	}
 
@@ -180,7 +180,7 @@ TEST_CASE("override")
 			double scalar = 2;
 			CVector3D vector(2, 2, 2);
 			vector /= scalar;
-			REQUIRE(compareVectors3D(vector, { 1, 1, 1 }));
+			REQUIRE(CompareVectors3D(vector, { 1, 1, 1 }));
 		}
 	}
 
@@ -233,7 +233,7 @@ TEST_CASE("override")
 			std::stringstream strm("2, 2, 2");
 			CVector3D vector;
 			strm >> vector;
-			REQUIRE(compareVectors3D(vector, { 2, 2, 2 }));
+			REQUIRE(CompareVectors3D(vector, { 2, 2, 2 }));
 		}
 	}
 
@@ -275,7 +275,7 @@ TEST_CASE("CrossProduct function")
 		CVector3D v2(1, 2, 3);
 		CVector3D PoluchenResult = CrossProduct(v1, v2);
 		CVector3D requireResult((v1.y * v2.z) - (v1.z * v2.y), -1 * ((v1.x * v2.z) - (v1.z * v2.x)), (v1.x * v2.y) - (v1.y * v2.x));
-		REQUIRE(compareVectors3D(PoluchenResult, requireResult));
+		REQUIRE(CompareVectors3D(PoluchenResult, requireResult));
 	}
 }
 
@@ -289,6 +289,6 @@ TEST_CASE("Normalize function")
 		CVector3D PoluchenResult = Normalize(v1);
 		CVector3D normalizeVector(v1.x, v1.y, v1.z);
 		normalizeVector.Normalize();
-		REQUIRE(compareVectors3D(PoluchenResult, normalizeVector));
+		REQUIRE(CompareVectors3D(PoluchenResult, normalizeVector));
 	}
 }
