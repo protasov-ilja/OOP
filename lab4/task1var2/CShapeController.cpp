@@ -100,10 +100,10 @@ void CShapeController::GetShapeWithMinPerimeter(std::istream&) const
 		return;
 	}
 
-	auto GetMinShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
+	auto shapePerimeterComporator = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
 		return a->GetPerimeter() < b->GetPerimeter();
 	};
-	auto shapeWithMinPerimeter = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMinShapePtr);
+	auto shapeWithMinPerimeter = *std::min_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), shapePerimeterComporator);
 	m_output << "minPerimeterShape: ";
 	m_output << shapeWithMinPerimeter->ToString();
 	return;
@@ -117,10 +117,10 @@ void CShapeController::GetShapeWithMaxArea(std::istream&) const
 		return;
 	}
 
-	auto GetMaxShapePtr = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
+	auto shapeAreaComporator = [](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
 		return a->GetPerimeter() > b->GetPerimeter();
 	};
-	auto shapeWithMaxArea = *std::max_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), GetMaxShapePtr);
+	auto shapeWithMaxArea = *std::max_element(m_arrayOfShapes.begin(), m_arrayOfShapes.end(), shapeAreaComporator);
 	m_output << "maxAreaShape: ";
 	m_output << shapeWithMaxArea->ToString();
 	return;

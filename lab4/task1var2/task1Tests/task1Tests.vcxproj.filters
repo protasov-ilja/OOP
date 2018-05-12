@@ -57,13 +57,13 @@
     <ClInclude Include="..\Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\ICanvasDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ICanvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
