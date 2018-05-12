@@ -1,18 +1,13 @@
 #include "stdafx.h"
 #include "..\CVector3D.h"
+#include "..\Utils.h"
 #include <sstream>
 
-const double EPSILON = 0.001;
-
-bool CompareDoubles(double a, double b)
-{
-	double diff = a - b;
-	return (diff < EPSILON) && (-diff < EPSILON);
-}
+using namespace Utils;
 
 bool compareVectors3D(const CVector3D& vector1, const CVector3D& vector2)
 {
-	return ((CompareDoubles(vector1.x, vector2.x)) && (CompareDoubles(vector1.y, vector2.y)) && (CompareDoubles(vector1.z, vector2.z)));
+	return ((CompareDoubleNumbers(vector1.x, vector2.x)) && (CompareDoubleNumbers(vector1.y, vector2.y)) && (CompareDoubleNumbers(vector1.z, vector2.z)));
 }
 
 // вектор
@@ -36,7 +31,7 @@ TEST_CASE("test vector3D")
 	SECTION("can return its length")
 	{
 		CVector3D vector(2, 2, 1);
-		REQUIRE(CompareDoubles(vector.GetLength(), sqrt(2 * 2 + 2 * 2 + 1 * 1)));
+		REQUIRE(CompareDoubleNumbers(vector.GetLength(), sqrt(2 * 2 + 2 * 2 + 1 * 1)));
 	}
 
 	// может нормализовать себя
@@ -266,7 +261,7 @@ TEST_CASE("DotProduct function")
 		CVector3D vector2(-1, -2, -3);
 		double PoluchenResult = DotProduct(vector1, vector2);
 		double requireResult = (vector1.x * vector2.x) + (vector1.y * vector2.y) + (vector1.z * vector2.z);
-		REQUIRE(CompareDoubles(PoluchenResult, requireResult));
+		REQUIRE(CompareDoubleNumbers(PoluchenResult, requireResult));
 	}
 }
 

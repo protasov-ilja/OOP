@@ -150,6 +150,7 @@
     <ClInclude Include="CVector3D.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CVector3D.cpp" />

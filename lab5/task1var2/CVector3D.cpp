@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "CVector3D.h"
-#include "float.h"
-#include <cmath>
+#include "Utils.h"
 #include <iostream>
+
+using namespace Utils;
 
 CVector3D::CVector3D(double x0, double y0, double z0)
 	: x(x0)
@@ -90,13 +91,6 @@ CVector3D& CVector3D::operator/=(double scalar)
 	return *this;
 }
 
-bool CVector3D::CompareDoubleNumbers(double number1, double number2) const
-{
-	double diff = number1 - number2;
-
-	return (diff < DBL_EPSILON) && (-diff < DBL_EPSILON);
-}
-
 bool CVector3D::operator==(const CVector3D& otherVector) const
 {
 	return (CompareDoubleNumbers(x, otherVector.x)) && (CompareDoubleNumbers(y, otherVector.y)) && (CompareDoubleNumbers(z, otherVector.z));
@@ -153,8 +147,8 @@ CVector3D CrossProduct(const CVector3D& v1, const CVector3D& v2)
 
 CVector3D Normalize(const CVector3D& v)
 {
-	CVector3D normalizeVector(v.x, v.y, v.z);
-	normalizeVector.Normalize();
+	CVector3D normalizedVector(v.x, v.y, v.z);
+	normalizedVector.Normalize();
 
-	return normalizeVector;
+	return normalizedVector;
 }

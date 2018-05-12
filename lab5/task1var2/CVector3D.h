@@ -24,9 +24,6 @@ public:
 	double x = 0;
 	double y = 0;
 	double z = 0;
-
-private:
-	bool CompareDoubleNumbers(double number1, double number2) const;
 };
 
 CVector3D const operator*(double scalar, const CVector3D& vector);
