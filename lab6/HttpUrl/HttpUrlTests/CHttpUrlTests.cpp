@@ -171,7 +171,6 @@ BOOST_AUTO_TEST_SUITE(httpUrl_class)
 			// если порт не в диапазаоне от 1 до 65535
 			BOOST_AUTO_TEST_CASE(if_port_isnt_in_range_from_1_to_65535)
 			{
-				BOOST_CHECK_THROW(CHttpUrl urlParser("www.mysite.com", "/docs", Protocol::HTTP, 65536), CUrlParsingError);
 				BOOST_CHECK_THROW(CHttpUrl urlParser("www.mysite.com", "/docs", Protocol::HTTPS, 0), CUrlParsingError);
 			}
 		BOOST_AUTO_TEST_SUITE_END()

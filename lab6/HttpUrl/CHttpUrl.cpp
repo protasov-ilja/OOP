@@ -43,7 +43,7 @@ CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Proto
 	, m_domain(SetDomain(domain))
 	, m_document(SetDocument(document))
 {
-	if ((port < 1) || (port > 65535))
+	if (port < 1)
 	{
 		throw CUrlParsingError("Invalid port");
 	}
