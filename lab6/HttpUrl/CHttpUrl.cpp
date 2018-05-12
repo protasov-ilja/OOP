@@ -25,7 +25,7 @@ CHttpUrl::CHttpUrl(const std::string& url)
 	m_document = SetDocument(result[4]);
 }
 
-CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Protocol protocol = HTTP) try
+CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Protocol protocol = HTTP)
 	: m_protocol(protocol)
 	, m_domain(SetDomain(domain))
 	, m_port(SetPort(""))
@@ -33,12 +33,8 @@ CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Proto
 {
 	SetUrl();
 }
-catch (const CUrlParsingError& err)
-{
-	throw err;
-}
 
-CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port) try
+CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port)
 	: m_protocol(protocol)
 	, m_domain(SetDomain(domain))
 	, m_document(SetDocument(document))
@@ -50,10 +46,6 @@ CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Proto
 
 	m_port = port;
 	SetUrl();
-}
-catch (const CUrlParsingError& err)
-{
-	throw err;
 }
 
 std::string CHttpUrl::SetDocument(const std::string& document) const
