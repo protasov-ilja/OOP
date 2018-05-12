@@ -52,7 +52,7 @@ bool CShapeController::IsColor(const std::string& color) const
 	return true;
 }
 
-void CShapeController::AddAlphaToColor(std::string& color)
+void CShapeController::AddAlphaToColorIfNeeded(std::string& color)
 {
 	if (color.length() == 6)
 	{
@@ -146,8 +146,8 @@ void CShapeController::AddCircle(std::istream& args)
 			return;
 		}
 
-		AddAlphaToColor(outlineColor);
-		AddAlphaToColor(fillColor);
+		AddAlphaToColorIfNeeded(outlineColor);
+		AddAlphaToColorIfNeeded(fillColor);
 		m_arrayOfShapes.push_back(std::make_shared<CCircle>(center, radius, outlineColor, fillColor));
 		m_output << "CircleWasAdded\n";
 	}
@@ -174,7 +174,7 @@ void CShapeController::AddLineSegment(std::istream& args)
 			return;
 		}
 
-		AddAlphaToColor(outlineColor);
+		AddAlphaToColorIfNeeded(outlineColor);
 		m_arrayOfShapes.push_back(std::make_shared<CLineSegment>(start, end, outlineColor));
 		m_output << "LineSegmentWasAdded\n";
 	}
@@ -203,8 +203,8 @@ void CShapeController::AddRectangle(std::istream& args)
 			return;
 		}
 
-		AddAlphaToColor(outlineColor);
-		AddAlphaToColor(fillColor);
+		AddAlphaToColorIfNeeded(outlineColor);
+		AddAlphaToColorIfNeeded(fillColor);
 		if (width < 0)
 		{
 			m_output << "you wrote incorrect width\nwidth less than 0" << std::endl;
@@ -245,8 +245,8 @@ void CShapeController::AddTriangle(std::istream& args)
 			return;
 		}
 
-		AddAlphaToColor(outlineColor);
-		AddAlphaToColor(fillColor);
+		AddAlphaToColorIfNeeded(outlineColor);
+		AddAlphaToColorIfNeeded(fillColor);
 		m_arrayOfShapes.push_back(std::make_shared<CTriangle>(vertex1, vertex2, vertex3, outlineColor, fillColor));
 		m_output << "TriangleWasAdded\n";
 	}

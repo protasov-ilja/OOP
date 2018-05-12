@@ -24,7 +24,7 @@ private:
 	void AddRectangle(std::istream& args);
 	void AddTriangle(std::istream& args);
 	bool IsColor(const std::string& color) const;
-	void AddAlphaToColor(std::string& color);
+	void AddAlphaToColorIfNeeded(std::string& color);
 
 	std::vector<std::shared_ptr<IShape>> m_arrayOfShapes;
 	std::istream& m_input;
