@@ -259,9 +259,9 @@ TEST_CASE("DotProduct function")
 	{
 		CVector3D vector1(1, 2, 3);
 		CVector3D vector2(-1, -2, -3);
-		double PoluchenResult = DotProduct(vector1, vector2);
+		double result = DotProduct(vector1, vector2);
 		double requireResult = (vector1.x * vector2.x) + (vector1.y * vector2.y) + (vector1.z * vector2.z);
-		REQUIRE(CompareDoubleNumbers(PoluchenResult, requireResult));
+		REQUIRE(CompareDoubleNumbers(result, requireResult));
 	}
 }
 
@@ -273,9 +273,9 @@ TEST_CASE("CrossProduct function")
 	{
 		CVector3D v1(1, 2, 3);
 		CVector3D v2(1, 2, 3);
-		CVector3D PoluchenResult = CrossProduct(v1, v2);
+		CVector3D result = CrossProduct(v1, v2);
 		CVector3D requireResult((v1.y * v2.z) - (v1.z * v2.y), -1 * ((v1.x * v2.z) - (v1.z * v2.x)), (v1.x * v2.y) - (v1.y * v2.x));
-		REQUIRE(CompareVectors3D(PoluchenResult, requireResult));
+		REQUIRE(CompareVectors3D(result, requireResult));
 	}
 }
 
@@ -286,9 +286,9 @@ TEST_CASE("Normalize function")
 	SECTION("can return unit vector which having same direction as vector that acting as argument of function")
 	{
 		CVector3D v1(1, 2, 3);
-		CVector3D PoluchenResult = Normalize(v1);
+		CVector3D result = Normalize(v1);
 		CVector3D normalizeVector(v1.x, v1.y, v1.z);
 		normalizeVector.Normalize();
-		REQUIRE(CompareVectors3D(PoluchenResult, normalizeVector));
+		REQUIRE(CompareVectors3D(result, normalizeVector));
 	}
 }
