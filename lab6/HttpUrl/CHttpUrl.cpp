@@ -19,25 +19,25 @@ CHttpUrl::CHttpUrl(const std::string& url)
 		throw CUrlParsingError("Invalid url");
 	}
 
-	m_protocol = SetProtocol(result[1]);
-	m_domain = SetDomain(result[2]);
-	m_port = SetPort(result[3]);
-	m_document = SetDocument(result[4]);
+	m_protocol = ValidateProtocol(result[1]);
+	m_domain = ValidateDomain(result[2]);
+	m_port = ValidatePort(result[3]);
+	m_document = ValidateDocument(result[4]);
 }
 
 CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Protocol protocol = HTTP)
 	: m_protocol(protocol)
-	, m_domain(SetDomain(domain))
-	, m_port(SetPort(""))
-	, m_document(SetDocument(document))
+	, m_domain(ValidateDomain(domain))
+	, m_port(ValidatePort(""))
+	, m_document(ValidateDocument(document))
 {
 	SetUrl();
 }
 
 CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port)
 	: m_protocol(protocol)
-	, m_domain(SetDomain(domain))
-	, m_document(SetDocument(document))
+	, m_domain(ValidateDomain(domain))
+	, m_document(ValidateDocument(document))
 {
 	if (port < 1)
 	{
@@ -48,12 +48,12 @@ CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Proto
 	SetUrl();
 }
 
-std::string CHttpUrl::SetDocument(const std::string& document) const
+std::string CHttpUrl::ValidateDocument(const std::string& document) const
 {
 	return (document.empty() || (document[0] != '/')) ? '/' + document : document;
 }
 
-std::string CHttpUrl::SetDomain(const std::string& domain) const
+std::string CHttpUrl::ValidateDomain(const std::string& domain) const
 {
 	std::regex regex(R"(^([A-Za-z0-9-.]+)$)", std::regex_constants::icase);
 	std::smatch result;
@@ -65,7 +65,7 @@ std::string CHttpUrl::SetDomain(const std::string& domain) const
 	return domain;
 }
 
-Protocol CHttpUrl::SetProtocol(const std::string& protocolString) const
+Protocol CHttpUrl::ValidateProtocol(const std::string& protocolString) const
 {
 	auto ConvertCharTolower = [](char ch) {
 		return static_cast<char>(tolower(ch));
@@ -103,7 +103,7 @@ unsigned short CHttpUrl::GetPortNumber(const std::string& portString) const
 	}
 }
 
-unsigned short CHttpUrl::SetPort(const std::string& portString) const
+unsigned short CHttpUrl::ValidatePort(const std::string& portString) const
 {
 	if (portString.empty())
 	{
