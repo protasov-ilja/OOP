@@ -22,11 +22,11 @@ public:
 
 private:
 	void SetUrl();
-	std::string SetDocument(const std::string& document) const;
-	std::string SetDomain(const std::string& domain) const;
-	Protocol SetProtocol(const std::string& protocolString) const;
+	std::string ValidateDocument(const std::string& document) const;
+	std::string ValidateDomain(const std::string& domain) const;
+	Protocol ValidateProtocol(const std::string& protocolString) const;
 	unsigned short GetPortNumber(const std::string& portString) const;
-	unsigned short SetPort(const std::string& portString) const;
+	unsigned short ValidatePort(const std::string& portString) const;
 
 	std::string m_url;
 	Protocol m_protocol;
