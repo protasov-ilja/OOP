@@ -29,10 +29,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="task2MyArray.cpp">
+    <ClCompile Include="MyArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyArray.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
