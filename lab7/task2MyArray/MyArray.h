@@ -9,70 +9,35 @@ public:
 	/*typedef CMyIterator<T> iterator;
 	typedef CMyIterator<const T> iterator;*/
 	CMyArray() = default;
-	//Возможность добавления элемента в конец массива
-	//Возможность получения количества элементов, содержащихся в массиве
-	//Возможность осуществления индексированного доступа к элементам массива при помощи оператора «[]».В случае, если индекс элемента выходит за пределы массива, должно выбрасываться исключение std::out_of_range
-	//Возможность изменения длины массива при помощи метода Resize().В случае, если новая длина массива больше прежней, вставляемые в конец массива элементы должны инициализироваться значением по умолчанию для типа T.
-	//Возможность опустошения массива(удаления всех его элементов) при помощи метода Clear.
-	//Конструктор копирования и оператор присваивания
-	//Конструктор перемещения и перемещающий оператор присваивания
 	//Методы begin() и end(), а также rbegin() и rend(), возвращающие итераторы для перебора элементов вектора в прямом и обратном порядке.
 	~CMyArray();
 	CMyArray(const CMyArray& arr);
+	CMyArray& operator=(const CMyArray& arr);
+	CMyArray(CMyArray&& arr);
+	CMyArray& operator=(CMyArray&& arr);
 	void Append(const T& value);
+	void Clear();
+	void Resize(size_t size);
 	T& GetBack();
 	const T& GetBack() const;
 	size_t GetSize() const;
 	size_t GetCapacity() const;
+	const T& operator[](size_t index) const;
+	T& operator[](size_t index);
 
 private:
-	static void DeleteItems(T* begin, T* end)
-	{
-		// Разрушаем старые элементы
-		DestroyItems(begin, end);
-		// Освобождаем область памяти для их хранения
-		RawDealloc(begin);
-	}
+	// удалять элементы
+	static void DeleteItems(T* begin, T* end);
 
 	// Копирует элементы из текущего вектора в to, возвращает newEnd
-	static void CopyItems(const T* srcBegin, T* srcEnd, T* const dstBegin, T*& dstEnd)
-	{
-		for (dstEnd = dstBegin; srcBegin != srcEnd; ++srcBegin, ++dstEnd)
-		{
-			// Construct "T" at "dstEnd" as a copy of "*begin"
-			new (dstEnd) T(*srcBegin);
-		}
-	}
+	static void CopyItems(const T* srcBegin, T* srcEnd, T* const dstBegin, T*& dstEnd);
+	static void DestroyItems(T* from, T* to);
 
-	static void DestroyItems(T* from, T* to)
-	{
-		// dst - адрес объект, при конструирование которого было выброшено исключение
-		// to - первый скорнструированный объект
+	// Необработанное распределение
+	static T* RawAlloc(size_t n);
 
-		while (to != from)
-		{
-			--to;
-			// явно вызываем деструктор для шаблонного типа T
-			to->~T();
-		}
-	}
-
-	static T* RawAlloc(size_t n)
-	{
-		size_t memSize = n * sizeof(T);
-		T* p = static_cast<T*>(malloc(memSize));
-		if (!p)
-		{
-			throw std::bad_alloc();
-		}
-		return p;
-	}
-
-	static void RawDealloc(T* p)
-	{
-		free(p);
-	}
-
+	// освобождение памяти
+	static void RawDealloc(T* p);
 
 	T* m_begin = nullptr;
 	T* m_end = nullptr;
@@ -100,6 +65,23 @@ CMyArray<T>::CMyArray(const CMyArray& arr)
 }
 
 template <typename T>
+CMyArray<T>::CMyArray(CMyArray&& arr)
+	: m_begin(arr.m_begin)
+	, m_end(arr.m_end)
+	, m_endOfCapacity(arr.m_endOfCapacity)
+{
+	arr.m_begin = nullptr;
+	arr.m_end = nullptr;
+	arr.m_endOfCapacity = nullptr;
+}
+
+template <typename T>
+CMyArray<T>::~CMyArray()
+{
+	DeleteItems(m_begin, m_end);
+}
+
+template <typename T>
 void CMyArray<T>::Append(const T& value)
 {
 	if (m_end == m_endOfCapacity) // no free space
@@ -120,6 +102,7 @@ void CMyArray<T>::Append(const T& value)
 			DeleteItems(newBegin, newEnd);
 			throw;
 		}
+
 		DeleteItems(m_begin, m_end);
 
 		// Переключаемся на использование нового хранилища элементов
@@ -131,6 +114,62 @@ void CMyArray<T>::Append(const T& value)
 	{
 		new (m_end) T(value);
 		++m_end;
+	}
+}
+
+template <typename T>
+void CMyArray<T>::Clear()
+{
+	if (GetSize() != 0)
+	{
+		DeleteItems(m_begin, m_end);
+		m_begin = nullptr;
+		m_end = nullptr;
+		m_endOfCapacity = nullptr;
+	}
+}
+
+template <typename T>
+void CMyArray<T>::Resize(size_t newSize)
+{
+	if (newSize > GetCapacity()) // когда новая длинна больше вместимости
+	{
+		auto newBegin = RawAlloc(newSize);
+		T* newEnd = newBegin;
+		try
+		{
+			CopyItems(m_begin, m_end, newBegin, newEnd);
+			for (size_t i = 0; i < newSize - GetSize(); i++)
+			{
+				new (newEnd) T();
+				++newEnd;
+			}
+		}
+		catch (...)
+		{
+			DeleteItems(newBegin, newEnd);
+			throw;
+		}
+
+		DeleteItems(m_begin, m_end);
+		// Переключаемся на использование нового хранилища элементов
+		m_begin = newBegin;
+		m_end = newEnd;
+		m_endOfCapacity = m_begin + newSize;
+	}
+	else if (newSize < GetSize()) // когда новая длина меньше текущей
+	{
+		auto newEnd = m_begin + newSize;
+		DestroyItems(newEnd, m_end);
+		m_end = newEnd;
+	}
+	else if (newSize > GetSize()) // когда новая длина больше текущей, но меньше или = вместимости
+	{
+		for (size_t i = 0; i < newSize - GetSize(); ++i)
+		{
+			Append(T());
+			++m_end;
+		}
 	}
 }
 
@@ -151,6 +190,10 @@ const T& CMyArray<T>::GetBack() const
 template <typename T>
 size_t CMyArray<T>::GetSize() const
 {
+	if (!m_begin)
+	{
+		return 0;
+	}
 	return m_end - m_begin;
 }
 
@@ -161,8 +204,106 @@ size_t CMyArray<T>::GetCapacity() const
 }
 
 template <typename T>
-CMyArray<T>::~CMyArray()
+const T& CMyArray<T>::operator[](size_t index) const
 {
-	DeleteItems(m_begin, m_end);
+	if (m_begin + index >= m_end)
+	{
+		throw std::out_of_range("index is out of range");
+	}
+
+	return *(m_begin + index);
 }
 
+template <typename T>
+T& CMyArray<T>::operator[](size_t index)
+{
+	if (m_begin + index >= m_end)
+	{
+		throw std::out_of_range("index is out of range");
+	}
+
+	return *(m_begin + index);
+}
+
+template <typename T>
+CMyArray<T>& CMyArray<T>::operator=(const CMyArray& arr)
+{
+	if (std::addressof(arr) != this)
+	{
+		CMyArray tmpCopy(arr);
+		std::swap(m_begin, tmpCopy.m_begin);
+		std::swap(m_end, tmpCopy.m_end);
+		std::swap(m_endOfCapacity, tmpCopy.m_endOfCapacity);
+	}
+
+	return *this;
+}
+
+template <typename T>
+CMyArray<T>& CMyArray<T>::operator=(CMyArray&& arr)
+{
+	if (this != &arr)
+	{
+		Clear();
+		std::swap(m_begin, arr.m_begin);
+		std::swap(m_end, arr.m_end);
+		std::swap(m_endOfCapacity, arr.m_endOfCapacity);
+
+		arr.m_begin = nullptr;
+		arr.m_end = nullptr;
+		arr.m_endOfCapacity = nullptr;
+	}
+
+	return *this;
+}
+
+template <typename T>
+void CMyArray<T>::DeleteItems(T* begin, T* end)
+{
+	// Разрушаем старые элементы
+	DestroyItems(begin, end);
+	// Освобождаем область памяти для их хранения
+	RawDealloc(begin);
+}
+
+template <typename T>
+void CMyArray<T>::CopyItems(const T* srcBegin, T* srcEnd, T* const dstBegin, T*& dstEnd)
+{
+	for (dstEnd = dstBegin; srcBegin != srcEnd; ++srcBegin, ++dstEnd)
+	{
+		// Construct "T" at "dstEnd" as a copy of "*begin"
+		new (dstEnd) T(*srcBegin);
+	}
+}
+
+template <typename T>
+void CMyArray<T>::DestroyItems(T* from, T* to)
+{
+	// to - первый скорнструированный объект
+
+	while (to != from)
+	{
+		--to;
+		// явно вызываем деструктор для шаблонного типа T
+		to->~T();
+	}
+}
+
+template <typename T>
+T* CMyArray<T>::RawAlloc(size_t n)
+{
+	size_t memSize = n * sizeof(T);
+	T* ptr = static_cast<T*>(malloc(memSize));
+	if (!ptr)
+	{
+		throw std::bad_alloc();
+	}
+
+	return ptr;
+}
+
+template <typename T>
+void CMyArray<T>::RawDealloc(T* p)
+{
+	free(p);
+}
