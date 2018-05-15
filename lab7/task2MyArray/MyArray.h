@@ -3,6 +3,18 @@
 #include <new>
 
 template <typename T>
+class CMyIterator : public std::iterator<std::bidirectional_iterator_tag, T>
+{
+public:
+	CMyIterator();
+	CMyIterator(const CMyIterator& it);
+	CMyIterator& operator=(const CMyIterator& it);
+
+private:
+	T* m_pointer = nullptr;
+};
+
+template <typename T>
 class CMyArray
 {
 public:
