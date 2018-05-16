@@ -148,17 +148,6 @@ BOOST_FIXTURE_TEST_SUITE(MyArray, EmptyStringArray)
 			BOOST_CHECK_EQUAL(copy.GetCapacity(), arr.GetSize());
 		}
 
-		BOOST_AUTO_TEST_CASE(can_create_its_own_instance_from_another_CMyArray_instance_using_copy_constructor)
-		{
-			for (auto i = 0; i < 6; ++i)
-			{
-				arr.Append(i);
-			}
-
-			CMyArray<ArrayItem> arr2(arr);
-			BOOST_CHECK(ArraysAreEqual(arr, arr2));
-		}
-
 		BOOST_AUTO_TEST_CASE(can_use_copying_assignment_operator)
 		{
 			for (auto i = 0; i < 6; ++i)
@@ -190,6 +179,22 @@ BOOST_FIXTURE_TEST_SUITE(MyArray, EmptyStringArray)
 			BOOST_CHECK_EQUAL(arr.GetSize(), 0);
 			BOOST_CHECK_EQUAL(arr.GetCapacity(), 0);
 		}
+
+	BOOST_AUTO_TEST_CASE(changes_data_of_first_arr_to_data_of_second_by_using_moving_assignment_operator)
+	{
+		arr.Append(1);
+		BOOST_CHECK_EQUAL(arr.GetSize(), 1);
+		BOOST_CHECK_EQUAL(arr.GetCapacity(), 1);
+		CMyArray<ArrayItem> arr2(arr);
+		for (auto i = 0; i < 3; ++i)
+		{
+			arr2.Append(i);
+		}
+
+		arr = move(arr2);
+		BOOST_CHECK_EQUAL(arr.GetSize(), 4);
+		BOOST_CHECK_EQUAL(arr.GetCapacity(), 4);
+	}
 	BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -395,7 +395,6 @@ typename CMyArray<T>::myIterator CMyArray<T>::end()
 	return CMyIterator(m_end);
 }
 
-
 template <typename T>
 typename CMyArray<T>::myConstIterator CMyArray<T>::cbegin()
 {
