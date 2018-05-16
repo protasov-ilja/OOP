@@ -76,7 +76,6 @@ public:
 	typedef std::reverse_iterator<myConstIterator> myReverseConstIterator;
 
 	CMyArray() = default;
-	//Методы begin() и end(), а также rbegin() и rend(), возвращающие итераторы для перебора элементов вектора в прямом и обратном порядке.
 	~CMyArray();
 	CMyArray(const CMyArray& arr);
 	CMyArray& operator=(const CMyArray& arr);
