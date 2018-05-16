@@ -3,23 +3,78 @@
 #include <new>
 
 template <typename T>
-class CMyIterator : public std::iterator<std::bidirectional_iterator_tag, T>
-{
-public:
-	CMyIterator();
-	CMyIterator(const CMyIterator& it);
-	CMyIterator& operator=(const CMyIterator& it);
-
-private:
-	T* m_pointer = nullptr;
-};
-
-template <typename T>
 class CMyArray
 {
 public:
-	/*typedef CMyIterator<T> iterator;
-	typedef CMyIterator<const T> iterator;*/
+	template <typename Type>
+	class CMyIterator
+	{
+		friend CMyArray;
+		CMyIterator(Type* ptr);
+
+	public:
+		typedef CMyIterator self_type;
+		typedef Type value_type;
+		typedef Type& reference;
+		typedef Type* pointer;
+		typedef std::bidirectional_iterator_tag iterator_category;
+		typedef ptrdiff_t difference_type;
+
+		bool operator==(const self_type& right) const
+		{
+			return m_ptr == right.m_ptr;
+		}
+
+		bool operator!=(const self_type& right) const
+		{
+			return !(*this == right);
+		}
+
+		reference operator*() const
+		{
+			return *m_ptr;
+		}
+
+		reference operator[](size_t index) const
+		{
+			return m_ptr[index];
+		}
+
+		self_type& operator++()
+		{
+			++m_ptr;
+			return *this;
+		}
+
+		const self_type operator++(int)
+		{
+			auto tmpIt(*this);
+			++*this;
+			return tmpIt;
+		}
+
+		self_type& operator--()
+		{
+			--m_ptr;
+			return *this;
+		}
+
+		const self_type operator--(int)
+		{
+			auto tmpIt(*this);
+			--*this;
+			return tmpIt;
+		}
+
+	private:
+		Type* m_ptr = nullptr;
+	};
+
+	typedef CMyIterator<T> myIterator;
+	typedef CMyIterator<const T> myConstIterator;
+	typedef std::reverse_iterator<myIterator> myReverseIterator;
+	typedef std::reverse_iterator<myConstIterator> myReverseConstIterator;
+
 	CMyArray() = default;
 	//Методы begin() и end(), а также rbegin() и rend(), возвращающие итераторы для перебора элементов вектора в прямом и обратном порядке.
 	~CMyArray();
@@ -36,6 +91,14 @@ public:
 	size_t GetCapacity() const;
 	const T& operator[](size_t index) const;
 	T& operator[](size_t index);
+	myIterator begin();
+	myIterator end();
+	myConstIterator cbegin();
+	myConstIterator cend();
+	myReverseIterator rbegin();
+	myReverseIterator rend();
+	myReverseConstIterator rcbegin();
+	myReverseConstIterator rcend();
 
 private:
 	// удалять элементы
@@ -318,4 +381,53 @@ template <typename T>
 void CMyArray<T>::RawDealloc(T* p)
 {
 	free(p);
+}
+
+template <typename T>
+typename CMyArray<T>::myIterator CMyArray<T>::begin()
+{
+	return CMyIterator(m_begin);
+}
+
+template <typename T>
+typename CMyArray<T>::myIterator CMyArray<T>::end()
+{
+	return CMyIterator(m_end);
+}
+
+
+template <typename T>
+typename CMyArray<T>::myConstIterator CMyArray<T>::cbegin()
+{
+	return myConstIterator(m_begin);
+}
+
+template <typename T>
+typename CMyArray<T>::myConstIterator CMyArray<T>::cend()
+{
+	return myConstIterator(m_end);
+}
+
+template <typename T>
+typename CMyArray<T>::myReverseIterator CMyArray<T>::rbegin()
+{
+	return myReverseIterator(m_end);
+}
+
+template <typename T>
+typename CMyArray<T>::myReverseIterator CMyArray<T>::rend()
+{
+	return myReverseIterator(m_begin);
+}
+
+template <typename T>
+typename CMyArray<T>::myReverseConstIterator CMyArray<T>::rcbegin()
+{
+	return myReverseConstIterator(m_end);
+}
+
+template <typename T>
+typename CMyArray<T>::myReverseConstIterator CMyArray<T>::rcend()
+{
+	return myReverseConstIterator(m_begin);
 }
