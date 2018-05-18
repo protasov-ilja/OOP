@@ -212,9 +212,16 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		SECTION("can return result of addition of two instances of class CMyString")
 		{
 			string = "string";
+			CMyString emptyStr("");
 			CMyString string2("string2");
 			CMyString string3("str");
-			CMyString str = string + string2 + string3;
+			CMyString str = emptyStr + string2;
+			REQUIRE(str == "string2");
+			REQUIRE(AreStringsEqual(str, "string2", 7));
+			str = string3 + emptyStr;
+			REQUIRE(str == "str");
+			REQUIRE(AreStringsEqual(str, "str", 3));
+			str = string + string2 + string3;
 			REQUIRE(str == "stringstring2str");
 			REQUIRE(AreStringsEqual(str, "stringstring2str", 16));
 		}
