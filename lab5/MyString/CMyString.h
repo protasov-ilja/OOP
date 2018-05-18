@@ -30,7 +30,7 @@ public:
 	bool operator<=(const CMyString& string) const;
 
 private:
-	CMyString(std::unique_ptr<char[]>&  pChars, size_t length);
+	CMyString(std::unique_ptr<char[]>& pChars, size_t length);
 	std::unique_ptr<char[]> m_pChars = nullptr;
 	size_t m_length = 0;
 };

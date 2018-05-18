@@ -139,8 +139,8 @@ TEST_CASE("SubString method")
 		REQUIRE(string.SubString(9, 0) == "");
 	}
 
-	// возвращает подстроку от начальной позиции копирования до m_length если начальная позиция копирования + длина подстроки > max_size или m_length
-	SECTION("cant return substring if initial copy position is < 0 or >= m_length")
+	// возвращает подстроку от начальной позиции копирования до m_length если сумма начальной позиции копирования и длины подстроки больше max_size или m_length
+	SECTION("returns substring from initial copy position to m_length if sum of initial copy position and length of substring is greater than max_size or m_length")
 	{
 		CMyString string("string");
 		REQUIRE(string.SubString(0, SIZE_MAX) == "string");
@@ -149,7 +149,7 @@ TEST_CASE("SubString method")
 	}
 
 	// может вернуть пустую строку если начальная позиция копирования больше длины исходной строки
-	SECTION("cant return substring if initial copy position is >= m_length")
+	SECTION("can return empty string if initial copy position is greater than length of source string")
 	{
 		CMyString string("string");
 		REQUIRE(string.SubString(7, 3) == "");
@@ -331,18 +331,9 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			REQUIRE(ch == 'r');
 		}
 
-		// не может считывать символ из строки если индекс < 0 или >= длине строки
-		SECTION("cant read character from string if index is < 0 or > = length of string")
+		// не может считывать символ из строки если индекс >= длине строки
+		SECTION("cant read character from string if index is >= length of string")
 		{
-			try
-			{
-				auto ch = string[-1];
-			}
-			catch (std::out_of_range const& error)
-			{
-				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
-			}
-			
 			try
 			{
 				auto ch = string[6];
@@ -379,20 +370,11 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			REQUIRE(str[5] == 's');
 		}
 
-		// не может записывать символ в строку если индекс < 0 или >= длине строки
-		SECTION("cant write character to string if index is < 0 or > = length of string")
+		// не может записывать символ в строку если индекс >= длине строки
+		SECTION("cant write character to string if index is > = length of string")
 		{
 			CMyString str("string");
 			auto ch = 'g';
-			try
-			{
-				str[-1] = ch;
-			}
-			catch (std::out_of_range const& error)
-			{
-				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
-			}
-
 			try
 			{
 				str[6] = ch;
