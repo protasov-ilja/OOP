@@ -11,7 +11,7 @@ CMyString::CMyString(const char* pString)
 
 CMyString::CMyString(const char* pString, size_t length)
 {
-	if ((pString[0] != '\0') && (length > 0))
+	if (length != 0)
 	{
 		m_pChars = std::make_unique<char[]>(length + 1);
 		memcpy(m_pChars.get(), pString, length + 1);
@@ -27,7 +27,7 @@ CMyString::CMyString(const std::string& stlString)
 
 CMyString::CMyString(const CMyString& other)
 {
-	if (other.m_length > 0)
+	if (other.m_length != 0)
 	{
 		m_pChars = std::make_unique<char[]>(other.m_length + 1);
 		memcpy(m_pChars.get(), other.m_pChars.get(), other.m_length + 1);
@@ -66,19 +66,14 @@ const char* CMyString::GetStringData() const
 	return m_pChars ? m_pChars.get() : zeroLengthString;
 }
 
-CMyString CMyString::SubString(size_t start, size_t length = SIZE_MAX) const
+CMyString CMyString::SubString(size_t start, size_t length) const
 {
-	if ((start > m_length) || (start < 0) || (start + length > m_length))
+	if (start >= m_length)
 	{
-		throw std::out_of_range("substring is out of range");
+		return CMyString();
 	}
 
-	if (start == m_length)
-	{
-		return "";
-	}
-
-	return CMyString(&m_pChars[start], length);
+	return ((SIZE_MAX - length < start) || (start + length > m_length)) ? CMyString(&m_pChars[start], m_length - start) : CMyString(&m_pChars[start], length);
 }
 
 void CMyString::Clear()
@@ -104,7 +99,7 @@ CMyString const CMyString::operator+(const CMyString& string) const
 	std::unique_ptr<char[]> tmpCopy = std::make_unique<char[]>(m_length + string.m_length + 1);
 	memcpy(tmpCopy.get(), m_pChars.get(), m_length);
 	memcpy(tmpCopy.get() + m_length, string.m_pChars.get(), string.m_length + 1);
-	tmpCopy[m_length + string.m_length] = '\0';
+	tmpCopy[m_length + string.m_length] = '\0'; // будет ошибка если строка будет пустой нулевой указатель
 
 	return CMyString(tmpCopy.get(), m_length + string.m_length);
 }
@@ -141,7 +136,7 @@ bool CMyString::operator!=(const CMyString& string) const
 
 char const& CMyString::operator[](size_t index) const
 {
-	if ((index >= m_length) || (index < 0))
+	if (index >= m_length)
 	{
 		throw std::out_of_range("index is out of range");
 	}
@@ -151,7 +146,7 @@ char const& CMyString::operator[](size_t index) const
 
 char& CMyString::operator[](size_t index)
 {
-	if ((index >= m_length) || (index < 0))
+	if (index >= m_length)
 	{
 		throw std::out_of_range("index is out of range");
 	}
@@ -162,7 +157,7 @@ char& CMyString::operator[](size_t index)
 bool CMyString::operator<(const CMyString& string) const
 {
 	return m_length == string.m_length ? memcmp(m_pChars.get(), string.m_pChars.get(), m_length) < 0 : m_length < string.m_length;
-}
+} //fix it
 
 bool CMyString::operator>=(const CMyString& string) const
 {
@@ -172,7 +167,7 @@ bool CMyString::operator>=(const CMyString& string) const
 bool CMyString::operator>(const CMyString& string) const
 {
 	return m_length == string.m_length ? memcmp(m_pChars.get(), string.m_pChars.get(), m_length) > 0 : m_length > string.m_length;
-}
+}// fix it
 
 bool CMyString::operator<=(const CMyString& string) const
 {

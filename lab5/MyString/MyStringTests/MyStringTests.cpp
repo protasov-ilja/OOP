@@ -64,6 +64,8 @@ TEST_CASE("test myString")
 		REQUIRE(AreStringsEqual(string, "a", 1));
 		CMyString string1("a\0a", 3);
 		REQUIRE(AreStringsEqual(string1, "a\0a", 3));
+		CMyString string2("\0aa", 3);
+		REQUIRE(AreStringsEqual(string2, "\0aa", 3));
 	}
 
 	// может создать свой экземпляр из строки библиотеки STL
@@ -134,55 +136,26 @@ TEST_CASE("SubString method")
 		REQUIRE(string.SubString(2, 6) == "stSrti");
 		CMyString emptyString("");
 		REQUIRE(emptyString.SubString(0, 0) == "");
+		REQUIRE(string.SubString(9, 0) == "");
 	}
 
-
-	// не может вернуть подстроку если начальная позиция копирования < 0 или > m_length
-	SECTION("cant return substring if initial copy position is < 0 or > m_length")
+	// возвращает подстроку от начальной позиции копирования до m_length если начальная позиция копирования + длина подстроки > max_size или m_length
+	SECTION("cant return substring if initial copy position is < 0 or >= m_length")
 	{
 		CMyString string("string");
-		try
-		{
-			CMyString str = string.SubString(-1, 1);
-		}
-		catch (std::out_of_range const& error)
-		{
-			REQUIRE(static_cast<const std::string&>("substring is out of range") == error.what());
-		}
-
-		try
-		{
-			CMyString str = string.SubString(7, 1);
-		}
-		catch (std::out_of_range const& error)
-		{
-			REQUIRE(static_cast<const std::string&>("substring is out of range") == error.what());
-		}
+		REQUIRE(string.SubString(0, SIZE_MAX) == "string");
+		REQUIRE(string.SubString(3, SIZE_MAX) == "ing");
+		REQUIRE(string.SubString(3, 5) == "ing");
 	}
 
-	// не может вернуть подстроку если длина строки меньше суммы начальной позиции копирования и длины подстроки
-	SECTION("cant return substring if length of string is less than sum of initial copy position and length of substring")
+	// может вернуть пустую строку если начальная позиция копирования больше длины исходной строки
+	SECTION("cant return substring if initial copy position is >= m_length")
 	{
 		CMyString string("string");
-		try
-		{
-			CMyString str = string.SubString(0, 7);
-		}
-		catch (std::out_of_range const& error)
-		{
-			REQUIRE(static_cast<const std::string&>("substring is out of range") == error.what());
-		}
-
-		try
-		{
-			CMyString str = string.SubString(3, 4);
-		}
-		catch (std::out_of_range const& error)
-		{
-			REQUIRE(static_cast<const std::string&>("substring is out of range") == error.what());
-		}
+		REQUIRE(string.SubString(7, 3) == "");
+		REQUIRE(string.SubString(22, 2) == "");
+		REQUIRE(string.SubString(6, 1) == "");
 	}
-	
 }
 
 // метод очистка
