@@ -218,6 +218,9 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			CMyString str = emptyStr + string2;
 			REQUIRE(str == "string2");
 			REQUIRE(AreStringsEqual(str, "string2", 7));
+			str = emptyStr + emptyStr;
+			REQUIRE(str == "");
+			REQUIRE(AreStringsEqual(str, "", 0));
 			str = string3 + emptyStr;
 			REQUIRE(str == "str");
 			REQUIRE(AreStringsEqual(str, "str", 3));
@@ -431,6 +434,8 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			REQUIRE_FALSE(string < string2);
 			string2 = "strina";
 			REQUIRE_FALSE(string < string2);
+			string2 = "";
+			REQUIRE_FALSE(string < string2);
 		}
 	}
 
@@ -467,6 +472,8 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			CMyString string2("strin");
 			REQUIRE(string > string2);
 			string2 = "strina";
+			REQUIRE(string > string2);
+			string2 = "";
 			REQUIRE(string > string2);
 		}
 
