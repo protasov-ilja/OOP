@@ -35,6 +35,12 @@ CMyString::CMyString(const CMyString& other)
 	}
 }
 
+CMyString::CMyString(std::unique_ptr<char[]>& pChars, size_t length)
+	: m_pChars(std::move(pChars))
+	, m_length(length)
+{
+}
+
 CMyString::CMyString(CMyString&& other)
 	: m_pChars(std::move(other.m_pChars))
 	, m_length(other.m_length)
@@ -98,14 +104,17 @@ CMyString const CMyString::operator+(const CMyString& string) const
 {
 	if ((m_length != 0) && (string.m_length != 0))
 	{
-		// проверка на переполнение
-		// конструктор для указателя
+		if (SIZE_MAX - m_length < (string.m_length + 1))
+		{
+			throw std::out_of_range("sum of lengths is out of range");
+		}
+
 		std::unique_ptr<char[]> tmpCopy = std::make_unique<char[]>(m_length + string.m_length + 1);
 		memcpy(tmpCopy.get(), m_pChars.get(), m_length);
 		memcpy(tmpCopy.get() + m_length, string.m_pChars.get(), string.m_length + 1);
 		tmpCopy[m_length + string.m_length] = '\0';
 
-		return CMyString(tmpCopy.get(), m_length + string.m_length);
+		return CMyString(tmpCopy, m_length + string.m_length);
 	}
 	else if ((m_length == 0) && (string.m_length == 0))
 	{
@@ -174,7 +183,7 @@ char& CMyString::operator[](size_t index)
 bool CMyString::operator<(const CMyString& string) const
 {
 	return m_length == string.m_length ? memcmp(m_pChars.get(), string.m_pChars.get(), m_length) < 0 : m_length < string.m_length;
-} //fix it
+}
 
 bool CMyString::operator>=(const CMyString& string) const
 {
@@ -184,7 +193,7 @@ bool CMyString::operator>=(const CMyString& string) const
 bool CMyString::operator>(const CMyString& string) const
 {
 	return m_length == string.m_length ? memcmp(m_pChars.get(), string.m_pChars.get(), m_length) > 0 : m_length > string.m_length;
-} // fix it
+}
 
 bool CMyString::operator<=(const CMyString& string) const
 {
