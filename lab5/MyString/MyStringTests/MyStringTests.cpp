@@ -148,13 +148,17 @@ TEST_CASE("SubString method")
 		REQUIRE(string.SubString(3, 5) == "ing");
 	}
 
-	// может вернуть пустую строку если начальная позиция копирования больше длины исходной строки
-	SECTION("can return empty string if initial copy position is greater than length of source string")
+	// может вернуть пустую строку если начальная позиция копирования больше длины исходной строки или исходная строка пустая
+	SECTION("can return empty string if initial copy position is greater than length of source string or source string is empty")
 	{
 		CMyString string("string");
 		REQUIRE(string.SubString(7, 3) == "");
 		REQUIRE(string.SubString(22, 2) == "");
 		REQUIRE(string.SubString(6, 1) == "");
+		string = "";
+		REQUIRE(string.SubString(0, 1) == "");
+		REQUIRE(string.SubString(0, 0) == "");
+		REQUIRE(string.SubString(0, 4) == "");
 	}
 }
 
@@ -274,6 +278,8 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			string2 = "";
 			REQUIRE(string2 == string3);
 			REQUIRE(AreStringsEqual(string2, string3.GetStringData(), 0));
+			REQUIRE(string2 == string2);
+			REQUIRE(AreStringsEqual(string2, string2.GetStringData(), 0));
 		}
 
 		// при сравнении двух строк возвращает ложь при их не равенстве
@@ -468,6 +474,8 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			REQUIRE_FALSE(string > string2);
 			string2 = "string";
 			REQUIRE_FALSE(string > string2);
+			string2 = "";
+			REQUIRE_FALSE(string2 > string2);
 		}
 	}
 

@@ -74,7 +74,7 @@ const char* CMyString::GetStringData() const
 
 CMyString CMyString::SubString(size_t start, size_t length) const
 {
-	if (start >= m_length)
+	if ((start >= m_length) || (m_length == 0))
 	{
 		return CMyString();
 	}
