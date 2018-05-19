@@ -99,45 +99,34 @@ CMyString& CMyString::operator=(const CMyString& other)
 
 	return *this;
 }
-
-CMyString const CMyString::operator+(const CMyString& string) const
+const CMyString operator+(const CMyString& string1, const CMyString& string2)
 {
-	if ((m_length != 0) && (string.m_length != 0))
+	if ((string1.m_length != 0) && (string2.m_length != 0))
 	{
-		if (SIZE_MAX - m_length < (string.m_length + 1))
+		if (SIZE_MAX - string1.m_length < (string2.m_length + 1))
 		{
 			throw std::out_of_range("sum of lengths is out of range");
 		}
 
-		std::unique_ptr<char[]> tmpCopy = std::make_unique<char[]>(m_length + string.m_length + 1);
-		memcpy(tmpCopy.get(), m_pChars.get(), m_length);
-		memcpy(tmpCopy.get() + m_length, string.m_pChars.get(), string.m_length + 1);
-		tmpCopy[m_length + string.m_length] = '\0';
+		std::unique_ptr<char[]> tmpCopy = std::make_unique<char[]>(string1.m_length + string2.m_length + 1);
+		memcpy(tmpCopy.get(), string1.m_pChars.get(), string1.m_length);
+		memcpy(tmpCopy.get() + string1.m_length, string2.m_pChars.get(), string2.m_length + 1);
+		tmpCopy[string1.m_length + string2.m_length] = '\0';
 
-		return CMyString(tmpCopy, m_length + string.m_length);
+		return CMyString(tmpCopy, string1.m_length + string2.m_length);
 	}
-	else if ((m_length == 0) && (string.m_length == 0))
+	else if ((string1.m_length == 0) && (string2.m_length == 0))
 	{
 		return CMyString();
 	}
-	else if (m_length == 0)
+	else if (string1.m_length == 0)
 	{
-		return string;
+		return string2;
 	}
 	else
 	{
-		return *this;
+		return string1;
 	}
-}
-
-CMyString const operator+(const std::string& string1, const CMyString& string2)
-{
-	return CMyString(string1) + string2;
-}
-
-CMyString const operator+(const char* string1, const CMyString& string2)
-{
-	return CMyString(string1) + string2;
 }
 
 CMyString const CMyString::operator+=(const CMyString& string)
@@ -211,7 +200,10 @@ std::istream& operator>>(std::istream& stream, CMyString& string)
 
 std::ostream& operator<<(std::ostream& stream, const CMyString& string)
 {
-	stream << string.GetStringData();
+	for (size_t i = 0; i < string.GetLength(); ++i)
+	{
+		stream << string[i];
+	}
 
 	return stream;
 }

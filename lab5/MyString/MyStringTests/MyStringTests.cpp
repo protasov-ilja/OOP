@@ -517,6 +517,10 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			std::stringstream strm;
 			strm << string;
 			REQUIRE(strm.str() == "string");
+			std::stringstream strm1;
+			CMyString string2("str\0ing");
+			strm1 << string2;
+			REQUIRE(strm1.str() == "str\0ing");
 		}
 	}
 }
