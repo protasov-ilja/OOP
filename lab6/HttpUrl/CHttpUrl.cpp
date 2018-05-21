@@ -77,29 +77,25 @@ Protocol CHttpUrl::ValidateProtocol(const std::string& protocolString) const
 	{
 		return Protocol::HTTP;
 	}
-	else if (protocolStringInLowerCase == "https")
-	{
-		return Protocol::HTTPS;
-	}
 
-	throw CUrlParsingError("Invalid protocol");
+	return Protocol::HTTPS;
 }
 
 unsigned short CHttpUrl::GetPortNumber(const std::string& portString) const
 {
 	try
 	{
-		unsigned short portNumber = std::stoi(portString);
+		int portNumber = std::stoi(portString);
 		if ((portNumber < 1) || (portNumber > 65535))
 		{
-			throw CUrlParsingError("Invalid port");
+			throw CUrlParsingError("Invalid port: " + portString);
 		}
 
-		return portNumber;
+		return static_cast<unsigned short>(portNumber);
 	}
 	catch (...)
 	{
-		throw CUrlParsingError("Invalid port");
+		throw CUrlParsingError("Invalid port: " + portString);
 	}
 }
 
