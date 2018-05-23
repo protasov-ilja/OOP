@@ -47,18 +47,14 @@ CVector3D const CVector3D::operator-(const CVector3D& vector) const
 
 CVector3D& CVector3D::operator+=(const CVector3D& vector)
 {
-	x += vector.x;
-	y += vector.y;
-	z += vector.z;
+	*this = *this + vector;
 
 	return *this;
 }
 
 CVector3D& CVector3D::operator-=(const CVector3D& vector)
 {
-	x -= vector.x;
-	y -= vector.y;
-	z -= vector.z;
+	*this += -vector;
 
 	return *this;
 }
@@ -70,6 +66,11 @@ CVector3D const CVector3D::operator*(double scalar) const
 
 CVector3D const CVector3D::operator/(double scalar) const
 {
+	if (scalar == 0)
+	{
+		throw std::logic_error("division by zero");
+	}
+
 	return CVector3D(x / scalar, y / scalar, z / scalar);
 }
 
@@ -84,6 +85,11 @@ CVector3D& CVector3D::operator*=(double scalar)
 
 CVector3D& CVector3D::operator/=(double scalar)
 {
+	if (scalar == 0)
+	{
+		throw std::logic_error("division by zero");
+	}
+
 	x /= scalar;
 	y /= scalar;
 	z /= scalar;
@@ -110,9 +116,9 @@ std::ostream& operator<<(std::ostream& stream, const CVector3D& vector)
 
 std::istream& operator>>(std::istream& stream, CVector3D& vector)
 {
-	double inputX;
-	double inputY;
-	double inputZ;
+	double inputX = 0.0;
+	double inputY = 0.0;
+	double inputZ = 0.0;
 	if ((stream >> inputX) && (stream.get() == ',') && (stream.get() == ' ') && (stream >> inputY) && (stream.get() == ',') && (stream.get() == ' ') && (stream >> inputZ))
 	{
 		vector = CVector3D(inputX, inputY, inputZ);
