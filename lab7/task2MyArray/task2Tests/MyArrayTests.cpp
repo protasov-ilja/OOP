@@ -126,9 +126,11 @@ BOOST_FIXTURE_TEST_SUITE(MyArray, EmptyStringArray)
 				arr.Append(i);
 			}
 
+			size_t capacity = arr.GetCapacity();
 			BOOST_CHECK_EQUAL(arr.GetSize(), 2u);
 			BOOST_CHECK_NO_THROW(arr.Clear());
 			BOOST_CHECK_EQUAL(arr.GetSize(), 0u);
+			BOOST_CHECK_EQUAL(arr.GetCapacity(), capacity);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
@@ -196,5 +198,6 @@ BOOST_FIXTURE_TEST_SUITE(MyArray, EmptyStringArray)
 		BOOST_CHECK_EQUAL(arr.GetCapacity(), 4);
 	}
 	BOOST_AUTO_TEST_SUITE_END()
-
+// разыменовывать итератор и сравнивать его с сылкой
 BOOST_AUTO_TEST_SUITE_END()
+// сделать тестовый класс который выбрасывает исключения в опрределенных условиях

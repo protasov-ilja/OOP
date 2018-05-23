@@ -35,7 +35,7 @@ public:
 			return *m_ptr;
 		}
 
-		reference operator[](size_t index) const
+		reference operator[](size_t index) const // использовать ptrdiff_T
 		{
 			return m_ptr[index];
 		}
@@ -196,27 +196,25 @@ void CMyArray<T>::Clear()
 {
 	if (GetSize() != 0)
 	{
-		DeleteItems(m_begin, m_end);
-		m_begin = nullptr;
-		m_end = nullptr;
-		m_endOfCapacity = nullptr;
+		DestroyItems(m_begin, m_end);
+		m_end = m_begin;
 	}
 }
 
 template <typename T>
 void CMyArray<T>::Resize(size_t newSize)
 {
-	if (newSize > GetCapacity()) // когда новая длинна больше вместимости
+	if (newSize > GetCapacity()) // когда новая длина больше вместимости
 	{
 		auto newBegin = RawAlloc(newSize);
+		auto newEndOfCapacity = newBegin + newSize;
 		T* newEnd = newBegin;
 		try
 		{
 			CopyItems(m_begin, m_end, newBegin, newEnd);
-			for (size_t i = 0; i < newSize - GetSize(); i++)
+			for (; newEnd < newEndOfCapacity; ++newEnd)
 			{
 				new (newEnd) T();
-				++newEnd;
 			}
 		}
 		catch (...)
@@ -229,7 +227,7 @@ void CMyArray<T>::Resize(size_t newSize)
 		// Переключаемся на использование нового хранилища элементов
 		m_begin = newBegin;
 		m_end = newEnd;
-		m_endOfCapacity = m_begin + newSize;
+		m_endOfCapacity = newEndOfCapacity;
 	}
 	else if (newSize < GetSize()) // когда новая длина меньше текущей
 	{
@@ -241,9 +239,9 @@ void CMyArray<T>::Resize(size_t newSize)
 	{
 		for (size_t i = 0; i < newSize - GetSize(); ++i)
 		{
-			Append(T());
+			Append(T()); // нельзя делать тк может быть утечка памяти при создании типа T
 			++m_end;
-		}
+		} // constructDefault и передавать до куда получилось сконструировать
 	}
 }
 
@@ -268,6 +266,7 @@ size_t CMyArray<T>::GetSize() const
 	{
 		return 0;
 	}
+
 	return m_end - m_begin;
 }
 
@@ -319,9 +318,9 @@ CMyArray<T>& CMyArray<T>::operator=(CMyArray&& arr)
 	if (this != &arr)
 	{
 		Clear();
-		std::swap(m_begin, arr.m_begin);
-		std::swap(m_end, arr.m_end);
-		std::swap(m_endOfCapacity, arr.m_endOfCapacity);
+		m_begin = arr.m_begin;
+		m_end =  arr.m_end;
+		m_endOfCapacity = arr.m_endOfCapacity;
 
 		arr.m_begin = nullptr;
 		arr.m_end = nullptr;
