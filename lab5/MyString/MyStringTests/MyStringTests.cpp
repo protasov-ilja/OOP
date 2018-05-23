@@ -221,16 +221,12 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			CMyString string2("string2");
 			CMyString string3("str");
 			CMyString str = emptyStr + string2;
-			REQUIRE(str == "string2");
 			REQUIRE(AreStringsEqual(str, "string2", 7));
 			str = emptyStr + emptyStr;
-			REQUIRE(str == "");
 			REQUIRE(AreStringsEqual(str, "", 0));
 			str = string3 + emptyStr;
-			REQUIRE(str == "str");
 			REQUIRE(AreStringsEqual(str, "str", 3));
 			str = string + string2 + string3;
-			REQUIRE(str == "stringstring2str");
 			REQUIRE(AreStringsEqual(str, "stringstring2str", 16));
 		}
 
@@ -341,23 +337,9 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		// не может считывать символ из строки если индекс >= длине строки
 		SECTION("cant read character from string if index is >= length of string")
 		{
-			try
-			{
-				auto ch = string[6];
-			}
-			catch (std::out_of_range const& error)
-			{
-				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
-			}
-
-			try
-			{
-				auto ch = string[100];
-			}
-			catch (std::out_of_range const& error)
-			{
-				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
-			}
+			char ch;
+			REQUIRE_THROWS_AS(ch = string[6], std::out_of_range);
+			REQUIRE_THROWS_AS(ch = string[100], std::out_of_range);
 		}
 	}
 
@@ -383,23 +365,7 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 			CMyString str("string");
 			auto ch = 'g';
 			REQUIRE_THROWS_AS(str[6] = ch, std::out_of_range);
-			//try
-			//{
-			//	;
-			//}
-			//catch (std::out_of_range const& error)
-			//{
-			//	REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
-			//}
-
-			try
-			{
-				str[7] = ch;
-			}
-			catch (std::out_of_range const& error)
-			{
-				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
-			}
+			REQUIRE_THROWS_AS(str[7] = ch, std::out_of_range);
 		}
 	}
 
