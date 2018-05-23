@@ -9,9 +9,10 @@ bool AreStringsEqual(const CMyString& string1, const char* string2, size_t lengt
 		return false;
 	}
 
+	const char* stringData = string1.GetStringData();
 	for (size_t i = 0; i < length; ++i)
 	{
-		if (string1.GetStringData()[i] != string2[i])
+		if (stringData[i] != string2[i])
 		{
 			return false;
 		}
@@ -381,14 +382,15 @@ TEST_CASE_METHOD(CMyStringFixture, "overloaded operator")
 		{
 			CMyString str("string");
 			auto ch = 'g';
-			try
-			{
-				str[6] = ch;
-			}
-			catch (std::out_of_range const& error)
-			{
-				REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
-			}
+			REQUIRE_THROWS_AS(str[6] = ch, std::out_of_range);
+			//try
+			//{
+			//	;
+			//}
+			//catch (std::out_of_range const& error)
+			//{
+			//	REQUIRE(static_cast<const std::string&>("index is out of range") == error.what());
+			//}
 
 			try
 			{

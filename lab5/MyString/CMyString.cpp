@@ -35,7 +35,7 @@ CMyString::CMyString(const CMyString& other)
 	}
 }
 
-CMyString::CMyString(std::unique_ptr<char[]>& pChars, size_t length)
+CMyString::CMyString(std::unique_ptr<char[]>&& pChars, size_t length)
 	: m_pChars(std::move(pChars))
 	, m_length(length)
 {
@@ -113,7 +113,7 @@ const CMyString operator+(const CMyString& string1, const CMyString& string2)
 		memcpy(tmpCopy.get() + string1.m_length, string2.m_pChars.get(), string2.m_length + 1);
 		tmpCopy[string1.m_length + string2.m_length] = '\0';
 
-		return CMyString(tmpCopy, string1.m_length + string2.m_length);
+		return CMyString(std::move(tmpCopy), string1.m_length + string2.m_length);
 	}
 	else if ((string1.m_length == 0) && (string2.m_length == 0))
 	{
