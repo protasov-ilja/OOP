@@ -14,7 +14,7 @@ bool CompareVectors3D(const CVector3D& vector1, const CVector3D& vector2)
 TEST_CASE("test vector3D")
 {
 	// может создать свой экземпл€р с нулевыми параметрами
-	SECTION("can create its own instance with zero parameters")
+	SECTION("can create its own instance without parameters")
 	{
 		CVector3D vector;
 		REQUIRE(CompareVectors3D(vector, { 0, 0, 0 }));
@@ -156,6 +156,14 @@ TEST_CASE("override")
 			CVector3D vector2 = vector1 / scalar;
 			REQUIRE(CompareVectors3D(vector2, { 1, 1, 1 }));
 		}
+
+		// кидает исключение если скал€р = 0
+		SECTION("throws exception if scalar = 0")
+		{
+			double scalar = 0;
+			CVector3D vector1(2, 2, 2);
+			REQUIRE_THROWS_AS(vector1 / scalar, std::logic_error);
+		}
 	}
 
 	// *=
@@ -181,6 +189,14 @@ TEST_CASE("override")
 			CVector3D vector(2, 2, 2);
 			vector /= scalar;
 			REQUIRE(CompareVectors3D(vector, { 1, 1, 1 }));
+		}
+
+		// кидает исключение если скал€р = 0
+		SECTION("throws exception if scalar = 0")
+		{
+			double scalar = 0;
+			CVector3D vector(2, 2, 2);
+			REQUIRE_THROWS_AS(vector /= scalar, std::logic_error);
 		}
 	}
 
