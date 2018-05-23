@@ -140,6 +140,10 @@ bool CMyString::operator==(const CMyString& string) const
 	{
 		return false;
 	}
+	else if (m_length == 0)
+	{
+		return true;
+	}
 
 	return memcmp(m_pChars.get(), string.m_pChars.get(), m_length) == 0;
 }
@@ -171,6 +175,11 @@ char& CMyString::operator[](size_t index)
 
 bool CMyString::operator<(const CMyString& string) const
 {
+	if ((m_length == 0) || (string.m_length == 0))
+	{
+		return !(((m_length == 0) && (string.m_length == 0)) || (string.m_length == 0));
+	}
+
 	return m_length == string.m_length ? memcmp(m_pChars.get(), string.m_pChars.get(), m_length) < 0 : m_length < string.m_length;
 }
 
@@ -181,6 +190,11 @@ bool CMyString::operator>=(const CMyString& string) const
 
 bool CMyString::operator>(const CMyString& string) const
 {
+	if ((m_length == 0) || (string.m_length == 0))
+	{
+		return !(((m_length == 0) && (string.m_length == 0)) || (m_length == 0));
+	}
+
 	return m_length == string.m_length ? memcmp(m_pChars.get(), string.m_pChars.get(), m_length) > 0 : m_length > string.m_length;
 }
 
