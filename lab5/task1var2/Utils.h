@@ -1,15 +1,9 @@
 #pragma once
-#include "stdafx.h"
-#include <cmath>
 #include "float.h"
+#include <cmath>
 
 namespace Utils
 {
-	inline bool CompareDoubleNumbers(double number1, double number2)
-	{
-		double diff = number1 - number2;
-
-		return std::abs(diff) < DBL_EPSILON;
-	}
+bool CompareDoubleNumbers(double number1, double number2);
 
 } // namespace Utils
