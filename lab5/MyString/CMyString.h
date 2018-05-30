@@ -5,7 +5,6 @@
 class CMyString
 {
 public:
-	friend const CMyString operator+(const CMyString& string1, const CMyString& string2);
 	CMyString() = default;
 	CMyString(const char* pString);
 	CMyString(const char* pString, size_t length);
@@ -28,6 +27,8 @@ public:
 	bool operator>=(const CMyString& string) const;
 	bool operator>(const CMyString& string) const;
 	bool operator<=(const CMyString& string) const;
+
+	friend const CMyString operator+(const CMyString& string1, const CMyString& string2);
 
 private:
 	CMyString(std::unique_ptr<char[]>&& pChars, size_t length);

@@ -99,6 +99,7 @@ CMyString& CMyString::operator=(const CMyString& other)
 
 	return *this;
 }
+
 const CMyString operator+(const CMyString& string1, const CMyString& string2)
 {
 	if ((string1.m_length != 0) && (string2.m_length != 0))
