@@ -10,15 +10,21 @@ public:
 	class CMyIterator
 	{
 		friend CMyArray;
-		CMyIterator(Type* ptr);
 
 	public:
-		typedef CMyIterator self_type;
-		typedef Type value_type;
-		typedef Type& reference;
-		typedef Type* pointer;
-		typedef std::bidirectional_iterator_tag iterator_category;
-		typedef ptrdiff_t difference_type;
+		using self_type = CMyIterator;
+		using value_type = Type;
+		using reference = value_type&;
+		using pointer = value_type*;
+		using iterator_category = std::random_access_iterator_tag;
+		using difference_type = ptrdiff_t;
+
+		CMyIterator() = default;
+
+		CMyIterator(const CMyIterator& it)
+			: ptr(it.ptr)
+		{
+		}
 
 		bool operator==(const self_type& right) const
 		{
@@ -30,14 +36,32 @@ public:
 			return !(*this == right);
 		}
 
+		pointer operator->() const
+		{
+			return &m_ptr;
+		}
+
 		reference operator*() const
 		{
 			return *m_ptr;
 		}
 
-		reference operator[](size_t index) const // использовать ptrdiff_T
+		reference operator[](difference_type n) const
 		{
-			return m_ptr[index];
+			auto tmp = *this;
+			tmp += n;
+			return *tmp;
+		}
+
+		reference operator+=(difference_type n)
+		{
+			m_ptr += n;
+			return *this;
+		}
+
+		reference operator-=(difference_type n)
+		{
+			return *this += -n;
 		}
 
 		self_type& operator++()
@@ -67,6 +91,7 @@ public:
 		}
 
 	private:
+		CMyIterator(Type* ptr);
 		Type* m_ptr = nullptr;
 	};
 
@@ -92,12 +117,12 @@ public:
 	T& operator[](size_t index);
 	myIterator begin();
 	myIterator end();
-	myConstIterator cbegin();
-	myConstIterator cend();
+	myConstIterator begin() const;
+	myConstIterator end() const;
 	myReverseIterator rbegin();
 	myReverseIterator rend();
-	myReverseConstIterator rcbegin();
-	myReverseConstIterator rcend();
+	myReverseConstIterator rbegin() const;
+	myReverseConstIterator rend() const;
 
 private:
 	// удалять элементы
@@ -319,7 +344,7 @@ CMyArray<T>& CMyArray<T>::operator=(CMyArray&& arr)
 	{
 		Clear();
 		m_begin = arr.m_begin;
-		m_end =  arr.m_end;
+		m_end = arr.m_end;
 		m_endOfCapacity = arr.m_endOfCapacity;
 
 		arr.m_begin = nullptr;
@@ -394,13 +419,13 @@ typename CMyArray<T>::myIterator CMyArray<T>::end()
 }
 
 template <typename T>
-typename CMyArray<T>::myConstIterator CMyArray<T>::cbegin()
+typename CMyArray<T>::myConstIterator CMyArray<T>::begin() const
 {
 	return myConstIterator(m_begin);
 }
 
 template <typename T>
-typename CMyArray<T>::myConstIterator CMyArray<T>::cend()
+typename CMyArray<T>::myConstIterator CMyArray<T>::end() const
 {
 	return myConstIterator(m_end);
 }
@@ -418,13 +443,13 @@ typename CMyArray<T>::myReverseIterator CMyArray<T>::rend()
 }
 
 template <typename T>
-typename CMyArray<T>::myReverseConstIterator CMyArray<T>::rcbegin()
+typename CMyArray<T>::myReverseConstIterator CMyArray<T>::rbegin() const
 {
 	return myReverseConstIterator(m_end);
 }
 
 template <typename T>
-typename CMyArray<T>::myReverseConstIterator CMyArray<T>::rcend()
+typename CMyArray<T>::myReverseConstIterator CMyArray<T>::rend() const
 {
 	return myReverseConstIterator(m_begin);
 }
