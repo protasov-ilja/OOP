@@ -17,8 +17,8 @@ public:
 
 	CStringStack();
 	~CStringStack();
-	CStringStack(const CStringStack& stack);
-	CStringStack(CStringStack&& stack);
+	CStringStack(const CStringStack& other);
+	CStringStack(CStringStack&& other);
 	CStringStack& operator=(const CStringStack& other);
 	CStringStack& operator=(CStringStack&& other);
 

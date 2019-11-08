@@ -125,6 +125,7 @@ public:
 	myReverseConstIterator rend() const;
 
 private:
+	void ResizeCapacity(size_t capacity);
 	// удалять элементы
 	static void DeleteItems(T* begin, T* end);
 
@@ -262,12 +263,74 @@ void CMyArray<T>::Resize(size_t newSize)
 	}
 	else if (newSize > GetSize()) // когда новая длина больше текущей, но меньше или = вместимости
 	{
+		auto prevEnd = m_end;
+		m_end = m_begin + size;
+		size_t currPos = 0;
+		auto rasnica = newSize - GetSize();
+
+		try
+		{
+			for (size_t i = 0; i < rasnica; ++i)
+			{
+				new (m_end + i) T();
+				++currPos;
+			}
+
+			for (; currPos != m_end; ++currPos)
+			{
+				new (m_end) T();
+			}
+		}
+		catch (...)
+		{
+			DestroyItems(prevEnd, prevEnd + currPos);
+			throw;
+		}
+
 		for (size_t i = 0; i < newSize - GetSize(); ++i)
 		{
-			Append(T()); // нельзя делать тк может быть утечка памяти при создании типа T
+			new (m_end) T();
+			//Append(T()); // нельзя делать тк может быть утечка памяти при создании типа T
 			++m_end;
 		} // constructDefault и передавать до куда получилось сконструировать
 	}
+}
+
+template <typename T>
+void CMyArray<T>::ResizeCapacity(size_t capacity)
+{
+	if (size > 0)
+	{
+		T * begin = RawAlloc(size);
+		T * current = begin;
+		auto countOfItems = GetSize();
+		if (countOfItems != 0)
+		{
+			try {
+				CopyItems(m_begin, m_end, current);
+				DestroyItems(m_begin, m_end);
+				RawDealloc();
+			}
+			catch (...)
+			{
+				DestroyItems(begin, current);
+				throw;
+			}
+		}
+
+		m_begin = begin;
+		m_endOfCapacity = m_begin + size;
+		m_end = current;
+	}
+	else
+	{
+		DestroyItems(m_begin, m_end);
+		RawDealloc();
+		m_begin = nullptr;
+		m_end = nullptr;
+		m_endOfCapacity = nullptr;
+	}
+
 }
 
 template <typename T>
